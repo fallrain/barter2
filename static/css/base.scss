@@ -1,4 +1,135 @@
-/*重置样式*/
+@charset "UTF-8";
+/*重置原生标签样式*/
+* {
+  box-sizing: border-box;
+}
+
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html {
+  background: #F5F5F5;
+}
+
+blockquote, body, button, dd, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, hr, input, legend, li, ol, p, pre, td, textarea, th, ul {
+  margin: 0;
+  padding: 0;
+}
+
+body, button, input, select, textarea {
+  //font: 12px/1.5 Microsoft YaHei, tahoma, arial, \5b8b\4f53;
+}
+
+h1, h2, h3, h4, h5, h6 {
+}
+
+address, cite, dfn, em, var {
+}
+
+code, kbd, pre, samp {
+}
+
+ol, ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:focus {
+  outline: none;
+}
+
+sup {
+  vertical-align: text-top;
+}
+
+sub {
+  vertical-align: text-bottom;
+}
+
+legend {
+}
+
+fieldset, img {
+  border: 0;
+}
+
+img {
+  vertical-align: middle;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a, input, p, span, textarea {
+}
+
+button:focus, input:focus, textarea:focus {
+  outline: 0;
+}
+
+:focus {
+  outline: 0;
+}
+
+input[type='text'] {
+}
+
+label {
+  font-weight: normal;
+}
+
+label i, label span, ul li {
+  //z-index: 4;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -khtml-user-select: none;
+}
+
+b {
+  font-weight: 400;
+}
+
+button {
+  border: none;
+  outline: 0;
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer;
+}
+
+button[disabled],
+html input[disabled] {
+  cursor: not-allowed;
+}
+
+title {
+  display: block;
+}
+
+/*重置原生标签样式 end*/
+
+
+/*重置组件样式*/
 
 .swiper-item {
   display: flex;
@@ -11,7 +142,8 @@
 
 .swiper-item image {
   width: 100%;
+  max-width: 750px;
   height: 100%;
 }
 
-/*重置样式 end*/
+/*重置组件样式 end*/

@@ -1,0 +1,148 @@
+/*common*/
+
+.bt2-spacing-line{
+  width: 100%;
+  height: 16px;
+  background: #F5F5F5;
+}
+
+/*common end*/
+
+/*margin*/
+
+.mt16{
+  margin-top: 16upx;
+}
+
+.mr24{
+  margin-right: 24upx;
+}
+/*margin end*/
+
+/*一站筑家*/
+
+.bt2- {
+  &house-menu {
+    display: flex;
+    padding: 24upx 44upx;
+    padding-bottom: 10upx;
+    background: #fff;
+  }
+
+  &house-menu-item {
+    margin-left: 100upx;
+    text-align: center;
+    &:first-child{
+      margin-left: 0;
+    }
+    img{
+      width: 88upx;
+      height: 88upx;
+    }
+  }
+
+  &house-menu-item-cnt{
+    color: #666;
+    font-size: 28upx;
+    line-height: 40upx;
+    margin-top: 14upx;
+  }
+
+  &myhouse{
+    background: #fff;
+    padding-top: 24upx;
+  }
+
+  &myhouse-card{
+    display: flex;
+    padding: 24upx;
+    align-items: center;
+  }
+}
+
+.bt2-myhouse-card-portrait{
+  width: 160upx;
+  height: 160upx;
+  margin-right: 24upx;
+}
+
+.bt2-myhouse-card-cnt{
+  font-size: 28upx;
+  .title{
+    color: #666;
+  }
+  .cnt{
+    color: #999;
+  }
+}
+
+.bt2-myhouse-card-cnt-opt{
+  display: flex;
+  align-items: center;
+  margin-top: 24upx;
+}
+
+.bt2-myhouse-card-cnt-opt-btn{
+  padding-left: 28upx;
+  padding-right: 28upx;
+  color: #4A90E2;
+  background: #fff;
+  border: 1px solid #4A90E2;
+  width: 160upx;
+  height: 50upx;
+  border-radius: 25upx;
+  line-height: 50upx;
+  font-size: 25upx;
+}
+
+.bt2-myhouse-card-cnt-opt-status{
+  color: #F5A623;
+  img{
+    width: 36upx;
+    height: 36upx;
+  }
+}
+
+.bt2-shopShow-par{
+  display: flex;
+  margin-top: 24upx;
+  padding-left: 24upx;
+  padding-right: 24upx;
+  margin-bottom: 24upx;
+  padding-bottom: 24px;
+  overflow-x: auto;
+}
+
+.bt2-shopShow-item{
+  flex-grow: 0;
+  text-align: center;
+  margin-right: 24upx;
+  img{
+    width: 280upx;
+    height: 134upx;
+    border-radius: 8upx;
+  }
+  .cnt{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 280upx;
+    overflow: hidden;
+    line-height: 40upx;
+    margin-top: 16rpx;
+    font-size: 28rpx;
+    color: #666;
+  }
+}
+
+.bt2-help-inf-item-par{
+  padding: 24upx 48upx;
+}
+
+.bt2-help-inf-item{
+  font-size: 28upx;
+  line-height: 40upx;
+  color: #666;
+  margin-top: 16upx;
+}
+
+/*一站筑家 end*/

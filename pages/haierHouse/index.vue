@@ -1,37 +1,83 @@
 <template>
   <view class="content">
-    <swiper
-      class="swiper-box"
-      :indicator-dots="true"
-      indicator-color="#fff"
-      indicator-active-color="#4A90E2"
-      @change="change"
-    >
-      <swiper-item
-        v-for="(item ,index) in info"
-        :key="index"
-      >
+    <swiper class="swiper-box" :indicator-dots="true" indicator-color="#fff" indicator-active-color="#4A90E2" @change="change">
+      <swiper-item v-for="(item ,index) in info" :key="index">
         <view :class="['swiper-item',item.colorClass]">
-          <image :src="item.url" mode="aspectFill"/>
+          <image :src="item.url" mode="aspectFill" />
         </view>
       </swiper-item>
     </swiper>
+    <ul class="bt2-house-menu mt16">
+      <li class="bt2-house-menu-item">
+        <img src="@/static/img/haierHouse/apply@2x.png">
+        <p class="bt2-house-menu-item-cnt">筑家申请</p>
+      </li>
+      <li class="bt2-house-menu-item">
+        <img src="@/static/img/haierHouse/activity@2x.png">
+        <p class="bt2-house-menu-item-cnt">筑家活动</p>
+      </li>
+      <li class="bt2-house-menu-item">
+        <img src="@/static/img/haierHouse/user@2x.png">
+        <p class="bt2-house-menu-item-cnt">用户跟进</p>
+      </li>
+    </ul>
+    <view class="bt2-myhouse mt16">
+      <BTitle cnt="我的一站筑家"></BTitle>
+      <view class="bt2-myhouse-card">
+        <img src="@/static/img/haierHouse/48C5FB2B-5CF2-4300-91D7-C45D0C960B7E.png" class="bt2-myhouse-card-portrait">
+        <view class="bt2-myhouse-card-cnt">
+          <p class="title">水清木华小区</p>
+          <p class="cnt">入驻产业：冰箱、商空、厨电</p>
+          <view class="bt2-myhouse-card-cnt-opt">
+            <button class="bt2-myhouse-card-cnt-opt-btn mr24">补充信息</button>
+            <button class="bt2-myhouse-card-cnt-opt-btn mr24">配置活动</button>
+            <view class="bt2-myhouse-card-cnt-opt-status">
+              <img src="@/static/img/haierHouse/Icons／Complete@2x.png">
+              <text>审核中</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="bt2-myhouse mt16">
+      <BTitle cnt="优秀门店展示"></BTitle>
+      <ul class="bt2-shopShow-par">
+        <li class="bt2-shopShow-item" v-for="(item,index) in shopList" :key="index">
+          <img :src="item.url">
+          <p class="cnt">{{item.desc}}</p>
+        </li>
+      </ul>
+    </view>
+    <view class="bt2-myhouse mt16">
+      <BTitle cnt="了解一站筑家"></BTitle>
+      <view class="bt2-help-inf">
+        <ul class="bt2-help-inf-item-par">
+          <li class="bt2-help-inf-item">
+            一、优秀一站筑家门店有多种奖励，如：样板间租金补贴，金牌直销员指导等
+          </li>
+          <li class="bt2-help-inf-item">
+            二、如出现问题，请拨打400-699-9999
+          </li>
+        </ul>
+      </view>
+    </view>
   </view>
 </template>
 
 <script>
-  import uniSwiperDot from '@/components/uni-swiper-dot/uni-swiper-dot.vue'
-
+  import {
+    BTitle
+  } from '@/components/common';
   export default {
     components: {
-      uniSwiperDot
+      BTitle
     },
     data() {
       return {
         info: [
           {
             colorClass: 'uni-bg-red',
-            url: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg',
+            url: require('@/static/img/haierHouse/banner@2x.png'),
             content: '内容 A'
           },
           {
@@ -44,26 +90,29 @@
             url: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/cbd.jpg',
             content: '内容 C'
           }
+        ],
+        shopList:[
+          {
+            url:require('@/static/img/haierHouse/48C5FB2B-5CF2-4300-91D7-C45D0C960B7E.png'),
+            desc:'左岸风度小区'
+          },
+          {
+            url:require('@/static/img/haierHouse/WeChat6d40309ca76cc404a4a3da02b753aa71.png'),
+            desc:'水清木华小区'
+          },
+          {
+            url:require('@/static/img/haierHouse/48C5FB2B-5CF2-4300-91D7-C45D0C960B7E.png'),
+            desc:'天福苑小区'
+          },
+          {
+            url:require('@/static/img/haierHouse/WeChat6d40309ca76cc404a4a3da02b753aa71.png'),
+            desc:'随便编的小区，名字长短的无所谓，最好长一点'
+          }
         ]
       }
     },
-    onLoad() {
-    },
-    methods: {
-      change(e) {
-        this.current = e.detail.current
-      },
-      selectStyle(index) {
-        this.dotsStyles = this.dotStyle[index]
-        this.styleIndex = index
-      },
-      selectMode(mode, index) {
-        this.mode = mode
-        this.modeIndex = index
-        this.styleIndex = -1
-        this.dotsStyles = this.dotStyle[0]
-      }
-    }
+    onLoad() {},
+    methods: {}
   }
 </script>
 
