@@ -8,7 +8,7 @@
       </swiper-item>
     </swiper>
     <ul class="bt2-house-menu mt16">
-      <li class="bt2-house-menu-item">
+      <li class="bt2-house-menu-item" @click="jump('/pages/haierHouse/HaierHouseApply')">
         <img src="@/static/img/haierHouse/apply@2x.png">
         <p class="bt2-house-menu-item-cnt">筑家申请</p>
       </li>
@@ -112,7 +112,13 @@
       }
     },
     onLoad() {},
-    methods: {}
+    methods: {
+      jump(url){
+        uni.navigateTo({
+          url: url
+        });
+      }
+    }
   }
 </script>
 

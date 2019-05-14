@@ -146,3 +146,60 @@
 }
 
 /*一站筑家 end*/
+
+/*筑家申请*/
+
+.bt2-houseApply-card{
+  font-size: 28upx;
+}
+
+.bt2-houseApply-card-title{
+  color: #999;
+  font-size: 28upx;
+  padding-top: 20upx;
+  padding-bottom: 10upx;
+  padding-left: 24upx;
+  line-height: 40upx;
+}
+
+.bt2-houseApply-card-cnt{
+  background: #fff;
+  padding-left: 24upx;
+}
+
+.bt2-houseApply-card-item{
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  height: 80upx;
+  padding-right: 24upx;
+  &:last-child{
+    border-bottom: 0;
+  }
+}
+
+.bt2-houseApply-card-item-name{
+  color: #333;
+}
+
+.bt2-houseApply-card-radioGroup{
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.bt2-houseApply-card-radioText{
+  margin-left: 30upx;
+}
+
+.bt2-houseApply-card-checkboxGroup{
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.bt2-houseApply-card-checkboxText{
+  margin-left: 30upx;
+}
+
+/*筑家申请 end*/

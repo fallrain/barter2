@@ -3,7 +3,13 @@
 		{
 			"path": "pages/haierHouse/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/haierHouse/HaierHouseApply",
+			"style": {
+				"navigationBarTitleText": ""
 			}
 		}
 	],
