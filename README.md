@@ -1,4 +1,4 @@
-##注意1
+##注意
 > 不要在选项属性或回调上使用箭头函数，比如 
 ```
 created: () => console.log(this.a) 或 vm.$watch('a', newValue => this.myMethod())。
