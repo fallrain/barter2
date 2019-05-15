@@ -60,11 +60,11 @@
         </li>
         <li class="bt2-houseApply-card-item">
           <checkbox-group @change="checkboxChange" class="bt2-houseApply-card-checkboxGroup">
-            <label class="bt2-houseApply-card-checkboxItem" v-for="item in items1" :key="item.value">
-              <checkbox :value="item.value" :checked="item.checked"/>
-              <text class="bt2-houseApply-card-checkboxText">{{item.name}}</text>
-            </label>
-          </checkbox-group>
+          <label class="bt2-houseApply-card-checkboxItem" v-for="item in items1" :key="item.value">
+            <checkbox :value="item.value" :checked="item.checked"/>
+            <text class="bt2-houseApply-card-checkboxText">{{item.name}}</text>
+          </label>
+        </checkbox-group>
         </li>
         <li class="bt2-houseApply-card-item">
           <checkbox-group @change="checkboxChange" class="bt2-houseApply-card-checkboxGroup">
