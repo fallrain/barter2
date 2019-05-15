@@ -13,7 +13,7 @@
         <p class="bt2-house-menu-item-cnt">筑家申请</p>
       </li>
       <li class="bt2-house-menu-item">
-        <img src="@/static/img/haierHouse/activity@2x.png">
+        <img src="@/static/img/haierHouse/activity@2x.png" @click="jump('/pages/haierHouse/ChooseLeader')">
         <p class="bt2-house-menu-item-cnt">筑家活动</p>
       </li>
       <li class="bt2-house-menu-item">
@@ -22,7 +22,7 @@
       </li>
     </ul>
     <view class="bt2-myhouse mt16">
-      <BTitle cnt="我的一站筑家"></BTitle>
+      <b-title cnt="我的一站筑家"></b-title>
       <view class="bt2-myhouse-card">
         <img src="@/static/img/haierHouse/48C5FB2B-5CF2-4300-91D7-C45D0C960B7E.png" class="bt2-myhouse-card-portrait">
         <view class="bt2-myhouse-card-cnt">
@@ -40,7 +40,7 @@
       </view>
     </view>
     <view class="bt2-myhouse mt16">
-      <BTitle cnt="优秀门店展示"></BTitle>
+      <b-title cnt="优秀门店展示"></b-title>
       <ul class="bt2-shopShow-par">
         <li class="bt2-shopShow-item" v-for="(item,index) in shopList" :key="index">
           <img :src="item.url">
@@ -49,7 +49,7 @@
       </ul>
     </view>
     <view class="bt2-myhouse mt16">
-      <BTitle cnt="了解一站筑家"></BTitle>
+      <b-title cnt="了解一站筑家"></b-title>
       <view class="bt2-help-inf">
         <ul class="bt2-help-inf-item-par">
           <li class="bt2-help-inf-item">
@@ -65,9 +65,7 @@
 </template>
 
 <script>
-  import {
-    BTitle
-  } from '@/components/common';
+  import BTitle from 'components/common/BTitle.vue'
   export default {
     components: {
       BTitle

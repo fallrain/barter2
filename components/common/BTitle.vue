@@ -1,13 +1,13 @@
 <template>
   <view class="BTitle-par">
     <p class="BTitle">{{cnt}}</p>
-    <slot name=""></slot>
+    <slot></slot>
   </view>
 </template>
 
 <script>
   export default {
-    name: "BTitle",
+    name: 'BTitle',
     props: {
       //标题的内容
       cnt: {
