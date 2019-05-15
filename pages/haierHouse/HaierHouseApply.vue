@@ -42,7 +42,6 @@
 				<li class="bt2-houseApply-card-item uni-column">
           <text class="bt2-houseApply-card-item-name">详细地址</text>
 					<input class="uni-input" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入"/>
-
         </li>
 				<li class="bt2-houseApply-card-item uni-column">
           <text class="bt2-houseApply-card-item-name">样板间租金</text>
@@ -87,6 +86,12 @@
 		<view class="bt2-houseApply-btn">
 			<p class="bt2-houseApply-btn-p" @click="nextPage()">下一步</p>
 		</view>
+		<uni-popup :show="middle" type="middle" mode="insert" @hidePopup="hidePopup">
+			<view class="popupView">
+				<p class="popupView-u">一站筑家负责人负责一站筑家小区客户，客户扫描活动二维码，进入筑家负责人的用户跟进</p>
+				<p class="popupView-b">知道了</p>
+			</view>
+		</uni-popup>
   </view>
 </template>
 
@@ -94,13 +99,14 @@
   import ssUploadImage from '@/components/ss-upload-image/ss-upload-image.vue';
   import UniIcon from '@/components/uni-icon/uni-icon.vue';
 	import calendar from "@/components/uni-calendar/uni-calendar"
-
+	import uniPopup from "@/components/uni-popup/uni-popup"
   export default {
     name: "HaierHouseApply",
     components: {
       ssUploadImage,
       UniIcon,
-			calendar
+			calendar,
+			uniPopup
     },
     data() {
       return {
@@ -109,6 +115,7 @@
         fileList: [],
         current: 1,
 				tel:'',
+				middle:true,
         items1: [
           {
             value: 'USA',
@@ -172,5 +179,36 @@
 		font-size: 28upx;
 		width: 160upx
 	}
- 
+	.popupView{
+		height: 250upx;
+		width: 500upx;
+		border-radius: 8upx;
+		background-color: #FFFFFF;
+	}
+ 	.popupView-u{
+			text-align: left;
+			width: 420upx;
+			margin-left: 40upx;
+			margin-top: 24upx;
+			color: #000000;
+			font-size: 28upx;
+			height: 120upx;
+			margin-bottom: 16upx;
+		}
+	.popupView-b{
+			text-align: center;
+			width: 500upx;
+			margin-top: 24upx;
+			color: #4A90E2;
+			font-size: 30upx;
+			height: 88upx;
+			line-height: 88upx;
+			margin-bottom: 0;
+			border-top: 1upx solid #DFDFDF;
+		}
+	 .uni-close-bottom[data-v-f8dc7872], .uni-close-right[data-v-f8dc7872]{
+		 opacity:0 !important;
+	 }
 </style>
+
+

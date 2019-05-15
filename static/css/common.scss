@@ -230,5 +230,19 @@
 		border-radius: 8upx;
 	}
 }
+.bt2-houseApply-card-item-checkBox{
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  height: 80upx;
+  padding-right: 24upx;
+  &:last-child{
+    border-bottom: 0;
+  }
+}
+.bt2-houseApply-card-checkboxItem{
+	width: 200upx;
+	margin-right: 50upx;
+}
 
 /*筑家申请 end*/
