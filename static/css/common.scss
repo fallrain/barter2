@@ -91,7 +91,7 @@
   width: 160upx;
   height: 50upx;
   border-radius: 25upx;
-  line-height: 50upx;
+  line-height: 45upx;
   font-size: 25upx;
 }
 
@@ -180,6 +180,8 @@
 
 .bt2-houseApply-card-item-name{
   color: #333;
+	width: 140upx;
+	font-size: 28upx;
 }
 
 .bt2-houseApply-card-radioGroup{
@@ -200,6 +202,33 @@
 
 .bt2-houseApply-card-checkboxText{
   margin-left: 30upx;
+}
+.bt2-houseApply-card-item-unit{
+	color: #1969C6;
+	font-size: 28upx;
+	width:190upx;
+	height:82upx;
+	line-height: 82upx;
+	position: absolute;
+	right: 0;
+	text-indent: 24upx;
+	border:2upx solid rgba(238,238,238,1)
+}
+.bt2-houseApply-btn{
+	margin-top: 24upx;
+	width: 100%;
+	text-align: center;
+	margin-bottom: 24upx;
+	.bt2-houseApply-btn-p{
+		width: 702upx;
+		background-color: #1969C6;
+		margin-left: 24upx;
+		color: #FFFFFF;
+		font-size: 34upx;
+		height: 84upx;
+		line-height: 84upx;
+		border-radius: 8upx;
+	}
 }
 
 /*筑家申请 end*/
