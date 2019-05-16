@@ -64,21 +64,8 @@
 					<span class="bt2-houseApply-card-item-star">*</span>
           <text class="bt2-houseApply-card-item-name">入驻产业</text>
         </li>
-        <li class="bt2-houseApply-card-item">
-          <checkbox-group @change="checkboxChange" class="bt2-houseApply-card-checkboxGroup">
-          <label class="bt2-houseApply-card-checkboxItem" v-for="item in items1" :key="item.value">
-            <checkbox :value="item.value" :checked="item.checked"/>
-            <text class="bt2-houseApply-card-checkboxText">{{item.name}}</text>
-          </label>
-        </checkbox-group>
-        </li>
-        <li class="bt2-houseApply-card-item">
-          <checkbox-group @change="checkboxChange" class="bt2-houseApply-card-checkboxGroup">
-            <label class="bt2-houseApply-card-checkboxItem" v-for="item in items1" :key="item.value">
-              <checkbox :value="item.value" :checked="item.checked"/>
-              <text class="bt2-houseApply-card-checkboxText">{{item.name}}</text>
-            </label>
-          </checkbox-group>
+        <li class="bt2-houseApply-card-item-mult bt2-houseApply-card-item">
+          <b-multrow-checkbox :list="items3" :checkedIds.sync="industryIds"></b-multrow-checkbox>
         </li>
       </ul>
       <view class="mt16">
@@ -121,11 +108,14 @@
 <script>
   import ssUploadImage from '@/components/ss-upload-image/ss-upload-image.vue';
   import UniIcon from '@/components/uni-icon/uni-icon.vue';
-	import calendar from "@/components/uni-calendar/uni-calendar"
-	import uniPopup from "@/components/uni-popup/uni-popup"
+  import calendar from "@/components/uni-calendar/uni-calendar"
+  import uniPopup from "@/components/uni-popup/uni-popup"
+  import BMultrowCheckbox from "../../components/common/BMultrowCheckbox";
+
   export default {
     name: "HaierHouseApply",
     components: {
+      BMultrowCheckbox,
       ssUploadImage,
       UniIcon,
 			calendar,
@@ -139,6 +129,8 @@
         current: 1,
 				tel:'',
 				middle:true,
+        //产业选中的id
+        industryIds:['BRA'],
         items1: [
           {
             value: 'USA',
@@ -159,6 +151,24 @@
             value: 'JPN',
             name: '底商门脸房'
           }
+        ],
+        items3: [
+          {
+            value: 'JPN',
+            name: '底商门脸'
+          },
+          {
+            value: 'CHN',
+            name: '精装房',
+          },
+          {
+            value: 'BRA',
+            name: '品牌联盟'
+          },
+          {
+            value: 'ccc',
+            name: '底商门'
+          }
         ]
       };
     },
@@ -173,13 +183,13 @@
 
       },
 			onError(){
-				
+
 			},
       onRemove() {
 
       },
 			telEnd(){
-				
+
 			},
 			hidePopup(){
 				this.middle = false;
@@ -189,7 +199,7 @@
           url: '/pages/haierHouse/HaierHouseApplySecondPage'
         });
 			}
-			
+
     }
   }
 </script>
