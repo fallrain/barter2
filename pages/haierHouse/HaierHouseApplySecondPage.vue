@@ -5,7 +5,7 @@
       <ul class="bt2-houseApply-card-cnt">
         <li class="bt2-houseApply-card-item">
 			<text class="bt2-houseApply-card-item-name">筑家店名</text>
-			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx" maxlength="20" @blur="addressEnd()" v-model="tel" placeholder="请输入筑家小区名称"/>
+			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx" maxlength="20" @blur="nameEnd()" v-model="tel" placeholder="请输入筑家小区名称"/>
         </li>
         <li class="bt2-houseApply-card-item uni-column">
 			<text class="bt2-houseApply-card-item-name">详细地址</text>
@@ -13,7 +13,7 @@
         </li>
 		<li class="bt2-houseApply-card-item uni-column">
 			<text class="bt2-houseApply-card-item-name">覆盖小区</text>
-			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx" maxlength="20" @blur="addressEnd()" v-model="tel" placeholder="请输入小区名称"/>
+			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx" maxlength="20" @blur="coverEnd()" v-model="tel" placeholder="请输入小区名称"/>
         </li>
 		<li class="bt2-houseApply-card-item uni-column">
           <p class="add-p">+添加覆盖小区</p>
@@ -72,6 +72,9 @@
         </ul>
       </view>
     </view>
+	<view class="bt2-houseApply-btn">
+			<p class="bt2-houseApply-btn-p" @click="submitInfo()">提交</p>
+	</view>
   </view>
 </template>
 
@@ -131,20 +134,24 @@
       onSuccess() {
 
       },
-			onError(){
+		onError(){
 				
 			},
       onRemove() {
 
       },
-			telEnd(){
-				
-			},
-			nextPage(){
-				uni.navigateTo({
-          url: '/pages/haierHouse/HaierHouseApplySecondPage'
-        });
-			}
+	  addressEnd(){
+		  
+	  },
+	  nameEnd(){
+		  
+	  },
+	  coverEnd(){
+		  
+	  },
+		submitInfo(){
+			
+		}
 			
     }
   }

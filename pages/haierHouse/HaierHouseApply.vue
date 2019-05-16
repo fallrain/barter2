@@ -86,10 +86,10 @@
 		<view class="bt2-houseApply-btn">
 			<p class="bt2-houseApply-btn-p" @click="nextPage()">下一步</p>
 		</view>
-		<uni-popup :show="middle" type="middle" mode="insert" @hidePopup="hidePopup">
+		<uni-popup :show="middle" type="middle" @hidePopup="hidePopup" button-mode="right">
 			<view class="popupView">
 				<p class="popupView-u">一站筑家负责人负责一站筑家小区客户，客户扫描活动二维码，进入筑家负责人的用户跟进</p>
-				<p class="popupView-b">知道了</p>
+				<p class="popupView-b" @click="hidePopup">知道了</p>
 			</view>
 		</uni-popup>
   </view>
@@ -158,6 +158,9 @@
 			telEnd(){
 				
 			},
+			hidePopup(){
+				this.middle = false;
+			},
 			nextPage(){
 				uni.navigateTo({
           url: '/pages/haierHouse/HaierHouseApplySecondPage'
@@ -206,9 +209,6 @@
 			margin-bottom: 0;
 			border-top: 1upx solid #DFDFDF;
 		}
-	 .uni-close-bottom[data-v-f8dc7872], .uni-close-right[data-v-f8dc7872]{
-		 opacity:0 !important;
-	 }
 </style>
 
 
