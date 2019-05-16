@@ -4,6 +4,7 @@
       <p class="bt2-houseApply-card-title">门店基础信息</p>
       <ul class="bt2-houseApply-card-cnt">
         <li class="bt2-houseApply-card-item">
+					<span class="bt2-houseApply-card-item-star">*</span>
           <text class="bt2-houseApply-card-item-name">筑家负责人</text>
         </li>
         <li class="bt2-houseApply-card-item uni-column">
@@ -16,6 +17,7 @@
       <p class="bt2-houseApply-card-title">一站筑家信息</p>
       <ul class="bt2-houseApply-card-cnt">
         <li class="bt2-houseApply-card-item">
+					<span class="bt2-houseApply-card-item-star">*</span>
           <text class="bt2-houseApply-card-item-name">样板间类型</text>
         </li>
         <li class="bt2-houseApply-card-item">
@@ -35,26 +37,31 @@
           </radio-group>
         </li>
 				 <li class="bt2-houseApply-card-item uni-column">
+					 <span class="bt2-houseApply-card-item-star">*</span>
           <text class="bt2-houseApply-card-item-name">样板间面积</text>
 					<input class="uni-input" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入"/>
 					<p class="bt2-houseApply-card-item-unit">平米</p>
 				</li>
 				<li class="bt2-houseApply-card-item uni-column">
+					<span class="bt2-houseApply-card-item-star">*</span>
           <text class="bt2-houseApply-card-item-name">详细地址</text>
 					<input class="uni-input" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入"/>
         </li>
 				<li class="bt2-houseApply-card-item uni-column">
+					<span class="bt2-houseApply-card-item-star">*</span>
           <text class="bt2-houseApply-card-item-name">样板间租金</text>
 					<input class="uni-input" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入"/>
 					<p class="bt2-houseApply-card-item-unit">元/月</p>
 			 </li>
 				<li class="bt2-houseApply-card-item uni-column">
-          <text class="bt2-houseApply-card-item-name">租赁日期</text>
+					<span class="bt2-houseApply-card-item-star">*</span>
+          <text class="bt2-houseApply-card-item-name">租赁时间</text>
 					<input class="uni-input-time" placeholder-style="color:#999999;line-height:56upx"  placeholder="开始时间"/>
 					<p>至</p>
 					<input class="uni-input-time" placeholder-style="color:#999999;line-height:56upx"  placeholder="结束时间"/>
 				</li>
         <li class="bt2-houseApply-card-item">
+					<span class="bt2-houseApply-card-item-star">*</span>
           <text class="bt2-houseApply-card-item-name">入驻产业</text>
         </li>
         <li class="bt2-houseApply-card-item">
@@ -78,6 +85,22 @@
         <ul class="bt2-houseApply-card-cnt">
           <li class="bt2-houseApply-card-item">
             样板间照片
+          </li>
+          <ss-upload-image :url="url" :file-list="fileList" :name="imgName" @on-success="onSuccess" @on-error="onError" @on-remove="onRemove"/>
+        </ul>
+      </view>
+			<view class="mt16">
+        <ul class="bt2-houseApply-card-cnt">
+          <li class="bt2-houseApply-card-item">
+            家中机区域照片
+          </li>
+          <ss-upload-image :url="url" :file-list="fileList" :name="imgName" @on-success="onSuccess" @on-error="onError" @on-remove="onRemove"/>
+        </ul>
+      </view>
+			<view class="mt16">
+        <ul class="bt2-houseApply-card-cnt">
+          <li class="bt2-houseApply-card-item">
+            热水器区域照片
           </li>
           <ss-upload-image :url="url" :file-list="fileList" :name="imgName" @on-success="onSuccess" @on-error="onError" @on-remove="onRemove"/>
         </ul>

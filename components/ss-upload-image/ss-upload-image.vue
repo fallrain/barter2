@@ -24,7 +24,7 @@
     props: {
       limit: {
         type: Number,
-        default: 5
+        default: 3
       },
       url: {
         type: String,
@@ -91,6 +91,7 @@
     .list {
       display: flex;
       flex-wrap: wrap;
+			margin-top: 20upx;
       .item {
         position: relative;
         display: flex;
