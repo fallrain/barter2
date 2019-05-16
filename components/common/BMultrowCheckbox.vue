@@ -13,12 +13,12 @@
             :value="list[(row-1)*3+index-1].value"
             :checked="checkedIdsObj[list[(row-1)*3+index-1].value]"
           />
-          <text
+          <view
             v-if="list[(row-1)*3+index-1]"
             class="BMultrowCheckbox-checkboxText"
           >
             {{list[(row-1)*3+index-1].name}}
-          </text>
+          </view>
         </label>
       </li>
     </checkbox-group>
@@ -84,12 +84,12 @@
   }
 
   .BMultrowCheckbox-checkboxText{
+    display: inline-block;
+    vertical-align: middle;
     margin-left: 10upx;
-    span{
-      max-width: 80upx;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+    max-width: 160upx;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 </style>
