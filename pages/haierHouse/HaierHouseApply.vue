@@ -6,6 +6,7 @@
         <li class="bt2-houseApply-card-item">
 					<span class="bt2-houseApply-card-item-star">*</span>
           <text class="bt2-houseApply-card-item-name">筑家负责人</text>
+					<input class="uni-input" placeholder-style="color:#999999;line-height:56upx"  @blur="nameEnd()" v-model="name" placeholder="请输入"/>
         </li>
         <li class="bt2-houseApply-card-item uni-column">
           <text class="bt2-houseApply-card-item-name">手机号码</text>
@@ -56,9 +57,19 @@
 				<li class="bt2-houseApply-card-item uni-column">
 					<span class="bt2-houseApply-card-item-star">*</span>
           <text class="bt2-houseApply-card-item-name">租赁时间</text>
-					<input class="uni-input-time" placeholder-style="color:#999999;line-height:56upx"  placeholder="开始时间"/>
-					<p>至</p>
-					<input class="uni-input-time" placeholder-style="color:#999999;line-height:56upx"  placeholder="结束时间"/>
+					 <view class="uni-list-cell-db-start">
+            <picker mode="date" :value="dateS" :start="startDateS" :end="endDateS" @change="bindDateChangeS">
+             <view class="uni-input">{{dateS}}</view>
+             </picker>
+              </view>
+					<input class="uni-input-time" placeholder-style="color:#999999;line-height:56upx"  placeholder="开始时间" @click="startTimeSelect()" v-model="startTime"/>
+					<p style="margin-left: 20upx;">至</p>
+				<view class="uni-list-cell-db-end">
+            <picker mode="date" :value="dateE" :start="startDateE" :end="endDateE" @change="bindDateChangeE">
+             <view class="uni-input">{{dateE}}</view>
+             </picker>
+           </view>
+					<input class="uni-input-time" placeholder-style="color:#999999;line-height:56upx"  placeholder="结束时间" @click="endTimeSelect()" v-model="endTime"/>
 				</li>
         <li class="bt2-houseApply-card-item">
 					<span class="bt2-houseApply-card-item-star">*</span>
@@ -106,9 +117,28 @@
         </ul>
       </view>
     </view>
+		
 		<view class="bt2-houseApply-btn">
 			<p class="bt2-houseApply-btn-p" @click="nextPage()">下一步</p>
 		</view>
+		<view class="uni-list" v-show="pickerStartShow">
+            <view class="uni-list-cell">
+                <view class="uni-list-cell-db">
+                    <picker mode="date" :value="dateS" :start="startDateS" :end="endDateS" @change="bindDateChangeS">
+                        <view class="uni-input">{{dateS}}</view>
+                    </picker>
+                </view>
+            </view>
+      </view>
+			<view class="uni-list" v-show="pickerEndShow">
+            <view class="uni-list-cell">
+                <view class="uni-list-cell-db">
+                    <picker mode="date" :value="dateE" :start="startDateE" :end="endDateE" @change="bindDateChangeE">
+                        <view class="uni-input">{{dateE}}</view>
+                    </picker>
+                </view>
+            </view>
+      </view>
 		<uni-popup :show="middle" type="middle" @hidePopup="hidePopup" button-mode="right">
 			<view class="popupView">
 				<p class="popupView-u">一站筑家负责人负责一站筑家小区客户，客户扫描活动二维码，进入筑家负责人的用户跟进</p>
@@ -123,13 +153,15 @@
   import UniIcon from '@/components/uni-icon/uni-icon.vue';
 	import calendar from "@/components/uni-calendar/uni-calendar"
 	import uniPopup from "@/components/uni-popup/uni-popup"
+	import wPicker from "@/components/w-picker/w-picker.vue";
   export default {
     name: "HaierHouseApply",
     components: {
       ssUploadImage,
       UniIcon,
 			calendar,
-			uniPopup
+			uniPopup,
+			wPicker
     },
     data() {
       return {
@@ -137,8 +169,19 @@
         url: '',
         fileList: [],
         current: 1,
+				name:'',
 				tel:'',
 				middle:true,
+				pickerStartShow:false,
+				pickerEndShow:false,
+				dateS:'',
+				dateE:'',
+				startDateS:'',
+				startDateE:'',
+				endDateS:'',
+				endDateE:'',
+				startTime:'',
+				endTime:'',
         items1: [
           {
             value: 'USA',
@@ -159,7 +202,22 @@
             value: 'JPN',
             name: '底商门脸房'
           }
-        ]
+        ],
+				items3:[
+					{
+						value: '1',
+            name: '家中机'
+					},
+					{
+						value: '1',
+            name: '家中机'
+					},
+					{
+						value: '1',
+            name: '家中机'
+					},
+				],
+				
       };
     },
     methods: {
@@ -181,10 +239,60 @@
 			telEnd(){
 				
 			},
+			startTimeSelect(){
+				debugger
+				this.pickerStartShow = true;
+			},
+			endTimeSelect(){
+				
+			},
+			  bindDateChangeS: function(e) {
+            this.startTime = e.target.value
+        },
+				bindDateChangeE: function(e) {
+            this.endTime = e.target.value
+						if(this.CompareDate(this.startTime,this.endTime)){
+							uni.showModal({
+								title: '提示',
+								content: '开始时间不能小于开始时间',
+								success: function (res) {
+								if (res.confirm) {
+									
+									} else if (res.cancel) {
+									// console.log('用户点击取消');
+								}
+								}
+							});
+						}	
+						this.endTime = '';
+        },
+				CompareDate(d1,d2)
+				{
+				return ((new Date(d1.replace(/-/g,"\/"))) > (new Date(d2.replace(/-/g,"\/"))));
+				},
 			hidePopup(){
 				this.middle = false;
 			},
 			nextPage(){
+				debugger
+      this.hGet('/buildHouse/saveShopInfo',{
+				createBy: this.name,
+				constructionDirector:  "筑家负责人",
+				phoneNumber:  "手机号码",
+				templateType: 1,
+				area:  "面积",
+				address:  "地址",
+				rent:  "租金",
+				leaseBegin:  "租赁开始时间",
+				leaseEnd:  "租赁结束时间",
+				inIndustry:  "入驻产业",
+				inIndustryPic:  "入驻产业图片"
+      }).then(data=>{
+        if(data){
+          console.log(data)
+        }
+      })
+				
 				uni.navigateTo({
           url: '/pages/haierHouse/HaierHouseApplySecondPage'
         });
@@ -204,6 +312,11 @@
 		margin-left: 50upx !important;
 		font-size: 28upx;
 		width: 160upx
+	}
+	.uni-input-picker{
+		margin-left: 10upx !important;
+		font-size: 28upx;
+		width: 150upx
 	}
 	.popupView{
 		height: 250upx;
@@ -232,6 +345,21 @@
 			margin-bottom: 0;
 			border-top: 1upx solid #DFDFDF;
 		}
+		.uni-list-cell-db-start{
+			// background-color: red;
+			position: absolute;
+			left: 150upx;
+			width: 100upx;
+			z-index: 1000;
+		}
+		.uni-list-cell-db-end{
+			// background-color: red;
+			position: absolute;
+			right: 150upx;
+			width: 100upx;
+			z-index: 1000;
+		}
+	
 </style>
 
 

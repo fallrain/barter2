@@ -1,6 +1,6 @@
 module.exports = {
   dev: {
-    domain: 'http://10.190.47.5:9090/' // 本地测试服务域名
+    domain: 'http://10.190.47.5:9090/' ,// 本地测试服务域名
     // domain: 'https://hzytest.haier.com' // 测试服务域名
   },
   test: {
