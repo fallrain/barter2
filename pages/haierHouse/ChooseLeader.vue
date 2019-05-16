@@ -38,6 +38,16 @@
         ]
       };
     },
+    onLoad(){
+      // POST用hPost,默认传json
+      this.hGet('barter-builthouse/buildHouse/areaBuildHouse/1',{
+        name:1//此处为参数
+      }).then(data=>{
+        if(data){
+          console.log(data)
+        }
+      })
+    },
     methods: {
       change() {
         uni.navigateTo({
