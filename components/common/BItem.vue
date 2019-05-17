@@ -10,6 +10,13 @@
       <slot name="title"></slot>
     </view>
     <slot name="middle"></slot>
+    <view
+      v-if="right"
+      class="BItem-right"
+      @click="rightClick"
+    >
+      <i class="iconfont icon-youjiantou1"></i>
+    </view>
   </view>
 </template>
 
@@ -22,8 +29,18 @@
         type: Boolean,
         default: false
       },
+      //标题
       title: {
-        type:String
+        type: String
+      },
+      //是否显示右箭头
+      right: {
+        type: Boolean,
+        default: false
+      },
+      // 箭头点击事件
+      rightClick: {
+        type: Function
       }
     }
   }
@@ -33,5 +50,9 @@
   .BItem-par {
     display: flex;
     align-items: center;
+  }
+
+  .BItem-right {
+
   }
 </style>

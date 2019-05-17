@@ -62,7 +62,7 @@
     },
     methods: {
       handleChange({detail}) {
-        this.$emit('update:checkedIds', detail.id);
+        this.$emit('update:checkedIds', detail.value);
 				// this.$emit(this.checkboxChange(detail));
         this.checkboxChange && (this.checkboxChange(detail));
       }
