@@ -40,7 +40,9 @@
       },
       checkedIds: {
         type: Array,
-        default: []
+        default(){
+          return [];
+        }
       }
     },
     data() {

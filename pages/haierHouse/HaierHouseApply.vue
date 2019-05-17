@@ -95,7 +95,7 @@
           <li class="bt2-houseApply-card-item">
             {{industry.name}}
           </li>
-          <ss-upload-image :url="url" :file-list="fileList" :name="imgName" @on-success="onSuccess" @on-error="onError" @on-remove="onRemove"/>
+          <ss-upload-image :url="url" :file-list="fileMap[industry.id]" :name="imgName" @on-success="onSuccess" @on-error="onError" @on-remove="onRemove"/>
         </ul>
       </view>
     </view>
@@ -133,11 +133,12 @@
 <script>
   import ssUploadImage from '@/components/ss-upload-image/ss-upload-image.vue';
   import UniIcon from '@/components/uni-icon/uni-icon.vue';
-	import calendar from "@/components/uni-calendar/uni-calendar"
-	import uniPopup from "@/components/uni-popup/uni-popup"
-	import wPicker from "@/components/w-picker/w-picker.vue";
+  import calendar from "@/components/uni-calendar/uni-calendar"
+  import uniPopup from "@/components/uni-popup/uni-popup"
+  import wPicker from "@/components/w-picker/w-picker.vue";
   import BMultrowCheckbox from "../../components/common/BMultrowCheckbox";
   import BItem from "../../components/common/BItem";
+
   export default {
     name: "HaierHouseApply",
     components: {
@@ -195,51 +196,52 @@
             name: '底商门脸房'
           }
         ],
+        fileMap:{},
         items3: [
           {
-            id: '1',
+            id: 'jzj',
             name: '家中机',
 						imgs:[]
           },
           {
-            id: '2',
+            id: 'cd',
             name: '厨电',
 						imgs:[]
           },
           {
-            id: '3',
+            id: 'rsq',
             name: '热水器',
 						imgs:[]
           },
           {
-            id: '4',
+            id: 'js',
             name: '净水',
 						imgs:[]
           },
 					{
-            id: '5',
+            id: 'bx',
             name: '冰箱',
 						imgs:[]
           },
 					{
-            id: '6',
+            id: 'lg',
             name: '冷柜',
 						imgs:[]
           },
 					{
-            id: '7',
+            id: 'xyj',
             name: '洗衣机',
 						imgs:[]
           },
 					{
-            id: '8',
+            id: 'cd',
             name: '彩电',
 						imgs:[]
           }
         ]
       };
     },
-		created() {
+		onLoad() {
 			if(this.industryIds.length > 0){
 				var item = {
 					id:'0',
@@ -255,9 +257,17 @@
 						}
 					})
 			}
-			debugger
+			this.genFileMap();
 		},
     methods: {
+      genFileMap() {
+        //模拟延时请求,动态添加上传数据保存的list
+        setTimeout(()=>{
+          this.items3.forEach(v => {
+            this.$set(this.fileMap, v.id,[]);
+          });
+        });
+      },
       radioChange() {
 
       },
@@ -313,14 +323,14 @@
 				}
 					debugger
       },
-      onSuccess({wechatRightsCardImageUrl}) {
-        this.fileList.push(wechatRightsCardImageUrl)
+      onSuccess({data,fileList}) {
+        fileList.push(data.wechatRightsCardImageUrl);
       },
 			onError(){
 
 			},
-      onRemove(index) {
-        this.fileList.splice(index,1);
+      onRemove({index,fileList}) {
+        fileList.splice(index,1);
       },
 			telEnd(){
 

@@ -67,7 +67,7 @@
               formData: this.formData,
               header: this.header,
               success: (uploadFileRes) => {
-                this.$emit('on-success', JSON.parse(uploadFileRes.data))
+                this.$emit('on-success', {...JSON.parse(uploadFileRes.data),fileList:this.fileList})
               },
               fail: (err) => {
                 this.$emit('on-error', err)
@@ -80,7 +80,7 @@
         })
       },
       handleRemove(index) {
-        this.$emit('on-remove', index)
+        this.$emit('on-remove', {index, fileList:this.fileList})
       }
     }
   }
