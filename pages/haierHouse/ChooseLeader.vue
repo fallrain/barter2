@@ -1,6 +1,11 @@
 <template>
   <view>
-    <b-checkbox-list title="选择一站筑家负责人" :list="list" :checkedId.sync="checkedId" :handleChange="change"></b-checkbox-list>
+    <b-checkbox-list
+      title="选择一站筑家负责人"
+      :list="list"
+      :checkedId.sync="checkedId"
+      :handleChange="change"
+    ></b-checkbox-list>
   </view>
 </template>
 

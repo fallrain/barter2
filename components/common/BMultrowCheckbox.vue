@@ -5,7 +5,7 @@
     >
       <li class="BMultrowCheckbox-group-item" v-for="row in listLen">
         <label
-          class=""
+          class="BMultrowCheckbox-group-label"
           v-for="(index) in 3"
         >
           <checkbox
@@ -40,7 +40,9 @@
       },
       checkedIds: {
         type: Array,
-        default: []
+        default(){
+          return [];
+        }
       }
     },
     data() {
@@ -60,7 +62,7 @@
     },
     methods: {
       handleChange({detail}) {
-        this.$emit('update:checkedIds', detail.id);
+        this.$emit('update:checkedIds', detail.value);
 				// this.$emit(this.checkboxChange(detail));
         this.checkboxChange && (this.checkboxChange(detail));
       }
@@ -82,6 +84,10 @@
     &:last-child{
       border-bottom: 0;
     }
+  }
+
+  .BMultrowCheckbox-group-label{
+    width: 33%;
   }
 
   .BMultrowCheckbox-checkboxText{
