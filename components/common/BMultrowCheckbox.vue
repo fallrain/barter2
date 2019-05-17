@@ -10,8 +10,8 @@
         >
           <checkbox
             v-if="list[(row-1)*3+index-1]"
-            :value="list[(row-1)*3+index-1].value"
-            :checked="checkedIdsObj[list[(row-1)*3+index-1].value]"
+            :value="list[(row-1)*3+index-1].id"
+            :checked="checkedIdsObj[list[(row-1)*3+index-1].id]"
           />
           <view
             v-if="list[(row-1)*3+index-1]"
@@ -60,7 +60,8 @@
     },
     methods: {
       handleChange({detail}) {
-        this.$emit('update:checkedIds', detail.value);
+        this.$emit('update:checkedIds', detail.id);
+				// this.$emit(this.checkboxChange(detail));
         this.checkboxChange && (this.checkboxChange(detail));
       }
     }

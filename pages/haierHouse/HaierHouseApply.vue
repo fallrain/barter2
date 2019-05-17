@@ -40,18 +40,18 @@
 				 <li class="bt2-houseApply-card-item uni-column">
 					 <span class="bt2-houseApply-card-item-star">*</span>
           <text class="bt2-houseApply-card-item-name">样板间面积</text>
-					<input class="uni-input" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入"/>
+					<input class="uni-input" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="roomArea"/>
 					<p class="bt2-houseApply-card-item-unit">平米</p>
 				</li>
 				<li class="bt2-houseApply-card-item uni-column">
 					<span class="bt2-houseApply-card-item-star">*</span>
           <text class="bt2-houseApply-card-item-name">详细地址</text>
-					<input class="uni-input" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入"/>
+					<input class="uni-input" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="address"/>
         </li>
 				<li class="bt2-houseApply-card-item uni-column">
 					<span class="bt2-houseApply-card-item-star">*</span>
           <text class="bt2-houseApply-card-item-name">样板间租金</text>
-					<input class="uni-input" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入"/>
+					<input class="uni-input" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="rent"/>
 					<p class="bt2-houseApply-card-item-unit">元/月</p>
 			 </li>
 				<li class="bt2-houseApply-card-item uni-column">
@@ -68,7 +68,7 @@
             <picker mode="date" :value="dateE" :start="startDateE" :end="endDateE" @change="bindDateChangeE">
              <view class="uni-input">{{dateE}}</view>
              </picker>
-           </view>
+         </view>
 					<input class="uni-input-time" placeholder-style="color:#999999;line-height:56upx"  placeholder="结束时间" @click="endTimeSelect()" v-model="endTime"/>
 				</li>
         <li class="bt2-houseApply-card-item">
@@ -76,29 +76,13 @@
           <text class="bt2-houseApply-card-item-name">入驻产业</text>
         </li>
         <li class="bt2-houseApply-card-item-mult bt2-houseApply-card-item">
-          <b-multrow-checkbox :list="items3" :checkedIds.sync="industryIds"></b-multrow-checkbox>
+          <b-multrow-checkbox :list="items3" :checkedIds.sync="industryIds" :checkboxChange="checkboxChange"></b-multrow-checkbox>
         </li>
       </ul>
-      <view class="mt16">
+      <view class="mt16" v-for="(industry,index) in industryList" :key="index">
         <ul class="bt2-houseApply-card-cnt">
           <li class="bt2-houseApply-card-item">
-            样板间照片
-          </li>
-          <ss-upload-image :url="url" :file-list="fileList" :name="imgName" @on-success="onSuccess" @on-error="onError" @on-remove="onRemove"/>
-        </ul>
-      </view>
-			<view class="mt16">
-        <ul class="bt2-houseApply-card-cnt">
-          <li class="bt2-houseApply-card-item">
-            家中机区域照片
-          </li>
-          <ss-upload-image :url="url" :file-list="fileList" :name="imgName" @on-success="onSuccess" @on-error="onError" @on-remove="onRemove"/>
-        </ul>
-      </view>
-			<view class="mt16">
-        <ul class="bt2-houseApply-card-cnt">
-          <li class="bt2-houseApply-card-item">
-            热水器区域照片
+            {{industry.name}}
           </li>
           <ss-upload-image :url="url" :file-list="fileList" :name="imgName" @on-success="onSuccess" @on-error="onError" @on-remove="onRemove"/>
         </ul>
@@ -138,7 +122,6 @@
 <script>
   import ssUploadImage from '@/components/ss-upload-image/ss-upload-image.vue';
   import UniIcon from '@/components/uni-icon/uni-icon.vue';
-
 	import calendar from "@/components/uni-calendar/uni-calendar"
 	import uniPopup from "@/components/uni-popup/uni-popup"
 	import wPicker from "@/components/w-picker/w-picker.vue";
@@ -161,6 +144,9 @@
         current: 1,
 				name:'',
 				tel:'',
+				roomArea:'',
+				rent:'',
+				address:'',
 				middle:true,
 				pickerStartShow:false,
 				pickerEndShow:false,
@@ -172,7 +158,9 @@
 				endDateE:'',
 				startTime:'',
 				endTime:'',
-        industryIds:['BRA'],
+        industryIds:['1'],
+				industryList:[],
+				dataItem:[],
         items1: [
           {
             value: 'USA',
@@ -196,30 +184,121 @@
         ],	
         items3: [
           {
-            value: 'JPN',
-            name: '底商门脸'
+            id: '1',
+            name: '家中机',
+						imgs:[]
           },
           {
-            value: 'CHN',
-            name: '精装房',
+            id: '2',
+            name: '厨电',
+						imgs:[]
           },
           {
-            value: 'BRA',
-            name: '品牌联盟'
+            id: '3',
+            name: '热水器',
+						imgs:[]
           },
           {
-            value: 'ccc',
-            name: '底商门'
+            id: '4',
+            name: '净水',
+						imgs:[]
+          },
+					{
+            id: '5',
+            name: '冰箱',
+						imgs:[]
+          },
+					{
+            id: '6',
+            name: '冷柜',
+						imgs:[]
+          },
+					{
+            id: '7',
+            name: '洗衣机',
+						imgs:[]
+          },
+					{
+            id: '8',
+            name: '彩电',
+						imgs:[]
           }
         ]
       };
     },
+		created() {
+			if(this.industryIds.length > 0){
+				var item = {
+					id:'0',
+					name:'样板间',
+					imgs:[]
+				}
+				this.industryList.push(item)
+			}
+			for(var i = 0;i < this.industryIds.length;i ++){
+				this.items3.forEach(item => {
+						if(this.industryIds[i] == item.id){
+							this.industryList.push(item)
+						}
+					})
+			}
+			debugger
+		},
     methods: {
       radioChange() {
 
       },
-      checkboxChange() {
-
+			array_contain(array, obj){
+    for (var i = 0; i < array.length; i++){
+        if (array[i] == obj)//如果要求数据类型也一致，这里可使用恒等号===
+            return true;
+    }
+    return false;
+},
+  removeByValue(arr, val) {
+   for(var i = 0; i < arr.length; i++) {
+    if(arr[i] == val) {
+     arr.splice(i, 1);
+     break;
+    }
+   }
+  },
+      checkboxChange(data) {
+				if((data.value.length == 1)&&(this.industryList.length == 0)){
+					var item = {
+					id:'0',
+					name:'样板间',
+					imgs:[]
+						}
+					this.industryList.push(item)
+				}
+				this.dataItem = this.industryList;
+				this.industryList = [];
+				var temp = [];
+				for(var i = 0;i < data.value.length;i ++){
+					this.items3.forEach(item => {
+						if(data.value[i] == item.id){
+							temp.push(item)
+						}
+						if(!this.array_contain(this.dataItem,item)){
+							this.dataItem.push(item)
+						}
+					})
+				}	
+				if(temp.length == 0){
+					return
+				}
+				if(data.value.length = 1){
+					this.industryList.push(this.dataItem[0]);
+				}
+				for(var i = 0;i < temp.length; i ++){
+					this.dataItem.forEach(item => {
+						if(temp[i].id == item.id){
+							this.industryList.push(item)
+						}
+					})	
+				}
+					debugger
       },
       onSuccess() {
 
@@ -251,9 +330,9 @@
 								content: '开始时间不能小于开始时间',
 								success: function (res) {
 								if (res.confirm) {
-									
+
 									} else if (res.cancel) {
-									// console.log('用户点击取消');
+										
 								}
 								}
 							});
@@ -269,18 +348,18 @@
 			},
 			nextPage(){
 				debugger
+				
       this.hGet('/buildHouse/saveShopInfo',{
 				createBy: this.name,
-				constructionDirector:  "筑家负责人",
-				phoneNumber:  "手机号码",
+				constructionDirector:  this.name,
+				phoneNumber:  this.tel,
 				templateType: 1,
-				area:  "面积",
-				address:  "地址",
-				rent:  "租金",
-				leaseBegin:  "租赁开始时间",
-				leaseEnd:  "租赁结束时间",
-				inIndustry:  "入驻产业",
-				inIndustryPic:  "入驻产业图片"
+				area:this.roomArea,
+				address:this.address,
+				rent:this.rent,
+				leaseBegin: this.startTime,
+				leaseEnd: this.endTime,
+				inIndustryPic: JSON.stringify(this.industryList)
       }).then(data=>{
         if(data){
           console.log(data)
@@ -340,14 +419,12 @@
 			border-top: 1upx solid #DFDFDF;
 		}
 		.uni-list-cell-db-start{
-			// background-color: red;
 			position: absolute;
 			left: 150upx;
 			width: 100upx;
 			z-index: 1000;
 		}
 		.uni-list-cell-db-end{
-			// background-color: red;
 			position: absolute;
 			right: 150upx;
 			width: 100upx;
