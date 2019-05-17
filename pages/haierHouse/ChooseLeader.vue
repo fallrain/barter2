@@ -10,6 +10,7 @@
 </template>
 
 <script>
+  import {mapMutations, mapState} from 'vuex';
   import BCheckboxList from "../../components/common/BCheckboxList";
 
   export default {
@@ -19,8 +20,9 @@
     },
     data() {
       return {
-        checkedId: [],
-        list: [{
+        checkedId: [this.choosedLeader.id],
+        list: [
+          {
             id: '1',
             val: '张亮'
           },
@@ -43,18 +45,29 @@
         ]
       };
     },
-    onLoad(){
+    onLoad() {
       // POST用hPost,默认传json
-      this.hGet('barter-builthouse/buildHouse/areaBuildHouse/1',{
-        name:1//此处为参数
-      }).then(data=>{
-        if(data){
+      this.hGet('barter-builthouse/buildHouse/areaBuildHouse/1', {
+        name: 1//此处为参数
+      }).then(data => {
+        if (data) {
           console.log(data)
         }
       })
     },
+    computed: {
+      ...mapState('haierHouse', ['choosedLeader']),
+      checkedId() {
+        return [this.choosedLeader.id]
+      }
+    },
     methods: {
-      change() {
+      ...mapMutations('haierHouse', [
+        'changeChoosedLeader'
+      ]),
+      change(ids) {
+        const checkedLeader = this.list.find(v => v.id === ids[0]);
+        this.changeChoosedLeader(checkedLeader);
         uni.navigateTo({
           url: '/pages/haierHouse/HaierHouseApply'
         });

@@ -8,13 +8,14 @@
             :required="true"
             title="筑家负责人"
             :right="true"
+            :rightClick="chooseLeader"
           >
             <template v-slot:middle>
               <input
                 class="uni-input"
                 placeholder-style="color:#999999;line-height:56upx"
                 @blur="nameEnd()"
-                v-model="name"
+                v-model="choosedLeader.name"
                 placeholder="请选择一站驻家负责人"
               />
             </template>
@@ -147,7 +148,7 @@
   import wPicker from "@/components/w-picker/w-picker.vue";
   import BMultrowCheckbox from "../../components/common/BMultrowCheckbox";
   import BItem from "../../components/common/BItem";
-
+  import {mapState} from 'vuex';
   export default {
     name: "HaierHouseApply",
     components: {
@@ -269,6 +270,7 @@
       this.genFileMap();
     },
     computed: {
+      ...mapState('haierHouse',['choosedLeader']),
       checkedIndustry() {
         const checkedIndustryTemp = this.industryIds.map(v => {
           const checkedItem = this.items3.find(item => item.id === v);
@@ -278,13 +280,19 @@
           };
         });
         checkedIndustryTemp.length && (checkedIndustryTemp.unshift({
-          id:'ybj',
-          name:'样板间'
+          id: 'ybj',
+          name: '样板间'
         }));
         return checkedIndustryTemp;
       }
     },
     methods: {
+      chooseLeader() {
+        /*选择负责人*/
+        uni.navigateTo({
+          url: '/pages/haierHouse/ChooseLeader'
+        });
+      },
       genFileMap() {
         //模拟延时请求,动态添加上传数据保存的list
         setTimeout(() => {
@@ -422,7 +430,7 @@
 </script>
 
 <style scoped lang="scss">
-  .uni-input {
+  .uni-input{
     // background-color: aquamarine;
     margin-left: 50upx !important;
     font-size: 28upx;

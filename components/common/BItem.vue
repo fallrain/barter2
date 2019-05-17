@@ -9,13 +9,15 @@
       <text class="bt2-houseApply-card-item-name">{{title}}</text>
       <slot name="title"></slot>
     </view>
-    <slot name="middle"></slot>
+    <view class="BItem-middle">
+      <slot name="middle"></slot>
+    </view>
     <view
       v-if="right"
       class="BItem-right"
       @click="rightClick"
     >
-      <i class="iconfont icon-youjiantou1"></i>
+     <i class="iconfont icon-youjiantou1"></i>
     </view>
   </view>
 </template>
@@ -40,7 +42,8 @@
       },
       // 箭头点击事件
       rightClick: {
-        type: Function
+        type: Function,
+        default(){}
       }
     }
   }
@@ -49,10 +52,15 @@
 <style lang="scss">
   .BItem-par {
     display: flex;
+    width: 100%;
     align-items: center;
   }
 
   .BItem-right {
 
+  }
+
+  .BItem-middle{
+    flex-grow: 1;
   }
 </style>
