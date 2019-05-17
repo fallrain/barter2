@@ -4,6 +4,8 @@ import '@/static/css/base.scss';
 import '@/static/css/common.scss';
 import {hGet, hPost, hPostForm} from '@/lib/request';
 
+const config = require('./config/index.js')['dev'];
+Vue.prototype.envConfig = config;
 Vue.config.productionTip = false
 Vue.prototype.hGet = hGet;
 Vue.prototype.hPost = hGet;
