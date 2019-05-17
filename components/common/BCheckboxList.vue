@@ -5,7 +5,7 @@
       <ul class="bt2-houseApply-card-cnt">
         <li class="bt2-houseApply-card-item BCheckboxList-item" v-for="(item) in list" :key="item.id">
           <text class="bt2-houseApply-card-item-name">{{item.val}}</text>
-          <checkbox :value="item.id" :checked="item.id===checkedId"/>
+          <checkbox :value="item.id" :checked="checkedIdObj[item.id]"/>
         </li>
       </ul>
     </checkbox-group>
@@ -47,6 +47,15 @@
           this.$emit('update:checkedId', detail.value);
           this.handleChange && (this.handleChange(detail.value));
         }
+      }
+    },
+    computed: {
+      checkedIdObj() {
+        const checkedIdTemp = {};
+        this.checkedId.forEach(v => {
+          checkedIdTemp[v] = true;
+        });
+        return checkedIdTemp;
       }
     }
   }
