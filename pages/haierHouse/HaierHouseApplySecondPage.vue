@@ -65,7 +65,7 @@
           <li class="bt2-houseApply-card-item">
             {{area.name}}照片
           </li>
-          <ss-upload-image :url="url" :file-list="fileList" :name="imgName" @on-success="onSuccess" @on-error="onError" @on-remove="onRemove"/>
+          <ss-upload-image :url="url" :file-list="fileMap[area.id]" :name="imgName" @on-success="onSuccess" @on-error="onError" @on-remove="onRemove"/>
         </ul>
       </view>
     </view>
@@ -88,8 +88,8 @@
     },
     data() {
       return {
+		url: this.envConfig.domain + 'barter-builthouse/buildHouse/uploadImage',
         imgName: 'test',
-        url: '',
         fileList: [],
         current: 1,
 		address:'',
@@ -104,6 +104,7 @@
 		coverArea:[],
 		coverAS:[],
 		addList:[],
+		fileMap:{},
 		addPromation:false,
         items: [
           {
@@ -131,7 +132,18 @@
        
       };
     },
+	onload(){
+	this.genFileMap()	
+	},
     methods: {
+		genFileMap() {
+        //模拟延时请求,动态添加上传数据保存的list
+        setTimeout(() => {
+          this.items.forEach(v => {
+            this.$set(this.fileMap, v.id, []);
+          });
+        });
+      },
       radioChange() {
 
       },
@@ -140,14 +152,14 @@
 		  console.log(this.apartmentIds)
 		debugger
       },
-      onSuccess() {
-
+      onSuccess({data, fileList}) {
+        fileList.push(data.wechatRightsCardImageUrl);
       },
 		onError(){
 				
 			},
-      onRemove() {
-
+      onRemove({index, fileList}) {
+        fileList.splice(index, 1);
       },
 	  addressEnd(){
 		  
@@ -212,7 +224,15 @@
 			});
 	  },
 		submitInfo(){
-			this.hGet('/buildHouse/saveAreaInfo',{
+		for(var i = 0; i < this.addList.length; i++){
+				for(var key in this.fileMap){
+					if(this.addList[i].id == key){
+					this.addList[i].imgs = this.fileMap[key]
+							}
+						}
+					}
+					debugger
+			this.hGet('barter-builthouse/buildHouse/saveAreaInfo',{
 				shopId:"8a9f9228e4bd4fc4ab350a5146021415",
 				createBy:"李柏",
 				buildFamilyName:this.storeName,
@@ -222,7 +242,7 @@
 				areaBegin:this.startArea,
 				areaEnd:this.endArea,
 				averagePrice:this.avePrice,
-				communityPic:["www.haier.com",  "www.xuemao.com/xuemao.jpg"],
+				communityPic:[],
 				coverageAreaPic:JSON.stringify(this.addList)
 				}).then(data=>{
 				if(data){

@@ -109,7 +109,17 @@
         ]
       }
     },
-    onLoad() {},
+    onLoad() {
+			this.hGet('barter-builthouse/buildHouse', {
+          createBy:'李'
+        }).then(data => {
+          if (data) {
+						debugger
+            console.log(data)
+          }
+        })
+
+		},
     methods: {
       jump(url){
         uni.navigateTo({
