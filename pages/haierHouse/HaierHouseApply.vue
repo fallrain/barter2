@@ -23,24 +23,19 @@
         </li>
         <li class="bt2-houseApply-card-item">
           <radio-group @change="radioChange" class="bt2-houseApply-card-radioGroup">
-            <label class="bt2-houseApply-card-radioItem" v-for="(item, index) in items1" :key="item.value">
-              <radio :value="item.value" :checked="index === current"/>
+            <label class="bt2-houseApply-card-radioItem" v-for="(item, index) in items1" :key="item.id">
+              <radio :value="item.id" :checked="index === current"/>
               <text class="bt2-houseApply-card-radioText">{{item.name}}</text>
             </label>
           </radio-group>
         </li>
-        <li class="bt2-houseApply-card-item">
-          <radio-group @change="radioChange" class="bt2-houseApply-card-radioGroup">
-            <label class="bt2-houseApply-card-radioItem" v-for="(item, index) in items2" :key="item.value">
-              <radio :value="item.value" :checked="index === current"/>
-              <text class="bt2-houseApply-card-radioText">{{item.name}}</text>
-            </label>
-          </radio-group>
+				<li class="bt2-houseApply-card-item-mult bt2-houseApply-card-item">
+          <b-single-radioCheck :list="items1" :checkedIds.sync="templateType" :radioCheckChange="radioChange"></b-single-radioCheck>
         </li>
 				 <li class="bt2-houseApply-card-item uni-column">
 					 <span class="bt2-houseApply-card-item-star">*</span>
           <text class="bt2-houseApply-card-item-name">样板间面积</text>
-					<input class="uni-input" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="roomArea"/>
+					<input class="uni-input" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="roomArea" type="digit"/>
 					<p class="bt2-houseApply-card-item-unit">平米</p>
 				</li>
 				<li class="bt2-houseApply-card-item uni-column">
@@ -51,7 +46,7 @@
 				<li class="bt2-houseApply-card-item uni-column">
 					<span class="bt2-houseApply-card-item-star">*</span>
           <text class="bt2-houseApply-card-item-name">样板间租金</text>
-					<input class="uni-input" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="rent"/>
+					<input class="uni-input" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="rent" type="digit"/>
 					<p class="bt2-houseApply-card-item-unit">元/月</p>
 			 </li>
 				<li class="bt2-houseApply-card-item uni-column">
@@ -76,7 +71,7 @@
           <text class="bt2-houseApply-card-item-name">入驻产业</text>
         </li>
         <li class="bt2-houseApply-card-item-mult bt2-houseApply-card-item">
-          <b-multrow-checkbox :list="items3" :checkedIds.sync="industryIds" :checkboxChange="checkboxChange"></b-multrow-checkbox>
+          <b-multrow-Checkbox :list="items3" :checkedIds.sync="industryIds" :checkboxChange="checkboxChange"></b-multrow-Checkbox>
         </li>
       </ul>
       <view class="mt16" v-for="(industry,index) in industryList" :key="index">
@@ -126,10 +121,13 @@
 	import uniPopup from "@/components/uni-popup/uni-popup"
 	import wPicker from "@/components/w-picker/w-picker.vue";
   import BMultrowCheckbox from "../../components/common/BMultrowCheckbox";
+	import BSingleRadioCheck from "../../components/common/BSingleRadioCheck";
+	
   export default {
     name: "HaierHouseApply",
     components: {
       BMultrowCheckbox,
+			BSingleRadioCheck,
       ssUploadImage,
       UniIcon,
 			calendar,
@@ -158,29 +156,31 @@
 				endDateE:'',
 				startTime:'',
 				endTime:'',
-        industryIds:['1'],
+        industryIds:['2'],
 				industryList:[],
 				dataItem:[],
+				templateType:1,
         items1: [
           {
-            value: 'USA',
+            id: '1',
             name: '毛坯房'
           },
           {
-            value: 'CHN',
+            id: '2',
             name: '精装房',
             checked: 'true'
           },
           {
-            value: 'BRA',
+            id: '3',
             name: '品牌联盟'
+          },
+					{
+            id: '4',
+            name: '底商门脸房'
           }
         ],
         items2: [
-          {
-            value: 'JPN',
-            name: '底商门脸房'
-          }
+          
         ],
         items3: [
           {
@@ -242,11 +242,17 @@
 						}
 					})
 			}
-			debugger
 		},
     methods: {
-      radioChange() {
-
+      radioChange(evt) {
+				  for (let i = 0; i < this.items1.length; i++) {
+                if (this.items1[i].id === evt.target.id) {
+                    this.current = i;
+										debugger
+                    break;
+                }
+            }
+				
       },
 			array_contain(array, obj){
     for (var i = 0; i < array.length; i++){
@@ -298,9 +304,10 @@
 						}
 					})	
 				}
-					debugger
+		
       },
-      onSuccess({wechatRightsCardImageUrl}) {
+      onSuccess(wechatRightsCardImageUrl) {
+				debugger
         this.fileList.push(wechatRightsCardImageUrl)
       },
 			onError(){
@@ -353,7 +360,7 @@
 				createBy: this.name,
 				constructionDirector:  this.name,
 				phoneNumber:  this.tel,
-				templateType: 1,
+				templateType: this.current,
 				area:this.roomArea,
 				address:this.address,
 				rent:this.rent,
