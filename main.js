@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App'
+import store from './store'
 import '@/static/css/base.scss';
 import '@/static/css/common.scss';
 import {hGet, hPost, hPostForm} from '@/lib/request';

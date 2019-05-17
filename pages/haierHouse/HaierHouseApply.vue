@@ -4,9 +4,20 @@
       <p class="bt2-houseApply-card-title">门店基础信息</p>
       <ul class="bt2-houseApply-card-cnt">
         <li class="bt2-houseApply-card-item">
-					<span class="bt2-houseApply-card-item-star">*</span>
-          <text class="bt2-houseApply-card-item-name">筑家负责人</text>
-					<input class="uni-input" placeholder-style="color:#999999;line-height:56upx"  @blur="nameEnd()" v-model="name" placeholder="请输入"/>
+          <b-item
+            :required="true"
+            title="筑家负责人"
+          >
+            <template v-slot:middle>
+              <input
+                class="uni-input"
+                placeholder-style="color:#999999;line-height:56upx"
+                @blur="nameEnd()"
+                v-model="name"
+                placeholder="请输入"
+              />
+            </template>
+          </b-item>
         </li>
         <li class="bt2-houseApply-card-item uni-column">
           <text class="bt2-houseApply-card-item-name">手机号码</text>
@@ -126,9 +137,11 @@
 	import uniPopup from "@/components/uni-popup/uni-popup"
 	import wPicker from "@/components/w-picker/w-picker.vue";
   import BMultrowCheckbox from "../../components/common/BMultrowCheckbox";
+  import BItem from "../../components/common/BItem";
   export default {
     name: "HaierHouseApply",
     components: {
+      BItem,
       BMultrowCheckbox,
       ssUploadImage,
       UniIcon,
@@ -284,7 +297,7 @@
 							this.dataItem.push(item)
 						}
 					})
-				}	
+				}
 				if(temp.length == 0){
 					return
 				}
@@ -296,7 +309,7 @@
 						if(temp[i].id == item.id){
 							this.industryList.push(item)
 						}
-					})	
+					})
 				}
 					debugger
       },
@@ -332,7 +345,7 @@
 								if (res.confirm) {
 
 									} else if (res.cancel) {
-										
+
 								}
 								}
 							});
@@ -348,7 +361,7 @@
 			},
 			nextPage(){
 				debugger
-				
+
       this.hGet('/buildHouse/saveShopInfo',{
 				createBy: this.name,
 				constructionDirector:  this.name,

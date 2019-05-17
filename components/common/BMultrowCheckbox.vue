@@ -5,7 +5,7 @@
     >
       <li class="BMultrowCheckbox-group-item" v-for="row in listLen">
         <label
-          class=""
+          class="BMultrowCheckbox-group-label"
           v-for="(index) in 3"
         >
           <checkbox
@@ -82,6 +82,10 @@
     &:last-child{
       border-bottom: 0;
     }
+  }
+
+  .BMultrowCheckbox-group-label{
+    width: 33%;
   }
 
   .BMultrowCheckbox-checkboxText{
