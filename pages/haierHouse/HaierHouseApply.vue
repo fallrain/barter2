@@ -209,8 +209,8 @@
         fileMap: {},
         items3: [
           {
-            id: 'jzj',
-            name: '家中机',
+            id: 'kt',
+            name: '空调',
             imgs: []
           },
           {
@@ -491,7 +491,4 @@
     width: 100upx;
     z-index: 1000;
   }
-
 </style>
-
-

@@ -41,14 +41,14 @@
 		
 		<li class="bt2-houseApply-card-item uni-column">
 			<text class="bt2-houseApply-card-item-name">小区面积</text>
-			<input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="startArea"/>
+			<input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="startArea" type="digit"/>
 			<p>至</p>
-			<input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="endArea"/>
+			<input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="endArea" type="digit"/>
 			<p class="bt2-houseApply-card-item-unit">平米</p>
 		</li>
         <li class="bt2-houseApply-card-item uni-column">
 			<text class="bt2-houseApply-card-item-name">均价</text>
-			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入小区均价" v-model="avePrice"/>
+			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入小区均价" v-model="avePrice" type="digit"/>
 			<p class="bt2-houseApply-card-item-unit">元/平米</p>
 			 </li>
       </ul>
@@ -168,18 +168,6 @@
 	  },
 	  coverAddEnd(x){	  
 		if(x.name != ''){
-			// if(this.coverAS.length > this.coverArea){
-			// 	var item = {
-			// 	id:x,
-			// 	name:this.areaAddName,
-			// 	imgs:[]
-			// 	}
-			// 	this.coverArea.push(item)
-			// 	var temp = [];
-			// 	temp = this.addList.concat(this.coverArea);
-			// 	this.addList = temp
-			// }else{
-				debugger
 			if(this.addList.length = this.coverArea.length){
 				var temp = [];
 				temp = this.addList.concat(this.coverArea);
@@ -193,9 +181,6 @@
 				}
 			}
 			}
-				
-			// }
-			debugger
 		}
 	  },
 	  addCover(){
@@ -205,11 +190,9 @@
 				id:this.nums,
 				name:'',
 				imgs:[]
-				}
-			
+				}			
 			 this.coverArea.push(item);
 			 debugger
-			 // this.coverAS.push(this.nums); 
 		  }
 	  },
 	  locationAddress(){
@@ -240,7 +223,7 @@
 				areaEnd:this.endArea,
 				averagePrice:this.avePrice,
 				communityPic:["www.haier.com",  "www.xuemao.com/xuemao.jpg"],
-				coverageAreaPic:[]
+				coverageAreaPic:JSON.stringify(this.addList)
 				}).then(data=>{
 				if(data){
 					console.log(data)

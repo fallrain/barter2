@@ -67,7 +67,7 @@
               formData: this.formData,
               header: this.header,
               success: (uploadFileRes) => {
-                this.$emit('on-success', {...JSON.parse(uploadFileRes.data),fileList:this.fileList})
+                this.$emit('on-success', { data:JSON.parse(uploadFileRes.data),fileList:this.fileList})
               },
               fail: (err) => {
                 this.$emit('on-error', err)
