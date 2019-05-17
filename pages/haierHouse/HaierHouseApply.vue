@@ -88,7 +88,7 @@
         </ul>
       </view>
     </view>
-		
+
 		<view class="bt2-houseApply-btn">
 			<p class="bt2-houseApply-btn-p" @click="nextPage()">下一步</p>
 		</view>
@@ -138,8 +138,8 @@
     },
     data() {
       return {
-        imgName: 'test',
-        url: '',
+        imgName: 'file',
+        url: this.envConfig.domain + 'barter-builthouse/buildHouse/uploadImage',
         fileList: [],
         current: 1,
 				name:'',
@@ -181,7 +181,7 @@
             value: 'JPN',
             name: '底商门脸房'
           }
-        ],	
+        ],
         items3: [
           {
             id: '1',
@@ -300,14 +300,14 @@
 				}
 					debugger
       },
-      onSuccess() {
-
+      onSuccess({wechatRightsCardImageUrl}) {
+        this.fileList.push(wechatRightsCardImageUrl)
       },
 			onError(){
 
 			},
-      onRemove() {
-
+      onRemove(index) {
+        this.fileList.splice(index,1);
       },
 			telEnd(){
 
@@ -317,7 +317,7 @@
 				this.pickerStartShow = true;
 			},
 			endTimeSelect(){
-				
+
 			},
 			  bindDateChangeS: function(e) {
             this.startTime = e.target.value
@@ -336,7 +336,7 @@
 								}
 								}
 							});
-						}	
+						}
 						this.endTime = '';
         },
 				CompareDate(d1,d2)
@@ -365,7 +365,7 @@
           console.log(data)
         }
       })
-				
+
 				uni.navigateTo({
           url: '/pages/haierHouse/HaierHouseApplySecondPage'
         });
@@ -430,7 +430,7 @@
 			width: 100upx;
 			z-index: 1000;
 		}
-	
+
 </style>
 
 
