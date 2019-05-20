@@ -61,5 +61,8 @@
             "es6" : false
         },
         "usingComponents" : true
+    },
+    "h5" : {
+        "title" : "兑呗"
     }
 }
