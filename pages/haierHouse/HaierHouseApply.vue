@@ -379,7 +379,6 @@
 			},
 			telEnd() {},
 			startTimeSelect() {
-				debugger 
 				this.pickerStartShow = true;
 			},
 			endTimeSelect() {},
@@ -406,7 +405,6 @@
 				this.middle = false;
 			},
 			nextPage() {
-				debugger
 				const LIST = []
 				for (var i = 0; i < this.checkedIndustry.length; i++) {
 					for (var key in this.fileMap) {
