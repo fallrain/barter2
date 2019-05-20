@@ -5,7 +5,7 @@
 			<ul class="bt2-houseApply-card-cnt">
 				<li class="bt2-houseApply-card-item">
 					<b-item :required="true" title="筑家负责人" :right="false" :rightClick="chooseLeader"><template v-slot:middle><input
-							 class="uni-input" placeholder-style="color:#999999;line-height:56upx" @blur="nameEnd()" v-model="choosedLeader.name"
+							 class="uni-input" placeholder-style="color:#999999;line-height:56upx" @blur="nameEnd()" v-model="name"
 							 placeholder="请选择一站驻家负责人" /></template></b-item>
 				</li>
 				<li class="bt2-houseApply-card-item uni-column"><text class="bt2-houseApply-card-item-name">手机号码</text><input class="uni-input"
@@ -22,15 +22,15 @@
 					<b-multrow-radio :list="sampleRoomTypeList" :checkedId.sync="sampleRoomIds"></b-multrow-radio>
 				</li>
 				<li class="bt2-houseApply-card-item uni-column"><span class="bt2-houseApply-card-item-star">*</span><text class="bt2-houseApply-card-item-name">样板间面积</text><input
-					 class="uni-input" placeholder-style="color:#999999;line-height:56upx" placeholder="请输入" v-model="roomArea" />
+					 class="uni-input" placeholder-style="color:#999999;line-height:56upx" placeholder="请输入" v-model="roomArea" @blur="areaEnd()" type="digit"/>
 					<p class="bt2-houseApply-card-item-unit">平米</p>
 				</li>
 				<li class="bt2-houseApply-card-item uni-column"><span class="bt2-houseApply-card-item-star">*</span>
 				<text class="bt2-houseApply-card-item-name">详细地址</text>
-				<input class="uni-input" placeholder-style="color:#999999;line-height:56upx" placeholder="请输入" v-model="address" /></li>
+				<input class="uni-input" placeholder-style="color:#999999;line-height:56upx" placeholder="请输入" v-model="address" @blur="addressEnd()"/></li>
 				<li class="bt2-houseApply-card-item uni-column"><span class="bt2-houseApply-card-item-star">*</span>
 				<text class="bt2-houseApply-card-item-name">样板间租金</text>
-				<input class="uni-input" placeholder-style="color:#999999;line-height:56upx" placeholder="请输入" v-model="rent" />
+				<input class="uni-input" placeholder-style="color:#999999;line-height:56upx" placeholder="请输入" v-model="rent" @blur="rentEnd()" type="digit"/>
 					<p class="bt2-houseApply-card-item-unit">元/月</p>
 				</li>
 				<li class="bt2-houseApply-card-item uni-column"><span class="bt2-houseApply-card-item-star">*</span><text class="bt2-houseApply-card-item-name">租赁时间</text>
@@ -57,7 +57,7 @@
 			<view class="mt16" v-for="(industry,index) in checkedIndustry" :key="index">
 				<ul class="bt2-houseApply-card-cnt">
 					<li class="bt2-houseApply-card-item"> {{industry.name}}</li>
-					<ss-upload-image :url="url" :file-list="fileMap[industry.id]" :name="imgName" @on-success="onSuccess" @on-error="onError"
+					<ss-upload-image :url="url" :file-list="fileMap[industry.id]" :name="imgName" :formData="industry" @on-success="onSuccess" @on-error="onError"
 					 @on-remove="onRemove" />
 				</ul>
 			</view>
@@ -89,6 +89,7 @@
 				<p class="popupView-b" @click="hidePopup">知道了</p>
 			</view>
 		</uni-popup>
+		<uni-popup :show="alert" type="middle" mode="fixed" :msg=alertMsg @hidePopup="hidePopupAlert"></uni-popup>
 	</view>
 </template>
 <script>
@@ -134,6 +135,7 @@
 				rent: '',
 				address: '',
 				middle: true,
+				alert:false,
 				pickerStartShow: false,
 				pickerEndShow: false,
 				dateS: '',
@@ -144,6 +146,7 @@
 				endDateE: '',
 				startTime: '',
 				endTime: '',
+				alertMsg:'',
 				industryIds: [],
 				industryList: [],
 				dataItem: [],
@@ -229,9 +232,8 @@
 					}
 				})
 			}
-
-			this.genFileMap();
 			this.getIndustryList();
+
 		}	,
 		computed: {
 		...mapState('haierHouse', ['choosedLeader']),
@@ -263,9 +265,16 @@
 					});
 			}	,
 			genFileMap() {
+				var temp = [];
+					let a = [{
+					id:'ybj',
+					name:'样板间',
+					imgs:[]
+				}]
+				temp = a.concat(this.items3)
 				//模拟延时请求,动态添加上传数据保存的list
 				setTimeout(() => {
-						this.items3.forEach(v => {
+						temp.forEach(v => {
 								this.$set(this.fileMap, v.id, []);
 							});
 					}
@@ -282,12 +291,15 @@
 								imgs:[]
 							}
 							this.items3.push(temp)
+
 						})
-						 console.log(this.items3)
           }
+						this.genFileMap();
         })
 			},
-			radioChange() {},
+			radioChange(data) {
+
+			},
 			array_contain(array, obj) {
 				for (var i = 0; i < array.length;
 					i++) {
@@ -308,7 +320,7 @@
 			checkboxChange(data) {
 				if ((data.value.length == 1) && (this.industryList.length == 0)) {
 					var item = {
-						id: '0',
+						id: 'ybj',
 						name: '样板间',
 						imgs: []
 					}
@@ -353,7 +365,8 @@
 					fileList
 				}
 			) {
-				fileList.push(data.wechatRightsCardImageUrl);
+				console.log(data)
+				fileList.push(data.data.imageUrl);
 			},
 			onError() {},
 			onRemove({
@@ -364,10 +377,45 @@
 			) {
 				fileList.splice(index, 1);
 			},
-			telEnd() {},
+			telEnd() {
+				if(this.tel === ''){
+					this.alert = true
+					this.alertMsg = '请输入手机号'
+				}
+				 if (!/^1[34578]\d{9}$/.test(this.tel)) {
+        	this.alert = true
+					this.alertMsg = '请输入正确的手机号'
+      }
+			},
+			nameEnd(){
+				if(this.name === ''){
+					this.alert = true
+					this.alertMsg = '请输入筑家负责人'
+				}
+			},
+			areaEnd(){
+				if(this.area === ''){
+					this.alert = true
+					this.alertMsg = '请输入面积'
+				}
+			},
+			addressEnd(){
+				if(this.address === ''){
+					this.alert = true
+					this.alertMsg = '请输入地址'
+				}
+			},
+			rentEnd(){
+				if(this.rent === ''){
+					this.alert = true
+					this.alertMsg = '请输入租金'
+				}
+			},
 			startTimeSelect() {
 				this.pickerStartShow = true;
 			},
+
+
 			endTimeSelect() {},
 			bindDateChangeS: function(e) {
 					this.startTime = e.target.value
@@ -382,8 +430,8 @@
 									if (res.confirm) {} else if (res.cancel) {}
 								}
 							});
+							this.endTime = '';
 					}
-					this.endTime = '';
 				},
 			CompareDate(d1, d2) {
 				return ((new Date(d1.replace(/-/g, "\/"))) > (new Date(d2.replace(/-/g, "\/"))));
@@ -391,20 +439,61 @@
 			hidePopup() {
 				this.middle = false;
 			},
+			hidePopupAlert(){
+				this.alert = false;
+			},
 			nextPage() {
+				if(this.name === ''){
+						this.alertMsg = "请输入筑家负责人"
+						this.alert = true
+						return
+				}
+				if(this.tel === ''){
+						this.alertMsg = "请输入手机号"
+						this.alert = true
+						return
+				}
+				if(this.roomArea === ''){
+						this.alertMsg = "请输入房间面积"
+						this.alert = true
+						return
+				}
+				if(this.address === ''){
+						this.alertMsg = "请输入详细地址"
+						this.alert = true
+						return
+				}
+				if(this.rent === ''){
+						this.alertMsg = "请输入租金"
+						this.alert = true
+						return
+				}
+				if(this.startTime === ''){
+					this.alertMsg = "请输入开始时间"
+					this.alert = true
+						return
+				}
+				if(this.endTime === ''){
+					this.alertMsg = "请输入结束时间"
+					this.alert = true
+						return
+				}
+
 				const LIST = []
+				if(this.fileMap !== {}){
 				for (var i = 0; i < this.checkedIndustry.length; i++) {
 					for (var key in this.fileMap) {
 						if (this.checkedIndustry[i].id == key) {
 							let aa = {
 								id:key,
-								imgs:this.fileMap[Key]
+								imgs:this.fileMap[key]
 							}
 							// this.checkedIndustry[i].imgs = this.fileMap[key]
 							LIST.push(aa)
 						}
 					}
 				}
+			}
 
 				this.hGet('barter-builthouse/buildHouse/saveShopInfo', {
 						createBy: this.name,
@@ -444,7 +533,8 @@
 	.uni-input-time {
 		margin-left: 50upx !important;
 		font-size: 28upx;
-		width: 160upx
+		width: 160upx;
+		// background-color: red
 	}
 
 	.uni-input-picker {

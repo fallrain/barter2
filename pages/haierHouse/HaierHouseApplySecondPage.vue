@@ -43,7 +43,7 @@
 			<text class="bt2-houseApply-card-item-name">小区面积</text>
 			<input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="startArea" type="digit"/>
 			<p>至</p>
-			<input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="endArea" type="digit"/>
+			<input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="endArea" type="digit" @blur="endRent"/>
 			<p class="bt2-houseApply-card-item-unit">平米</p>
 		</li>
         <li class="bt2-houseApply-card-item uni-column">
@@ -65,13 +65,15 @@
           <li class="bt2-houseApply-card-item">
             {{area.name}}照片
           </li>
-          <ss-upload-image :url="url" :file-list="fileMap[area.id]" :name="imgName" @on-success="onSuccess" @on-error="onError" @on-remove="onRemove"/>
+          <ss-upload-image :url="url" :file-list="fileMap[area.id]" :name="imgName" :formData="area" @on-success="onSuccess" @on-error="onError" @on-remove="onRemove"/>
         </ul>
       </view>
     </view>
 	<view class="bt2-houseApply-btn">
 			<p class="bt2-houseApply-btn-p" @click="submitInfo()">提交</p>
 	</view>
+	<uni-popup :show="alert" type="middle" mode="fixed" :msg=alertMsg @hidePopup="hidePopupAlert"></uni-popup>
+
   </view>
 </template>
 
@@ -79,18 +81,23 @@
   import ssUploadImage from '@/components/ss-upload-image/ss-upload-image.vue';
   import UniIcon from '@/components/uni-icon/uni-icon.vue';
   import BMultrowCheckbox from "../../components/common/BMultrowCheckbox";
+  import uniPopup from "@/components/uni-popup/uni-popup"
+
   export default {
     name: "HaierHouseApplySecondPage",
     components: {
       ssUploadImage,
       UniIcon,
-	  BMultrowCheckbox
+	  BMultrowCheckbox,
+	  uniPopup
     },
     data() {
       return {
 		url: this.envConfig.domain + 'barter-builthouse/buildHouse/uploadImage',
-        imgName: 'test',
+        imgName: 'file',
         fileList: [],
+		alert:false,
+		alertMsg:'',
         current: 1,
 		address:'',
 		areaName:'',
@@ -135,7 +142,7 @@
        
       };
     },
-	onload(){
+	onLoad(){
 	this.genFileMap()	
 	},
     methods: {
@@ -162,11 +169,13 @@
       checkboxChange(data) {
 		  this.apartmentIds = data.value
 		  console.log(this.apartmentIds)
-		debugger
       },
       onSuccess({data, fileList}) {
-        fileList.push(data.wechatRightsCardImageUrl);
+        fileList.push(data.data.imageUrl);
       },
+	  hidePopupAlert(){
+		this.alert = false;  
+	  },
 		onError(){
 				
 			},
@@ -178,6 +187,12 @@
 	  },
 	  nameEnd(){
 		  
+	  },
+	  endRent(){
+		  if(this.startArea >= this.endArea){
+			  this.alert = true
+			  this.alertMsg = '面积区间有误'
+		  }
 	  },
 	  coverEnd(){
 		if(this.areaName != ''){
@@ -208,8 +223,7 @@
 			}
 		}
 	  },
-	  addCover(){
-		  
+	  addCover(){  
 		  if(this.addPromation){
 			 this.nums ++;
 			 var item = {
@@ -218,7 +232,6 @@
 				imgs:[]
 				}			
 			 this.coverArea.push(item);
-			 debugger
 		  }
 	  },
 	  locationAddress(){
@@ -240,14 +253,18 @@
 		submitInfo(){
 			const List = []
 			const nameList = []
+			const COVER = []
 		for(var i = 0; i < this.addList.length; i++){
 				for(var key in this.fileMap){
 					if(this.addList[i].id == key){
 						let aa = {
 								id:key,
-								imgs:this.fileMap[Key]
+								imgs:this.fileMap[key]
 							}
-						List.push(aa);	
+						List.push(aa)
+						if(key != 0){
+							COVER.push(aa)
+						}
 						nameList.push(this.addList[i].name);
 					this.addList[i].imgs = this.fileMap[key]
 					
@@ -255,8 +272,8 @@
 						}
 					}
 		const areaImg = this.addList[0].imgs
-		const COVER = List.splice(0,1)
 		
+			debugger
 			this.hGet('barter-builthouse/buildHouse/saveAreaInfo',{
 				shopId:"8a9f9228e4bd4fc4ab350a5146021415",
 				createBy:"李柏",
