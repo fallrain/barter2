@@ -24,7 +24,7 @@
     <view class="bt2-myhouse mt16">
       <b-title cnt="我的一站筑家"></b-title>
       <view class="bt2-myhouse-card">
-        <img src="@/static/img/haierHouse/48C5FB2B-5CF2-4300-91D7-C45D0C960B7E.png" class="bt2-myhouse-card-portrait">
+        <img :src="myInfoImg" class="bt2-myhouse-card-portrait">
         <view class="bt2-myhouse-card-cnt">
           <p class="title">{{myAreaList.buildFamilyName}}</p>
           <p class="cnt">入驻产业：冰箱、商空、厨电</p>
@@ -73,6 +73,7 @@
     data() {
       return {
 				myAreaList:[],
+				myInfoImg:'',
         info: [
           {
             colorClass: 'uni-bg-red',
@@ -118,6 +119,7 @@
 						debugger
             console.log(data)
 						this.myAreaList = data[0];
+						this.myInfoImg = JSON.parse(this.myAreaList.inIndustryPic)[0].img[0];
           }
         })
 
