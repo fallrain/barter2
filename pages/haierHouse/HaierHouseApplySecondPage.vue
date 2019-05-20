@@ -34,11 +34,11 @@
         <li class="bt2-houseApply-card-item">
 			<text class="bt2-houseApply-card-item-name">小区户型</text>
         </li>
-       
+
 	   <li class="bt2-houseApply-card-item-mult bt2-houseApply-card-item">
           <b-multrow-checkbox :list="items" :checkedIds.sync="apartmentIds" :checkboxChange="checkboxChange"></b-multrow-checkbox>
         </li>
-		
+
 		<li class="bt2-houseApply-card-item uni-column">
 			<text class="bt2-houseApply-card-item-name">小区面积</text>
 			<input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="startArea" type="digit"/>
@@ -137,13 +137,13 @@
             id: '5',
             name: '三室二厅'
           },
-		  
+
         ]
-       
+
       };
     },
 	onLoad(){
-	this.genFileMap()	
+	this.genFileMap()
 	},
     methods: {
 		genFileMap() {
@@ -174,19 +174,19 @@
         fileList.push(data.data.imageUrl);
       },
 	  hidePopupAlert(){
-		this.alert = false;  
+		this.alert = false;
 	  },
 		onError(){
-				
+
 			},
       onRemove({index, fileList}) {
         fileList.splice(index, 1);
       },
 	  addressEnd(){
-		  
+
 	  },
 	  nameEnd(){
-		  
+
 	  },
 	  endRent(){
 		  if(this.startArea >= this.endArea){
@@ -205,14 +205,14 @@
 				this.addPromation = true;
 		}
 	  },
-	  coverAddEnd(x){	  
+	  coverAddEnd(x){
 		if(x.name != ''){
 			const leng = this.addList.length - 1
 			if(leng == this.coverArea.length){
 				var temp = [];
 				temp = this.addList.concat(this.coverArea);
 				this.addList = temp
-				}else{		
+				}else{
 			for(var i = 0; i < this.coverArea.length ;i ++){
 				if(this.coverArea[i].id == x.id){
 					this.coverArea[i].name = x.name
@@ -223,32 +223,37 @@
 			}
 		}
 	  },
-	  addCover(){  
+	  addCover(){
 		  if(this.addPromation){
 			 this.nums ++;
 			 var item = {
 				id:this.nums,
 				name:'',
 				imgs:[]
-				}			
+				}
 			 this.coverArea.push(item);
 		  }
 	  },
 	  locationAddress(){
-		  uni.getLocation({
-		  type: 'gcj02', //返回可以用于uni.openLocation的经纬度
-			success: function (res) {
-			const latitude = res.latitude;
-			const longitude = res.longitude;
-			uni.chooseLocation({
-			success: function (res) {
-				console.log('位置名称：' + res.name);
-				console.log('详细地址：' + res.address);
-				this.address = res.address;
-				}
-					});
-						}
-			});
+      /*uni.getLocation({
+        type: 'gcj02', //返回可以用于uni.openLocation的经纬度
+        success: function (res) {
+          const latitude = res.latitude;
+          const longitude = res.longitude;
+          uni.chooseLocation({
+            success: function (res) {
+              console.log('位置名称：' + res.name);
+              console.log('详细地址：' + res.address);
+              this.address = res.address;
+            }
+          });
+        }
+      });*/
+      uni.chooseLocation({
+        success:({address})=> {
+          this.address = address;
+        }
+      });
 	  },
 		submitInfo(){
 			const List = []
@@ -267,12 +272,12 @@
 						}
 						nameList.push(this.addList[i].name);
 					this.addList[i].imgs = this.fileMap[key]
-					
+
 							}
 						}
 					}
 		const areaImg = this.addList[0].imgs
-		
+
 			debugger
 			this.hPost('barter-builthouse/buildHouse/saveAreaInfo',{
 				shopId:"8a9f9228e4bd4fc4ab350a5146021415",
@@ -291,7 +296,7 @@
 					console.log(data)
 					}
 				})
-				}	
+				}
 		}
   }
 </script>
