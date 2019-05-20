@@ -11,7 +11,7 @@ const config = require('./config/index.js')['dev'];
 Vue.prototype.envConfig = config;
 Vue.config.productionTip = false;
 Vue.prototype.hGet = hGet;
-Vue.prototype.hPost = hGet;
+Vue.prototype.hPost = hPost;
 Vue.prototype.hPostForm = hGet;
 Vue.prototype.BValidate = BValidate;
 
