@@ -475,7 +475,6 @@
 		width: 100upx;
 		z-index: 1000;
 	}
-=======
 <template>
   <view>
     <view class="bt2-houseApply-card">
