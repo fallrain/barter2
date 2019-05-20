@@ -224,9 +224,7 @@
 				this.industryList.push(item)
 			}
 
-			for (var i = 0; i < this.industryIds.length;
-
-				i++) {
+			for (var i = 0; i < this.industryIds.length;i++) {
 				this.items3.forEach(item => {
 					if (this.industryIds[i] == item.id) {
 						this.industryList.push(item)
@@ -247,12 +245,10 @@
 						};
 					}
 				);
-
 				checkedIndustryTemp.length && (checkedIndustryTemp.unshift({
 						id: 'ybj',
 						name: '样板间'
 					}
-
 				));
 				return checkedIndustryTemp;
 			}
@@ -536,7 +532,7 @@
 	.uni-input-time {
 		margin-left: 50upx !important;
 		font-size: 28upx;
-		width: 160upx;
+		width: 162upx;
 		// background-color: red
 	}
 
