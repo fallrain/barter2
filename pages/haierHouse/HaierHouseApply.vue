@@ -495,11 +495,11 @@
 				}
 			}
 
-				this.hGet('barter-builthouse/buildHouse/saveShopInfo', {
+				this.hPost('barter-builthouse/buildHouse/saveShopInfo', {
 						createBy: this.name,
 						constructionDirector: this.name,
 						phoneNumber: this.tel,
-						templateType: 1,
+						templateType: this.sampleRoomIds,
 						area: this.roomArea,
 						address: this.address,
 						rent: this.rent,

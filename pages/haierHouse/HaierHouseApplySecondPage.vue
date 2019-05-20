@@ -274,7 +274,7 @@
 		const areaImg = this.addList[0].imgs
 		
 			debugger
-			this.hGet('barter-builthouse/buildHouse/saveAreaInfo',{
+			this.hPost('barter-builthouse/buildHouse/saveAreaInfo',{
 				shopId:"8a9f9228e4bd4fc4ab350a5146021415",
 				createBy:"李柏",
 				buildFamilyName:this.storeName,
