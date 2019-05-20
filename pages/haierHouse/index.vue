@@ -21,13 +21,13 @@
         <p class="bt2-house-menu-item-cnt">用户跟进</p>
       </li>
     </ul>
-    <view class="bt2-myhouse mt16">
+    <view class="bt2-myhouse mt16" v-show="myInfoShow">
       <b-title cnt="我的一站筑家"></b-title>
       <view class="bt2-myhouse-card">
         <img :src="myInfoImg" class="bt2-myhouse-card-portrait">
         <view class="bt2-myhouse-card-cnt">
           <p class="title">{{myAreaList.buildFamilyName}}</p>
-          <p class="cnt">入驻产业：冰箱、商空、厨电</p>
+          <p class="cnt">入驻产业：{{industry}}</p>
           <view class="bt2-myhouse-card-cnt-opt">
             <button class="bt2-myhouse-card-cnt-opt-btn mr24">补充信息</button>
             <button class="bt2-myhouse-card-cnt-opt-btn mr24">配置活动</button>
@@ -72,8 +72,10 @@
     },
     data() {
       return {
-				myAreaList:[],
+				myAreaList:'',
 				myInfoImg:'',
+				myInfoShow:false,
+				industry:'',
         info: [
           {
             colorClass: 'uni-bg-red',
@@ -116,11 +118,17 @@
           hmcId:'Z0000001'
         }).then(data => {
           if (data) {
-						debugger
-            console.log(data)
-						this.myAreaList = data[0];
-						this.myInfoImg = JSON.parse(this.myAreaList.inIndustryPic)[0].img[0];
-          }
+						this.myAreaList = data[0]
+						const picList = JSON.parse(this.myAreaList.inIndustryPic)
+						this.myInfoImg = picList[0].imgs[0];
+						var temp = []
+						for(var i = 0; i < picList.length;i ++){
+							temp.push(picList[i].name)
+						}
+						temp.shift()
+						this.industry = temp.join(",")
+						this.myInfoShow = true
+          } 
         })
 
 		},

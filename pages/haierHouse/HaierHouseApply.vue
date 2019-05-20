@@ -170,6 +170,7 @@
 				],//样板间类型
 				sampleRoomIds:'',//选中的样板间类型
 				fileMap: {},
+				resID:'',
 				items3 : [],
 				// items3: [{
 				// 		id: 'kt',
@@ -434,7 +435,7 @@
 					}
 				},
 			CompareDate(d1, d2) {
-				return ((new Date(d1.replace(/-/g, "\/"))) > (new Date(d2.replace(/-/g, "\/"))));
+				return ((new Date(d1.replace(/-/g, "\/"))) >= (new Date(d2.replace(/-/g, "\/"))));
 			},
 			hidePopup() {
 				this.middle = false;
@@ -486,6 +487,7 @@
 						if (this.checkedIndustry[i].id == key) {
 							let aa = {
 								id:key,
+								name:this.checkedIndustry[i].name,
 								imgs:this.fileMap[key]
 							}
 							// this.checkedIndustry[i].imgs = this.fileMap[key]
@@ -496,7 +498,7 @@
 			}
 
 				this.hPost('barter-builthouse/buildHouse/saveShopInfo', {
-						createBy: this.name,
+						createBy: 'Z0000001',
 						constructionDirector: this.name,
 						phoneNumber: this.tel,
 						templateType: this.sampleRoomIds,
@@ -511,14 +513,15 @@
 				).then(data => {
 						if (data) {
 							console.log(data)
+							debugger
+							uni.navigateTo({
+						url: '/pages/haierHouse/HaierHouseApplySecondPage?id=' + data,
+						}
+					);
 						}
 					})
-
-				uni.navigateTo({
-						url: '/pages/haierHouse/HaierHouseApplySecondPage'
-					}
-
-				);
+					
+				
 			}
 		}
 	}

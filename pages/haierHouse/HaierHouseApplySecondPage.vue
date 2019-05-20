@@ -41,9 +41,9 @@
 
 		<li class="bt2-houseApply-card-item uni-column">
 			<text class="bt2-houseApply-card-item-name">小区面积</text>
-			<input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="startArea" type="digit"/>
+			<input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="startArea" type="digit" @blur="areaStart"/>
 			<p>至</p>
-			<input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="endArea" type="digit" @blur="endRent"/>
+			<input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="endArea" type="digit" @blur="areaEnd"/>
 			<p class="bt2-houseApply-card-item-unit">平米</p>
 		</li>
         <li class="bt2-houseApply-card-item uni-column">
@@ -95,6 +95,7 @@
       return {
 		url: this.envConfig.domain + 'barter-builthouse/buildHouse/uploadImage',
         imgName: 'file',
+		ID:'',
         fileList: [],
 		alert:false,
 		alertMsg:'',
@@ -142,8 +143,10 @@
 
       };
     },
-	onLoad(){
-	this.genFileMap()
+	onLoad(option){
+	this.ID = option.id
+	debugger
+	this.genFileMap()	
 	},
     methods: {
 		genFileMap() {
@@ -163,9 +166,6 @@
           });
         });
       },
-      radioChange() {
-
-      },
       checkboxChange(data) {
 		  this.apartmentIds = data.value
 		  console.log(this.apartmentIds)
@@ -183,12 +183,30 @@
         fileList.splice(index, 1);
       },
 	  addressEnd(){
-
+		  if(this.address === ''){
+			  this.alert = true
+			  this.alertMsg = '地址不能为空'
+		  }
 	  },
 	  nameEnd(){
-
+		   if(this.storeName === ''){
+			  this.alert = true
+			  this.alertMsg = '店名不能为空'
+		  }
 	  },
-	  endRent(){
+	  areaStart(){
+		  if(this.startArea  === ''){
+			  this.alert = true
+			  this.alertMsg = '起始面积不能为空'
+		  }
+	  },
+
+	  areaEnd(){
+		  if(this.endArea  === ''){
+			  this.alert = true
+			  this.alertMsg = '面积不能为空'
+			  return
+		  }
 		  if(this.startArea >= this.endArea){
 			  this.alert = true
 			  this.alertMsg = '面积区间有误'
@@ -203,7 +221,10 @@
 				}
 				this.addList.push(item)
 				this.addPromation = true;
+		}else{
+			
 		}
+		
 	  },
 	  coverAddEnd(x){
 		if(x.name != ''){
@@ -232,30 +253,41 @@
 				imgs:[]
 				}
 			 this.coverArea.push(item);
+		  }else{
+			 if(this.areaName === ''){
+			  this.alert = true
+			  this.alertMsg = '小区名不能为空'
+		  } 
 		  }
 	  },
 	  locationAddress(){
-      /*uni.getLocation({
-        type: 'gcj02', //返回可以用于uni.openLocation的经纬度
-        success: function (res) {
-          const latitude = res.latitude;
-          const longitude = res.longitude;
-          uni.chooseLocation({
-            success: function (res) {
-              console.log('位置名称：' + res.name);
-              console.log('详细地址：' + res.address);
-              this.address = res.address;
-            }
-          });
-        }
-      });*/
       uni.chooseLocation({
         success:({address})=> {
           this.address = address;
         }
-      });
+	  })
 	  },
 		submitInfo(){
+			if(this.storeName === ''){
+						this.alertMsg = "请输入店名"
+						this.alert = true
+						return
+				}
+				if(this.address === ''){
+						this.alertMsg = "请输入详细地址"
+						this.alert = true
+						return
+				}
+				if(this.startArea === ''){
+						this.alertMsg = "请输入起始面积"
+						this.alert = true
+						return
+				}
+				if(this.endArea === ''){
+					this.alertMsg = "请输入结束面积"
+					this.alert = true
+						return
+				}
 			const List = []
 			const nameList = []
 			const COVER = []
@@ -280,8 +312,8 @@
 
 			debugger
 			this.hPost('barter-builthouse/buildHouse/saveAreaInfo',{
-				shopId:"8a9f9228e4bd4fc4ab350a5146021415",
-				createBy:"李柏",
+				shopId:this.ID,
+				createBy:"Z0000001",
 				buildFamilyName:this.storeName,
 				detailAddress:this.address,
 				coverageArea:JSON.stringify(nameList),
