@@ -52,14 +52,14 @@
 			<p class="bt2-houseApply-card-item-unit">元/平米</p>
 			 </li>
       </ul>
-      <view class="mt16">
+    <!--  <view class="mt16">
         <ul class="bt2-houseApply-card-cnt">
           <li class="bt2-houseApply-card-item">
             小区照片
           </li>
           <ss-upload-image :url="url" :file-list="fileList" :name="imgName" @on-success="onSuccess" @on-error="onError" @on-remove="onRemove"/>
         </ul>
-      </view>
+      </view> -->
 	  <view class="mt16" v-for="(area,index) in addList" :key="index">
         <ul class="bt2-houseApply-card-cnt">
           <li class="bt2-houseApply-card-item">
@@ -103,7 +103,10 @@
 		apartmentIds:[],
 		coverArea:[],
 		coverAS:[],
-		addList:[],
+		addList:[{id:0,
+				name:'小区',
+				imgs:[]
+				}],
 		fileMap:{},
 		addPromation:false,
         items: [
@@ -137,9 +140,18 @@
 	},
     methods: {
 		genFileMap() {
+			const LIST = [];
+			for(var i = 0; i < 100 ; i++){
+				const aa = {
+					id:i,
+					name:'',
+					imgs:[]
+				}
+				LIST.push(aa);
+			}
         //模拟延时请求,动态添加上传数据保存的list
         setTimeout(() => {
-          this.items.forEach(v => {
+          LIST.forEach(v => {
             this.$set(this.fileMap, v.id, []);
           });
         });
@@ -170,7 +182,7 @@
 	  coverEnd(){
 		if(this.areaName != ''){
 			var item = {
-				id:0,
+				id:1,
 				name:this.areaName,
 				imgs:[]
 				}
@@ -180,7 +192,8 @@
 	  },
 	  coverAddEnd(x){	  
 		if(x.name != ''){
-			if(this.addList.length = this.coverArea.length){
+			const leng = this.addList.length - 1
+			if(leng == this.coverArea.length){
 				var temp = [];
 				temp = this.addList.concat(this.coverArea);
 				this.addList = temp
@@ -196,6 +209,7 @@
 		}
 	  },
 	  addCover(){
+		  
 		  if(this.addPromation){
 			 this.nums ++;
 			 var item = {
@@ -224,26 +238,37 @@
 			});
 	  },
 		submitInfo(){
+			const List = []
+			const nameList = []
 		for(var i = 0; i < this.addList.length; i++){
 				for(var key in this.fileMap){
 					if(this.addList[i].id == key){
+						let aa = {
+								id:key,
+								imgs:this.fileMap[Key]
+							}
+						List.push(aa);	
+						nameList.push(this.addList[i].name);
 					this.addList[i].imgs = this.fileMap[key]
+					
 							}
 						}
 					}
-					debugger
+		const areaImg = this.addList[0].imgs
+		const COVER = List.splice(0,1)
+		
 			this.hGet('barter-builthouse/buildHouse/saveAreaInfo',{
 				shopId:"8a9f9228e4bd4fc4ab350a5146021415",
 				createBy:"李柏",
 				buildFamilyName:this.storeName,
 				detailAddress:this.address,
-				coverageArea:"覆盖小区",
+				coverageArea:JSON.stringify(nameList),
 				communityFamily:JSON.stringify(this.apartmentIds),
 				areaBegin:this.startArea,
 				areaEnd:this.endArea,
 				averagePrice:this.avePrice,
-				communityPic:[],
-				coverageAreaPic:JSON.stringify(this.addList)
+				communityPic:JSON.stringify(areaImg),
+				coverageAreaPic:JSON.stringify(COVER)
 				}).then(data=>{
 				if(data){
 					console.log(data)

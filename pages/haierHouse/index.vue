@@ -26,14 +26,14 @@
       <view class="bt2-myhouse-card">
         <img src="@/static/img/haierHouse/48C5FB2B-5CF2-4300-91D7-C45D0C960B7E.png" class="bt2-myhouse-card-portrait">
         <view class="bt2-myhouse-card-cnt">
-          <p class="title">水清木华小区</p>
+          <p class="title">{{myAreaList.buildFamilyName}}</p>
           <p class="cnt">入驻产业：冰箱、商空、厨电</p>
           <view class="bt2-myhouse-card-cnt-opt">
             <button class="bt2-myhouse-card-cnt-opt-btn mr24">补充信息</button>
             <button class="bt2-myhouse-card-cnt-opt-btn mr24">配置活动</button>
             <view class="bt2-myhouse-card-cnt-opt-status">
               <img src="@/static/img/haierHouse/Icons／Complete@2x.png">
-              <text>审核中</text>
+              <text>{{myAreaList.status}}</text>
             </view>
           </view>
         </view>
@@ -72,6 +72,7 @@
     },
     data() {
       return {
+				myAreaList:[],
         info: [
           {
             colorClass: 'uni-bg-red',
@@ -110,12 +111,13 @@
       }
     },
     onLoad() {
-			this.hGet('barter-builthouse/buildHouse', {
-          createBy:'李'
+			this.hGet('barter-builthouse/buildHouse/getCreateHomeShopinfListByHmcId', {
+          hmcId:'Z0000001'
         }).then(data => {
           if (data) {
 						debugger
             console.log(data)
+						this.myAreaList = data[0];
           }
         })
 
