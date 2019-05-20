@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <template>
 	<view>
 		<view class="bt2-houseApply-card">
@@ -26,7 +25,7 @@
 					<span class="bt2-houseApply-card-item-star">*</span>
 					<text class="bt2-houseApply-card-item-name">样板间类型</text>
 				</li>
-				
+
 					<li class="bt2-houseApply-card-item">
 						<radio-group @change="radioChange" class="bt2-houseApply-card-radioGroup">
 							<label class="bt2-houseApply-card-radioItem" v-for="(item, index) in items1" :key="item.value">
