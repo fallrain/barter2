@@ -17,19 +17,9 @@
 			<p class="bt2-houseApply-card-title">一站筑家信息</p>
 			<ul class="bt2-houseApply-card-cnt">
 				<li class="bt2-houseApply-card-item"><span class="bt2-houseApply-card-item-star">*</span>
-				<text class="bt2-houseApply-card-item-name">样板间类型</text></li>				
-				<li class="bt2-houseApply-card-item">
-					<radio-group @change="radioChange" class="bt2-houseApply-card-radioGroup"><label class="bt2-houseApply-card-radioItem"
-						 v-for="(item, index) in items1" :key="item.value">
-							<radio :value="item.value" :checked="index === current" /><text class="bt2-houseApply-card-radioText">
-								{{item.name}}</text></label></radio-group>
-				</li>
-				<li class="bt2-houseApply-card-item">
-					<radio-group @change="radioChange" class="bt2-houseApply-card-radioGroup"><label class="bt2-houseApply-card-radioItem"
-						 v-for="(item, index) in items2" :key="item.value">
-							<radio :value="item.value" :checked="index === current" /><text class="bt2-houseApply-card-radioText">
-								{{item.name}}
-							</text></label></radio-group>
+				<text class="bt2-houseApply-card-item-name">样板间类型</text></li>
+				<li class="bt2-houseApply-card-item-mult bt2-houseApply-card-item">
+					<b-multrow-radio :list="sampleRoomTypeList" :checkedId.sync="sampleRoomIds"></b-multrow-radio>
 				</li>
 				<li class="bt2-houseApply-card-item uni-column"><span class="bt2-houseApply-card-item-star">*</span><text class="bt2-houseApply-card-item-name">样板间面积</text><input
 					 class="uni-input" placeholder-style="color:#999999;line-height:56upx" placeholder="请输入" v-model="roomArea" />
@@ -108,6 +98,7 @@
 	import uniPopup from "@/components/uni-popup/uni-popup"
 	import wPicker from "@/components/w-picker/w-picker.vue";
 	import BMultrowCheckbox from "../../components/common/BMultrowCheckbox";
+	import BMultrowRadio from "../../components/common/BMultrowRadio";
 	import BItem from "../../components/common/BItem";
 
 	import {
@@ -122,6 +113,7 @@
 		components: {
 			BItem,
 			BMultrowCheckbox,
+			BMultrowRadio,
 			ssUploadImage,
 			UniIcon,
 			calendar,
@@ -132,7 +124,6 @@
 		,
 		data() {
 			return {
-
 				imgName: 'file',
 				url: this.envConfig.domain + 'barter-builthouse/buildHouse/uploadImage',
 				fileList: [],
@@ -156,29 +147,25 @@
 				industryIds: [],
 				industryList: [],
 				dataItem: [],
-				items1: [{
-						value: 'USA',
+				sampleRoomTypeList: [
+					{
+						id: 'USA',
 						name: '毛坯房'
-					}
-
-					,
+					},
 					{
-						value: 'CHN',
+						id: 'CHN',
 						name: '精装房',
-						checked: 'true'
-					}
-
-					,
+					},
 					{
-						value: 'BRA',
+						id: 'BRA',
 						name: '品牌联盟'
-					}
-
-				],
-				items2: [{
-						value: 'JPN',
+					},
+					{
+						id: 'JPN',
 						name: '底商门脸房'
-					}],
+					}
+				],//样板间类型
+				sampleRoomIds:'',//选中的样板间类型
 				fileMap: {},
 				items3 : [],
 				// items3: [{
@@ -437,7 +424,7 @@
 							console.log(data)
 						}
 					})
-					
+
 				uni.navigateTo({
 						url: '/pages/haierHouse/HaierHouseApplySecondPage'
 					}
