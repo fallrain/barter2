@@ -43,7 +43,7 @@
 			<text class="bt2-houseApply-card-item-name">小区面积</text>
 			<input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="startArea" type="digit"/>
 			<p>至</p>
-			<input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="endArea" type="digit"/>
+			<input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="endArea" type="digit" @blur="endRent"/>
 			<p class="bt2-houseApply-card-item-unit">平米</p>
 		</li>
         <li class="bt2-houseApply-card-item uni-column">
@@ -72,6 +72,8 @@
 	<view class="bt2-houseApply-btn">
 			<p class="bt2-houseApply-btn-p" @click="submitInfo()">提交</p>
 	</view>
+	<uni-popup :show="alert" type="middle" mode="fixed" :msg=alertMsg @hidePopup="hidePopupAlert"></uni-popup>
+
   </view>
 </template>
 
@@ -79,18 +81,23 @@
   import ssUploadImage from '@/components/ss-upload-image/ss-upload-image.vue';
   import UniIcon from '@/components/uni-icon/uni-icon.vue';
   import BMultrowCheckbox from "../../components/common/BMultrowCheckbox";
+  import uniPopup from "@/components/uni-popup/uni-popup"
+
   export default {
     name: "HaierHouseApplySecondPage",
     components: {
       ssUploadImage,
       UniIcon,
-	  BMultrowCheckbox
+	  BMultrowCheckbox,
+	  uniPopup
     },
     data() {
       return {
 		url: this.envConfig.domain + 'barter-builthouse/buildHouse/uploadImage',
         imgName: 'file',
         fileList: [],
+		alert:false,
+		alertMsg:'',
         current: 1,
 		address:'',
 		areaName:'',
@@ -166,6 +173,9 @@
       onSuccess({data, fileList}) {
         fileList.push(data.data.imageUrl);
       },
+	  hidePopupAlert(){
+		this.alert = false;  
+	  },
 		onError(){
 				
 			},
@@ -177,6 +187,12 @@
 	  },
 	  nameEnd(){
 		  
+	  },
+	  endRent(){
+		  if(this.startArea >= this.endArea){
+			  this.alert = true
+			  this.alertMsg = '面积区间有误'
+		  }
 	  },
 	  coverEnd(){
 		if(this.areaName != ''){
