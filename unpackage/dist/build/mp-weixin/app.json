@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "pages/haierHouse/index",
+    "pages/haierHouse/HaierHouseApply",
+    "pages/haierHouse/HaierHouseApplySecondPage",
+    "pages/haierHouse/ChooseLeader"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "usingComponents": {}
+}

@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "b-item": "/components/common/BItem",
+    "b-multrow-checkbox": "/components/common/BMultrowCheckbox",
+    "b-multrow-radio": "/components/common/BMultrowRadio",
+    "ss-upload-image": "/components/ss-upload-image/ss-upload-image",
+    "uni-icon": "/components/uni-icon/uni-icon",
+    "calendar": "/components/uni-calendar/uni-calendar",
+    "uni-popup": "/components/uni-popup/uni-popup",
+    "w-picker": "/components/w-picker/w-picker"
+  }
+}

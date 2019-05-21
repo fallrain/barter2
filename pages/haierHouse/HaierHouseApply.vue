@@ -277,6 +277,7 @@
 					}
 				);
 			},
+			/*获取产业列表*/
 			getIndustryList(){
 					this.hGet('barter-builthouse/buildHouse/proGrpList', {
         }).then(data => {

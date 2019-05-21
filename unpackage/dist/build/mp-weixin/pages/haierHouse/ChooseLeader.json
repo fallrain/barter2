@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "b-checkbox-list": "/components/common/BCheckboxList"
+  }
+}

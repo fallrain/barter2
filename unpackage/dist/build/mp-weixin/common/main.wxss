@@ -1,0 +1,407 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*每个页面公共css */
+
+@font-face {font-family: "iconfont";
+  src: url(data:application/vnd.ms-fontobject;base64,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); /* IE9 */
+  src: url(data:application/vnd.ms-fontobject;base64,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#iefix) format('embedded-opentype'), 
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAKkAAsAAAAABkQAAAJYAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCCcApIYwE2AiQDCAsGAAQgBYRtBzUbjgUR1YtJsr9AJrfiAEKSNtG1zap0dw7q5rEz5nsshrFc3Hkg7YGjIAEAAAAAgn++td99M7PyEfVIF7GkmjziyRslEuIPidO94iEvRN7OJrBvBaFKQclC1H9D7Er+5wE34swa70QENVaf5vf/m5uha1SEYknOg/+pO9JuwoXwIyke6BvQwvJ9ALTIGSI8n7h3+idQIPMB5br2pEldQF0cSAHtjVFkJZRxw9gFL/AxBCRQQhPqXAcnCXHYqwRoJ60vEhZCOBzLhgi/4aBD93iEZpkHd9H39dsUgsGz2HWja10rtH5WJ8+eRGYCgjAIdNwDLNAEONBkY2oYixjHkpByVMCxqgWfjg4s6KhGxP46uzIJgCKYFnzakzxq1gA81kiygIJJk0FZdKe5790rvPThKvt5ZT3U9m/NjApf6bIj9zW14p+Za3MQIIhfGmWSCMAzdhwZHMM8EO7FLfgb4oFdzpDaZuM0cWO/IessDQkkABH2ZfAxVZd96pwIyZ7gCSjOYAmpIh3bBI9EmuET0oIEGuk5nkgmu1jkMtDAJYBI4xGGFOKwpPFEOvYdHjn8wydNFglMixcmUiMwqTJqQQfmD8nS7l2rqLj6huGqmvPSiPtCPlMUpn4sZzfckZfYcn7CLOLBMzVYwXNYK8HBlNFKH0WOZRh805t6S61TdEYt6MD8IVnafTBYVOXzNwxX1dzRURd9IZ9pfJj6cQC5qfZBHY/yyvkJs4gHz9RgBfOwVoKjeV5GK32ckDiWwenlh6r67TXt7w4BCdh6E5xJFpl05aR3CZ1T1wEAAA==') format('woff2'),
+  url(data:font/woff;base64,d09GRgABAAAAAAP8AAsAAAAABkQAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADMAAABCsP6z7U9TLzIAAAE8AAAARAAAAFY9p0kjY21hcAAAAYAAAABLAAABcOhZuT1nbHlmAAABzAAAAEgAAABIOEXPrWhlYWQAAAIUAAAALQAAADYVJ2KTaGhlYQAAAkQAAAAcAAAAJAfeA4NobXR4AAACYAAAAAgAAAAICAAAAGxvY2EAAAJoAAAABgAAAAYAJAAAbWF4cAAAAnAAAAAeAAAAIAENACBuYW1lAAACkAAAAUUAAAJtPlT+fXBvc3QAAAPYAAAAJAAAADVTVxXreJxjYGRgYOBikGPQYWB0cfMJYeBgYGGAAJAMY05meiJQDMoDyrGAaQ4gZoOIAgCKIwNPAHicY2BkYWCcwMDKwMHUyXSGgYGhH0IzvmYwYuRgYGBiYGVmwAoC0lxTGByeGz43ZG7438AQw9zA0AAUZgTJAQDk9wxHeJxjYGBgZWBgYAZiHSBmYWBgDGFgZAABP6AoI1icmYELLM7CoARWwwISf274/z+MBPJZwCQDIxvDKOABkzJQHjisIJiBEQCjMgoxAAABAAAAAAKMApgAEwAAJQYmND8BNi8BJjQ2Mh8BFhQPAQYBgQoPB+cDA+cHDxQI6BAQ5wlsARAUB+cDA+kIFBAI6BEsEOcJAHicY2BkYGAA4vNfDL7H89t8ZeBmYQCBmyz99cg0CwPTDCDFwcAE4gEAKu0JGQAAAHicY2BkYGBu+N/AEMPCAAJAkpEBFTABAEcIAmsEAAAABAAAAAAAAAAAJAAAeJxjYGRgYGBiEGEA0SAWAwMXEDIw/AfzGQAKiwEuAAB4nGWPTU7DMBCFX/oHpBKqqGCH5AViASj9EatuWFRq911036ZOmyqJI8et1ANwHo7ACTgC3IA78EgnmzaWx9+8eWNPANzgBx6O3y33kT1cMjtyDRe4F65TfxBukF+Em2jjVbhF/U3YxzOmwm10YXmD17hi9oR3YQ8dfAjXcI1P4Tr1L+EG+Vu4iTv8CrfQ8erCPuZeV7iNRy/2x1YvnF6p5UHFockikzm/gple75KFrdLqnGtbxCZTg6BfSVOdaVvdU+zXQ+ciFVmTqgmrOkmMyq3Z6tAFG+fyUa8XiR6EJuVYY/62xgKOcQWFJQ6MMUIYZIjK6Og7VWb0r7FDwl57Vj3N53RbFNT/c4UBAvTPXFO6stJ5Ok+BPV8bUnV0K27LnpQ0kV7NSRKyQl7WtlRC6gE2ZVeOEXpc0Yk/KGdI/wAJWm7IAAAAeJxjYGKAAC4G7ICJkYmRmYG7Mr80KzMxryS/1JCBAQApGASp) format('woff'),
+  url(data:font/ttf;base64,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) format('truetype'), 
+  url(../../static/img/iconfont.946ad3dd.svg#iconfont) format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 28rpx;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-youjiantou1:before {
+  content: "\E731";
+}
+
+
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+/*重置原生标签样式*/
+page {
+  background: #F5F5F5; }
+._blockquote, page, button, ._dd, ._dl, ._dt, ._fieldset, form, ._h1, ._h2, ._h3, ._h4, ._h5, ._h6, ._hr, input, ._legend, ._li, ._ol, ._p, ._pre, ._td, textarea, ._th, ._ul {
+  margin: 0;
+  padding: 0; }
+._ol, ._ul {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+._a {
+  text-decoration: none;
+  cursor: pointer; }
+._a:hover {
+  text-decoration: none; }
+._a:focus {
+  outline: none; }
+._sup {
+  vertical-align: text-top; }
+._sub {
+  vertical-align: text-bottom; }
+._fieldset, ._img {
+  border: 0; }
+._img {
+  vertical-align: middle; }
+._table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+button:focus, input:focus, textarea:focus {
+  outline: 0; }
+:focus {
+  outline: 0; }
+label {
+  font-weight: normal; }
+label ._i, label ._span, ._ul ._li {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -khtml-user-select: none; }
+._b {
+  font-weight: 400; }
+button {
+  border: none;
+  outline: 0; }
+button,
+page input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer; }
+button[disabled],
+page input[disabled] {
+  cursor: not-allowed; }
+title {
+  display: block; }
+/*重置原生标签样式 end*/
+/*重置组件样式*/
+.swiper-item {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+  background: #eee;
+  color: #fff; }
+.swiper-item image {
+  width: 100%;
+  max-width: 750px;
+  height: 100%; }
+/*重置组件样式 end*/
+
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+/*common*/
+.bt2-spacing-line {
+  width: 100%;
+  height: 16px;
+  background: #F5F5F5; }
+/*common end*/
+/*margin*/
+.mt16 {
+  margin-top: 16rpx; }
+.mr24 {
+  margin-right: 24rpx; }
+/*margin end*/
+/*一站筑家*/
+.bt2-house-menu {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 24rpx 44rpx;
+  padding-bottom: 10rpx;
+  background: #fff; }
+.bt2-house-menu-item {
+  margin-left: 100rpx;
+  text-align: center; }
+.bt2-house-menu-item:first-child {
+    margin-left: 0; }
+.bt2-house-menu-item ._img {
+    width: 88rpx;
+    height: 88rpx; }
+.bt2-house-menu-item-cnt {
+  color: #666;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  margin-top: 14rpx; }
+.bt2-myhouse {
+  background: #fff;
+  padding-top: 24rpx; }
+.bt2-myhouse-card {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 24rpx;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center; }
+.bt2-myhouse-card-portrait {
+  width: 160rpx;
+  height: 160rpx;
+  margin-right: 24rpx; }
+.bt2-myhouse-card-cnt {
+  font-size: 28rpx; }
+.bt2-myhouse-card-cnt .title {
+    color: #666; }
+.bt2-myhouse-card-cnt .cnt {
+    color: #999; }
+.bt2-myhouse-card-cnt-opt {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 24rpx; }
+.bt2-myhouse-card-cnt-opt-btn {
+  padding-left: 28rpx;
+  padding-right: 28rpx;
+  color: #4A90E2;
+  background: #fff;
+  border: 1px solid #4A90E2;
+  width: 160rpx;
+  height: 50rpx;
+  border-radius: 25rpx;
+  line-height: 45rpx;
+  font-size: 25rpx; }
+.bt2-myhouse-card-cnt-opt-status {
+  color: #F5A623; }
+.bt2-myhouse-card-cnt-opt-status ._img {
+    width: 36rpx;
+    height: 36rpx; }
+.bt2-shopShow-par {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 24rpx;
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+  margin-bottom: 24rpx;
+  padding-bottom: 24px;
+  overflow-x: auto; }
+.bt2-shopShow-item {
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+      -ms-flex-positive: 0;
+          flex-grow: 0;
+  text-align: center;
+  margin-right: 24rpx; }
+.bt2-shopShow-item ._img {
+    width: 280rpx;
+    height: 134rpx;
+    border-radius: 8rpx; }
+.bt2-shopShow-item .cnt {
+    white-space: nowrap;
+    -o-text-overflow: ellipsis;
+       text-overflow: ellipsis;
+    max-width: 280rpx;
+    overflow: hidden;
+    line-height: 40rpx;
+    margin-top: 16rpx;
+    font-size: 28rpx;
+    color: #666; }
+.bt2-help-inf-item-par {
+  padding: 24rpx 48rpx; }
+.bt2-help-inf-item {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #666;
+  margin-top: 16rpx; }
+/*一站筑家 end*/
+/*筑家申请*/
+.bt2-houseApply-card {
+  font-size: 28rpx; }
+.bt2-houseApply-card-title {
+  color: #999;
+  font-size: 28rpx;
+  padding-top: 20rpx;
+  padding-bottom: 10rpx;
+  padding-left: 24rpx;
+  line-height: 40rpx; }
+.bt2-houseApply-card-cnt {
+  background: #fff;
+  padding-left: 24rpx; }
+.bt2-houseApply-card-item {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 1px solid #eee;
+  height: 80rpx;
+  padding-right: 24rpx; }
+.bt2-houseApply-card-item:last-child {
+    border-bottom: 0; }
+.bt2-houseApply-card-item-mult {
+  height: auto; }
+.bt2-houseApply-card-item-name {
+  color: #333;
+  width: 150rpx;
+  font-size: 28rpx; }
+.bt2-houseApply-card-radioGroup {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between; }
+.bt2-houseApply-card-radioText {
+  margin-left: 30rpx; }
+.bt2-houseApply-card-checkboxGroup {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between; }
+.bt2-houseApply-card-checkboxText {
+  margin-left: 30rpx; }
+.bt2-houseApply-card-item-unit {
+  color: #1969C6;
+  font-size: 28rpx;
+  width: 190rpx;
+  height: 82rpx;
+  line-height: 82rpx;
+  position: absolute;
+  right: 0;
+  text-indent: 24rpx;
+  border: 2rpx solid #eeeeee; }
+.bt2-houseApply-btn {
+  margin-top: 24rpx;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 24rpx; }
+.bt2-houseApply-btn .bt2-houseApply-btn-p {
+    width: 702rpx;
+    background-color: #1969C6;
+    margin-left: 24rpx;
+    color: #FFFFFF;
+    font-size: 34rpx;
+    height: 84rpx;
+    line-height: 84rpx;
+    border-radius: 8rpx; }
+.bt2-houseApply-card-item-checkBox {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 1px solid #eee;
+  height: 80rpx;
+  padding-right: 24rpx; }
+.bt2-houseApply-card-item-checkBox:last-child {
+    border-bottom: 0; }
+.bt2-houseApply-card-checkboxItem {
+  width: 200rpx;
+  margin-right: 50rpx; }
+.uni-input {
+  margin-left: 50rpx !important;
+  font-size: 28rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  width: 200rpx; }
+.bt2-houseApply-card-item-star {
+  color: red; }
+/*筑家申请 end*/
+

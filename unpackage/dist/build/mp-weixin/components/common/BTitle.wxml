@@ -1,0 +1,1 @@
+<view class="BTitle-par" bind:__l="__l"><view class="BTitle _p">{{cnt}}</view><slot></slot></view>
