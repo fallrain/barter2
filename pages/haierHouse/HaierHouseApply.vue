@@ -5,8 +5,8 @@
 			<ul class="bt2-houseApply-card-cnt">
 				<li class="bt2-houseApply-card-item">
 					<b-item :required="true" title="筑家负责人" :right="false" :rightClick="chooseLeader"><template v-slot:middle><input
-							 class="uni-input" placeholder-style="color:#999999;line-height:56upx" @blur="nameEnd()" v-model="name"
-							 placeholder="请选择一站驻家负责人" /></template></b-item>
+							 class="uni-input" placeholder-style="color:#999999;line-height:56upx;width:300upx" @blur="nameEnd()" v-model="name"
+							 placeholder="请选择一站筑家负责人" /></template></b-item>
 				</li>
 				<li class="bt2-houseApply-card-item uni-column"><text class="bt2-houseApply-card-item-name">手机号码</text><input class="uni-input"
 					 placeholder-style="color:#999999;line-height:56upx" type="number" maxlength="11" @blur="telEnd()" v-model="tel"
@@ -83,13 +83,13 @@
 				</view>
 			</view>
 		</view>
-		<uni-popup :show="middle" type="middle" @hidePopup="hidePopup" button-mode="right">
+		<uni-popup :show="middle" type="middle" @hidePopup="hidePopup" button-mode="right" :h5-top="h5top">
 			<view class="popupView">
 				<p class="popupView-u">一站筑家负责人负责一站筑家小区客户，客户扫描活动二维码，进入筑家负责人的用户跟进</p>
 				<p class="popupView-b" @click="hidePopup">知道了</p>
 			</view>
 		</uni-popup>
-		<uni-popup :show="alert" type="middle" mode="fixed" :msg=alertMsg @hidePopup="hidePopupAlert"></uni-popup>
+		<uni-popup :show="alert" type="middle" mode="fixed" :msg=alertMsg @hidePopup="hidePopupAlert" :h5-top="h5top"></uni-popup>
 	</view>
 </template>
 <script>
@@ -127,6 +127,7 @@
 			return {
 				imgName: 'file',
 				url: this.envConfig.domain + 'barter-builthouse/buildHouse/uploadImage',
+				h5top:true,
 				fileList: [],
 				current: 1,
 				name: '',
@@ -528,6 +529,7 @@
 		// background-color: aquamarine;
 		margin-left: 50upx !important;
 		font-size: 28upx;
+		width: 300upx !important;
 	}
 
 	.uni-input-time {
@@ -586,4 +588,5 @@
 		width: 100upx;
 		z-index: 1000;
 	}
+
 </style>

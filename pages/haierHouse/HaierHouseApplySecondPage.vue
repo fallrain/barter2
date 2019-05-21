@@ -72,7 +72,7 @@
 	<view class="bt2-houseApply-btn">
 			<p class="bt2-houseApply-btn-p" @click="submitInfo()">提交</p>
 	</view>
-	<uni-popup :show="alert" type="middle" mode="fixed" :msg=alertMsg @hidePopup="hidePopupAlert"></uni-popup>
+	<uni-popup :show="alert" type="middle" mode="fixed" :msg=alertMsg @hidePopup="hidePopupAlert" :h5-top="h5top"></uni-popup>
 
   </view>
 </template>
