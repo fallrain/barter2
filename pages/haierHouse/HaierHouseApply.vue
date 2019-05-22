@@ -48,6 +48,9 @@
 					</view><input class="uni-input-time" placeholder-style="color:#999999;line-height:56upx" placeholder="结束时间" @click="endTimeSelect()"
 					 v-model="endTime" />
 				</li>
+				<picker mode="date">
+					<view class="uni-input">{{date}}</view>
+				</picker>
 				<li class="bt2-houseApply-card-item"><span class="bt2-houseApply-card-item-star">*</span>
 				<text class="bt2-houseApply-card-item-name">入驻产业</text></li>
 				<li class="bt2-houseApply-card-item-mult bt2-houseApply-card-item">
@@ -518,8 +521,8 @@
 					);
 						}
 					})
-					
-				
+
+
 			}
 		}
 	}
@@ -579,14 +582,14 @@
 		position: absolute;
 		left: 150upx;
 		width: 100upx;
-		z-index: 1000;
+		z-index: 100;
 	}
 
 	.uni-list-cell-db-end {
 		position: absolute;
 		right: 150upx;
 		width: 100upx;
-		z-index: 1000;
+		z-index: 100;
 	}
 
 </style>
