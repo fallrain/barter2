@@ -3,12 +3,20 @@
 		<view class="bt2-houseApply-card">
 			<p class="bt2-houseApply-card-title">门店基础信息</p>
 			<ul class="bt2-houseApply-card-cnt">
-				<li class="bt2-houseApply-card-item">
-					<b-item :required="true" title="筑家负责人" :right="false" :rightClick="chooseLeader"><template v-slot:middle><input
-							 class="uni-input" placeholder-style="color:#999999;line-height:56upx;width:300upx" @blur="nameEnd()" v-model="name"
-							 placeholder="请选择一站筑家负责人" /></template></b-item>
+				<li class="bt2-houseApply-card-item uni-column" >
+					<b-item :required="true" title="筑家负责人" :right="false" :rightClick="chooseLeader">
+					<template v-slot:left>
+					<img src="@/static/img/haierHouse/disclosure@2x.png" style="width:32upx;" @click="showMessage()">
+					</template>
+					<template v-slot:middle>
+					<input class="uni-input" placeholder-style="color:#999999;line-height:56upx;width:300upx" @blur="nameEnd()" v-model="name" 
+					placeholder="请选择一站筑家负责人" />
+					</template>
+					</b-item>
 				</li>
-				<li class="bt2-houseApply-card-item uni-column"><text class="bt2-houseApply-card-item-name">手机号码</text><input class="uni-input"
+				<li class="bt2-houseApply-card-item uni-column">
+					<span class="bt2-houseApply-card-item-star">*</span>
+					<text class="bt2-houseApply-card-item-name">手机号码</text><input class="uni-input"
 					 placeholder-style="color:#999999;line-height:56upx" type="number" maxlength="11" @blur="telEnd()" v-model="tel"
 					 placeholder="请输入" /></li>
 			</ul>
@@ -36,14 +44,15 @@
 				<li class="bt2-houseApply-card-item uni-column"><span class="bt2-houseApply-card-item-star">*</span><text class="bt2-houseApply-card-item-name">租赁时间</text>
 					<view class="uni-list-cell-db-start">
 						<picker mode="date" :value="dateS" :start="startDateS" :end="endDateS" @change="bindDateChangeS">
-							<view class="uni-input"> {{dateS}}</view>
+							<view class="uni-input-timee1"> {{dateS}}</view>
 						</picker>
-					</view><input class="uni-input-time" placeholder-style="color:#999999;line-height:56upx" placeholder="开始时间" @click="startTimeSelect()"
+					</view>
+					<input class="uni-input-time" placeholder-style="color:#999999;line-height:56upx" placeholder="开始时间" @click="startTimeSelect()"
 					 v-model="startTime" />
 					<p style="margin-left: 20upx;">至</p>
 					<view class="uni-list-cell-db-end">
 						<picker mode="date" :value="dateE" :start="startDateE" :end="endDateE" @change="bindDateChangeE">
-							<view class="uni-input"> {{dateE}}</view>
+							<view class="uni-input-timee"> {{dateE}}</view>
 						</picker>
 					</view><input class="uni-input-time" placeholder-style="color:#999999;line-height:56upx" placeholder="结束时间" @click="endTimeSelect()"
 					 v-model="endTime" />
@@ -136,7 +145,7 @@
 				roomArea: '',
 				rent: '',
 				address: '',
-				middle: true,
+				middle: false,
 				alert:false,
 				pickerStartShow: false,
 				pickerEndShow: false,
@@ -263,6 +272,9 @@
 						url: '/pages/haierHouse/ChooseLeader'
 					});
 			}	,
+			showMessage(){
+			this.middle = true	
+			},
 			genFileMap() {
 				var temp = [];
 					let a = [{
@@ -384,6 +396,7 @@
 				}
 				 if (!/^1[34578]\d{9}$/.test(this.tel)) {
         	this.alert = true
+			this.tel = ''
 					this.alertMsg = '请输入正确的手机号'
       }
 			},
@@ -425,7 +438,7 @@
 					if (this.CompareDate(this.startTime, this.endTime)) {
 						uni.showModal({
 								title: '提示',
-								content: '开始时间不能小于开始时间',
+								content: '结束时间不能小于开始时间',
 								success: function(res) {
 									if (res.confirm) {} else if (res.cancel) {}
 								}
@@ -477,6 +490,16 @@
 					this.alertMsg = "请输入结束时间"
 					this.alert = true
 						return
+				}
+				if(this.industryIds.length === 0){
+					this.alertMsg = "请选择产业"
+					this.alert = true
+					return
+				}
+				if(this.sampleRoomIds.length === 0){
+					this.alertMsg = "请选择样板间类型"
+					this.alert = true
+					return
 				}
 
 				const LIST = []
@@ -536,7 +559,11 @@
 		margin-left: 50upx !important;
 		font-size: 28upx;
 		width: 162upx;
-		// background-color: red
+	}
+	.uni-input-time1 {
+		margin-left: 50upx !important;
+		font-size: 28upx;
+		width: 200upx !important;
 	}
 
 	.uni-input-picker {

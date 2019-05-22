@@ -7,13 +7,21 @@
 			<text class="bt2-houseApply-card-item-name">筑家店名</text>
 			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx" maxlength="20" @blur="nameEnd()" v-model="storeName" placeholder="请输入筑家小区名称"/>
         </li>
+        <view class="uni-list">
+        </view>
+		
         <li class="bt2-houseApply-card-item uni-column">
 			<text class="bt2-houseApply-card-item-name">详细地址</text>
 			<input class="uni-input-address" placeholder-style="color:#999999;line-height:56upx" maxlength="20" @blur="addressEnd()" v-model="address" placeholder="请输入详细地址"/>
+			<!-- <p>选择省</p><p>选择市</p><p>选择区</p> -->
+		</li>
+	<!-- 	<li class="bt2-houseApply-card-item uni-column">
+		<input class="uni-input-address" placeholder-style="color:#999999;line-height:56upx" maxlength="20" @blur="addressEnd()" v-model="address" placeholder="请输入详细地址"/>
 			<view class="bt2-myhouse-card-cnt-opt-location" @click="locationAddress()">
               <img src="@/static/img/haierHouse/Icons／location@2x.png">
             </view>
-		</li>
+		</li> -->
+		
 		<li class="bt2-houseApply-card-item uni-column">
 			<text class="bt2-houseApply-card-item-name">覆盖小区</text>
 			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx" maxlength="20" @blur="coverEnd()" v-model="areaName" placeholder="请输入小区名称"/>
@@ -21,6 +29,9 @@
 		<li class="bt2-houseApply-card-item uni-column" v-for="(x,index) in coverArea" :key="index">
 			<text class="bt2-houseApply-card-item-name">覆盖小区</text>
 			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx" maxlength="20" @blur="coverAddEnd(x)" v-model="x.name" placeholder="请输入小区名称"/>
+			<view class="bt2-myhouse-card-cnt-opt-del" @click="deleteCover(index)">
+              <img src="@/static/img/haierHouse/shanchu.png">
+            </view>
         </li>
 		<li class="bt2-houseApply-card-item uni-column" @click="addCover()">
 		<img src="@/static/img/haierHouse/Icons／add@2x.png" style="width:36upx;">
@@ -72,6 +83,13 @@
 	<view class="bt2-houseApply-btn">
 			<p class="bt2-houseApply-btn-p" @click="submitInfo()">提交</p>
 	</view>
+	<view class="uni-list-cell" v-show="pickerShow">
+                <view class="uni-list-cell-db">
+                    <picker @change="bindPickerChange" :value="index" :range="array">
+                        <view class="uni-input">{{array[index]}}</view>
+                    </picker>
+                </view>
+            </view>
 	<uni-popup :show="alert" type="middle" mode="fixed" :msg=alertMsg @hidePopup="hidePopupAlert" :h5-top="h5top"></uni-popup>
 
   </view>
@@ -82,21 +100,25 @@
   import UniIcon from '@/components/uni-icon/uni-icon.vue';
   import BMultrowCheckbox from "../../components/common/BMultrowCheckbox";
   import uniPopup from "@/components/uni-popup/uni-popup"
-
+import wPicker from "@/components/w-picker/w-picker.vue";
   export default {
     name: "HaierHouseApplySecondPage",
     components: {
       ssUploadImage,
       UniIcon,
 	  BMultrowCheckbox,
-	  uniPopup
+	  uniPopup,
+	  wPicker
     },
     data() {
       return {
+		array: ['中国', '美国', '巴西', '日本'],
+         index: 0,
 		url: this.envConfig.domain + 'buildHouse/uploadImage',
 		// url: 'http://hzytest.haier.com/builtHouse/buildHouse/uploadImage',
         imgName: 'file',
 		ID:'',
+		h5top:true,
         fileList: [],
 		alert:false,
 		alertMsg:'',
@@ -108,7 +130,9 @@
 		startArea:'',
 		endArea:'',
 		avePrice:'',
+		pickerShow:false,
 		nums:1,
+		defaultVal:[10,0,5],
 		apartmentIds:[],
 		coverArea:[],
 		coverAS:[],
@@ -207,9 +231,13 @@
 			  this.alertMsg = '面积不能为空'
 			  return
 		  }
-		  if(this.startArea >= this.endArea){
+		  debugger
+		  if(parseFloat(this.startArea) >= parseFloat(this.endArea)){
+			  debugger
 			  this.alert = true
 			  this.alertMsg = '面积区间有误'
+			  this.startArea = ''
+			  this.endArea = ''
 		  }
 	  },
 	  coverEnd(){
@@ -221,8 +249,6 @@
 				}
 				this.addList.push(item)
 				this.addPromation = true;
-		}else{
-			
 		}
 		
 	  },
@@ -230,9 +256,10 @@
 		if(x.name != ''){
 			const leng = this.addList.length - 1
 			if(leng == this.coverArea.length){
-				var temp = [];
-				temp = this.addList.concat(this.coverArea);
-				this.addList = temp
+				
+				let temp = this.coverArea[this.coverArea.length - 1]
+				this.addList.push(temp)
+				this.addPromation = true
 				}else{
 			for(var i = 0; i < this.coverArea.length ;i ++){
 				if(this.coverArea[i].id == x.id){
@@ -243,6 +270,8 @@
 			}
 			}
 		}
+		
+		
 	  },
 	  addCover(){
 		  if(this.addPromation){
@@ -253,12 +282,36 @@
 				imgs:[]
 				}
 			 this.coverArea.push(item);
+			 this.addPromation = false;
 		  }else{
 			 if(this.areaName === ''){
 			  this.alert = true
 			  this.alertMsg = '小区名不能为空'
 		  } 
 		  }
+	  },
+	  removeByValue(arr, val) {
+				for (var i = 0; i < arr.length;
+					i++) {
+					if (arr[i] == val) {
+						arr.splice(i, 1);
+						break;
+					}
+				}
+			},
+	  deleteCover(index){  
+		  var delItem = {}
+		  this.coverArea.splice(index,1)
+		  this.addList.forEach(item => {
+			  debugger
+			if (this.coverArea[index].name == item.name) {
+						delItem = item
+						return
+					}
+				})
+				debugger
+		  this.removeByValue(this.addList,delItem)
+		  debugger
 	  },
 	  locationAddress(){
       uni.chooseLocation({
@@ -322,8 +375,10 @@
 				communityPic:JSON.stringify(areaImg),
 				coverageAreaPic:JSON.stringify(COVER)
 				}).then(data=>{
-				if(data){
-					console.log(data)
+				if(data.msg ==='success'){
+					uni.reLaunch('/pages/haierHouse/index')
+					}else{
+						this.alertMsg = '提交失败'
 					}
 				})
 				}
@@ -333,7 +388,7 @@
 
 <style scoped lang="scss">
 	.uni-input-address{
-		margin-left: 50upx !important;
+		margin-left: 200upx !important;
 		font-size: 28upx;
 		height: 56upx;
 		line-height: 56upx;
@@ -353,6 +408,17 @@
 			 width: 40upx;
              height: 40upx;
 		}
+	}
+	.bt2-myhouse-card-cnt-opt-del{
+		position: absolute;
+		right: 30upx;
+		img{
+			 width: 36upx;
+             height: 36upx;
+		}
+	}
+	.uni-input{
+		width: 300upx;
 	}
 </style>
 

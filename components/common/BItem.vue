@@ -6,6 +6,9 @@
 			<text class="bt2-houseApply-card-item-name">{{title}}</text>
 			<slot name="title"></slot>
 		</view>
+		<view class="BItem-left">
+			<slot name="left"></slot>
+		</view>
 		<view class="BItem-middle">
 			<slot name="middle"></slot>
 		</view>
@@ -53,5 +56,8 @@
 
 	.BItem-middle {
 		flex-grow: 1;
+	}
+	.BItem-left {
+		margin-left: 10upx;
 	}
 </style>
