@@ -51,6 +51,7 @@
   &myhouse{
     background: #fff;
     padding-top: 24upx;
+	padding-bottom: 24upx;
   }
 
   &myhouse-card{
@@ -253,6 +254,22 @@
 		height: 56upx;
 		line-height: 56upx;
 		width: 200upx
+	}
+.uni-input-timee{
+		// margin-left: 50upx !important;
+		font-size: 28upx;
+		height: 56upx;
+		line-height: 56upx;
+		width: 210upx;
+		// background-color:green
+	}
+	.uni-input-timee1{
+		margin-left: 50upx !important;
+		font-size: 28upx;
+		height: 56upx;
+		line-height: 56upx;
+		width: 210upx;
+		// background-color:green
 	}
 .bt2-houseApply-card-item-star{
 	color: red;

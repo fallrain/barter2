@@ -3,7 +3,7 @@
     <swiper class="swiper-box" :indicator-dots="true" indicator-color="#fff" indicator-active-color="#4A90E2" @change="change">
       <swiper-item v-for="(item ,index) in info" :key="index">
         <view :class="['swiper-item',item.colorClass]">
-          <image :src="item.url" mode="aspectFill" />
+          <image :src="item.url" mode="scaleToFill"/>
         </view>
       </swiper-item>
     </swiper>
@@ -12,18 +12,18 @@
         <img src="@/static/img/haierHouse/apply@2x.png">
         <p class="bt2-house-menu-item-cnt">筑家申请</p>
       </li>
-      <li class="bt2-house-menu-item">
+ <!--     <li class="bt2-house-menu-item">
         <img src="@/static/img/haierHouse/activity@2x.png" @click="jump('/pages/haierHouse/ChooseLeader')">
         <p class="bt2-house-menu-item-cnt">筑家活动</p>
       </li>
       <li class="bt2-house-menu-item">
         <img src="@/static/img/haierHouse/user@2x.png">
         <p class="bt2-house-menu-item-cnt">用户跟进</p>
-      </li>
+      </li> -->
     </ul>
-    <view class="bt2-myhouse mt16" v-show="myInfoShow">
+    <view class="bt2-myhouse mt16">
       <b-title cnt="我的一站筑家"></b-title>
-      <view class="bt2-myhouse-card">
+      <view class="bt2-myhouse-card"  v-show="myInfoShow">
         <img :src="myInfoImg" class="bt2-myhouse-card-portrait">
         <view class="bt2-myhouse-card-cnt">
           <p class="title">{{myAreaList.buildFamilyName}}</p>
@@ -79,12 +79,14 @@
         info: [
           {
             colorClass: 'uni-bg-red',
-            url: require('@/static/img/haierHouse/banner.png'),
+            url:require('@/static/img/haierHouse/banner.png'),
             content: '内容 A'
           },
           {
             colorClass: 'uni-bg-green',
             url: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg',
+						// url:require('@/static/img/haierHouse/WeChat6d40309ca76cc404a4a3da02b753aa71.png'),
+
             content: '内容 B'
           },
           {
