@@ -126,7 +126,8 @@
 		data() {
 			return {
 				imgName: 'file',
-				url: this.envConfig.domain + 'barter-builthouse/buildHouse/uploadImage',
+				// url: this.envConfig.domain + 'buildHouse/uploadImage',
+				url: 'http://hzytest.haier.com/builtHouse/buildHouse/uploadImage',
 				h5top:true,
 				fileList: [],
 				current: 1,
@@ -280,7 +281,7 @@
 			},
 			/*获取产业列表*/
 			getIndustryList(){
-					this.hGet('barter-builthouse/buildHouse/proGrpList', {
+					this.hGet('buildHouse/proGrpList', {
         }).then(data => {
           if (data) {
 						data.forEach(v => {
@@ -495,7 +496,7 @@
 				}
 			}
 
-				this.hPost('barter-builthouse/buildHouse/saveShopInfo', {
+				this.hPost('buildHouse/saveShopInfo', {
 						createBy: 'Z0000001',
 						constructionDirector: this.name,
 						phoneNumber: this.tel,
@@ -511,7 +512,6 @@
 				).then(data => {
 						if (data) {
 							console.log(data)
-							debugger
 							uni.navigateTo({
 						url: '/pages/haierHouse/HaierHouseApplySecondPage?id=' + data,
 						}

@@ -93,7 +93,8 @@
     },
     data() {
       return {
-		url: this.envConfig.domain + 'barter-builthouse/buildHouse/uploadImage',
+		// url: this.envConfig.domain + 'buildHouse/uploadImage',
+		url: 'http://hzytest.haier.com/builtHouse/buildHouse/uploadImage',
         imgName: 'file',
 		ID:'',
         fileList: [],
@@ -145,7 +146,6 @@
     },
 	onLoad(option){
 	this.ID = option.id
-	debugger
 	this.genFileMap()	
 	},
     methods: {
@@ -309,9 +309,7 @@
 						}
 					}
 		const areaImg = this.addList[0].imgs
-
-			debugger
-			this.hPost('barter-builthouse/buildHouse/saveAreaInfo',{
+			this.hPost('buildHouse/saveAreaInfo',{
 				shopId:this.ID,
 				createBy:"Z0000001",
 				buildFamilyName:this.storeName,

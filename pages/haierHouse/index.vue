@@ -114,7 +114,7 @@
       }
     },
     onLoad() {
-			this.hGet('barter-builthouse/buildHouse/getCreateHomeShopinfListByHmcId', {
+			this.hGet('buildHouse/getCreateHomeShopinfListByHmcId', {
           hmcId:'Z0000001'
         }).then(data => {
           if (data) {
