@@ -79,7 +79,7 @@
         info: [
           {
             colorClass: 'uni-bg-red',
-            url: require('@/static/img/haierHouse/banner@2x.png'),
+            url: require('@/static/img/haierHouse/banner.png'),
             content: '内容 A'
           },
           {

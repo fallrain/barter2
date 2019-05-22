@@ -126,8 +126,8 @@
 		data() {
 			return {
 				imgName: 'file',
-				// url: this.envConfig.domain + 'buildHouse/uploadImage',
-				url: 'http://hzytest.haier.com/builtHouse/buildHouse/uploadImage',
+				url: this.envConfig.domain + 'buildHouse/uploadImage',
+				// url: 'http://hzytest.haier.com/builtHouse/buildHouse/uploadImage',
 				h5top:true,
 				fileList: [],
 				current: 1,

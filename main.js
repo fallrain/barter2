@@ -7,7 +7,7 @@ import '@/static/css/common.scss';
 import {hGet, hPost, hPostForm} from '@/lib/request';
 import BValidate from '@/lib/bValidate/BValidate';
 
-const config = require('./config/index.js')['dev'];
+const config = require('./config/index.js')['test'];
 Vue.prototype.envConfig = config;
 Vue.config.productionTip = false;
 Vue.prototype.hGet = hGet;

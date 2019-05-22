@@ -93,8 +93,8 @@
     },
     data() {
       return {
-		// url: this.envConfig.domain + 'buildHouse/uploadImage',
-		url: 'http://hzytest.haier.com/builtHouse/buildHouse/uploadImage',
+		url: this.envConfig.domain + 'buildHouse/uploadImage',
+		// url: 'http://hzytest.haier.com/builtHouse/buildHouse/uploadImage',
         imgName: 'file',
 		ID:'',
         fileList: [],
