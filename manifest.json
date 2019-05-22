@@ -63,6 +63,9 @@
         "usingComponents" : true
     },
     "h5" : {
-        "title" : "兑呗"
+        "title" : "兑呗",
+        "router" : {
+            "base" : "/bs/"
+        }
     }
 }
