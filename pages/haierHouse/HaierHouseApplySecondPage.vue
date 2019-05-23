@@ -428,7 +428,7 @@ import wPicker from "@/components/w-picker/w-picker.vue";
 		width: 450upx;
 		margin-left: 160upx;
 		height: 80upx;
-		z-index: 1000
+		z-index: 10
 	}
 </style>
 
