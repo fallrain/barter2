@@ -9,19 +9,19 @@
         </li>
         <view class="uni-list">
         </view>
-		
+		<li class="bt2-houseApply-card-item uni-column">
+			<text class="bt2-houseApply-card-item-name">选择地区</text>
+			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx" maxlength="20" @blur="coverEnd()" v-model="localName" placeholder="请选择地区"/>
+       	<view  @click="toggleTab()"  class="pickerClass"></view>
+		<w-picker mode="region" :defaultVal="defaultVal" @confirm="onConfirm" ref="picker" themeColor="#4A90E2"></w-picker>
+		</li>
         <li class="bt2-houseApply-card-item uni-column">
 			<text class="bt2-houseApply-card-item-name">详细地址</text>
 			<input class="uni-input-address" placeholder-style="color:#999999;line-height:56upx" maxlength="20" @blur="addressEnd()" v-model="address" placeholder="请输入详细地址"/>
-			<!-- <p>选择省</p><p>选择市</p><p>选择区</p> -->
-		</li>
-	<!-- 	<li class="bt2-houseApply-card-item uni-column">
-		<input class="uni-input-address" placeholder-style="color:#999999;line-height:56upx" maxlength="20" @blur="addressEnd()" v-model="address" placeholder="请输入详细地址"/>
 			<view class="bt2-myhouse-card-cnt-opt-location" @click="locationAddress()">
               <img src="@/static/img/haierHouse/Icons／location@2x.png">
             </view>
-		</li> -->
-		
+		</li>
 		<li class="bt2-houseApply-card-item uni-column">
 			<text class="bt2-houseApply-card-item-name">覆盖小区</text>
 			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx" maxlength="20" @blur="coverEnd()" v-model="areaName" placeholder="请输入小区名称"/>
@@ -83,13 +83,6 @@
 	<view class="bt2-houseApply-btn">
 			<p class="bt2-houseApply-btn-p" @click="submitInfo()">提交</p>
 	</view>
-	<view class="uni-list-cell" v-show="pickerShow">
-                <view class="uni-list-cell-db">
-                    <picker @change="bindPickerChange" :value="index" :range="array">
-                        <view class="uni-input">{{array[index]}}</view>
-                    </picker>
-                </view>
-            </view>
 	<uni-popup :show="alert" type="middle" mode="fixed" :msg=alertMsg @hidePopup="hidePopupAlert" :h5-top="h5top"></uni-popup>
 
   </view>
@@ -112,8 +105,7 @@ import wPicker from "@/components/w-picker/w-picker.vue";
     },
     data() {
       return {
-		array: ['中国', '美国', '巴西', '日本'],
-         index: 0,
+		localName:'',
 		url: this.envConfig.domain + 'buildHouse/uploadImage',
 		// url: 'http://hzytest.haier.com/builtHouse/buildHouse/uploadImage',
         imgName: 'file',
@@ -132,7 +124,6 @@ import wPicker from "@/components/w-picker/w-picker.vue";
 		avePrice:'',
 		pickerShow:false,
 		nums:1,
-		defaultVal:[10,0,5],
 		apartmentIds:[],
 		coverArea:[],
 		coverAS:[],
@@ -172,7 +163,19 @@ import wPicker from "@/components/w-picker/w-picker.vue";
 	this.ID = option.id
 	this.genFileMap()	
 	},
+	computed:{
+	defaultVal(){
+				return [10,2,7]
+			}	
+	},
     methods: {
+		toggleTab(){
+				this.$refs.picker.show();
+			},
+			onConfirm(val){
+				console.log(val);
+				this.localName = val.result
+			},
 		genFileMap() {
 			const LIST = [];
 			for(var i = 0; i < 100 ; i++){
@@ -388,7 +391,7 @@ import wPicker from "@/components/w-picker/w-picker.vue";
 
 <style scoped lang="scss">
 	.uni-input-address{
-		margin-left: 200upx !important;
+		margin-left: 50upx !important;
 		font-size: 28upx;
 		height: 56upx;
 		line-height: 56upx;
@@ -419,6 +422,13 @@ import wPicker from "@/components/w-picker/w-picker.vue";
 	}
 	.uni-input{
 		width: 300upx;
+	}
+	.pickerClass{
+		position: absolute;
+		width: 450upx;
+		margin-left: 160upx;
+		height: 80upx;
+		z-index: 1000
 	}
 </style>
 
