@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="bt2-houseApply-card">
+		<!-- <view class="bt2-houseApply-card">
 			<p class="bt2-houseApply-card-title">门店基础信息</p>
 			<ul class="bt2-houseApply-card-cnt">
 				<li class="bt2-houseApply-card-item uni-column" >
@@ -20,56 +20,70 @@
 					 placeholder-style="color:#999999;line-height:56upx" type="number" maxlength="11" @blur="telEnd()" v-model="tel"
 					 placeholder="请输入" /></li>
 			</ul>
-		</view>
+		</view> -->
 		<view class="bt2-houseApply-card">
 			<p class="bt2-houseApply-card-title">一站筑家信息</p>
 			<ul class="bt2-houseApply-card-cnt">
+				<li class="bt2-houseApply-card-item uni-column"><span class="bt2-houseApply-card-item-star">*</span>
+				<text class="bt2-houseApply-card-item-name-long">筑家小区名</text>
+				<input class="uni-input-areaName" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="请输入筑家小区名" v-model="blockName" @blur="blockEnd()"/>
+				</li>
 				<li class="bt2-houseApply-card-item"><span class="bt2-houseApply-card-item-star">*</span>
-				<text class="bt2-houseApply-card-item-name">样板间类型</text></li>
+				<text class="bt2-houseApply-card-item-name-long">样板间类型</text></li>
 				<li class="bt2-houseApply-card-item-mult bt2-houseApply-card-item">
 					<b-multrow-radio :list="sampleRoomTypeList" :checkedId.sync="sampleRoomIds"></b-multrow-radio>
 				</li>
-				<li class="bt2-houseApply-card-item uni-column"><span class="bt2-houseApply-card-item-star">*</span><text class="bt2-houseApply-card-item-name">样板间面积</text><input
-					 class="uni-input" placeholder-style="color:#999999;line-height:56upx" placeholder="请输入" v-model="roomArea" @blur="areaEnd()" type="digit"/>
+				<li class="bt2-houseApply-card-item uni-column"><span class="bt2-houseApply-card-item-star">*</span>
+				<text class="bt2-houseApply-card-item-name-long">样板间面积</text>
+				<input
+					 class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="请输入房屋面积" v-model="roomArea" @blur="areaEnd()" type="digit"/>
 					<p class="bt2-houseApply-card-item-unit">平米</p>
 				</li>
+				<li class="bt2-houseApply-card-item uni-column">
+					<span class="bt2-houseApply-card-item-star">*</span>
+				<text class="bt2-houseApply-card-item-name-long">详细地址</text>
+				<input class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" maxlength="20" @blur="coverEnd()" v-model="localName" placeholder="请选择地区"/>
+				<view  @click="toggleTab()"  class="pickerClass"></view>
+				<w-picker mode="region" :defaultVal="defaultVal" @confirm="onConfirm" ref="picker" themeColor="#4A90E2"></w-picker>
+				</li>
+				<li class="bt2-houseApply-card-item uni-column">
+				<text class="bt2-houseApply-card-item-name"></text>
+				<input class="uni-input-address" placeholder-style="color:#999999;line-height:56upx;margin-left:15upx;font-size:32upx" placeholder="请输入详细地址,具体到门牌号" v-model="address" @blur="addressEnd()"/></li>
 				<li class="bt2-houseApply-card-item uni-column"><span class="bt2-houseApply-card-item-star">*</span>
-				<text class="bt2-houseApply-card-item-name">详细地址</text>
-				<input class="uni-input" placeholder-style="color:#999999;line-height:56upx" placeholder="请输入" v-model="address" @blur="addressEnd()"/></li>
-				<li class="bt2-houseApply-card-item uni-column"><span class="bt2-houseApply-card-item-star">*</span>
-				<text class="bt2-houseApply-card-item-name">样板间租金</text>
-				<input class="uni-input" placeholder-style="color:#999999;line-height:56upx" placeholder="请输入" v-model="rent" @blur="rentEnd()" type="digit"/>
+				<text class="bt2-houseApply-card-item-name-long">样板间租金</text>
+				<input class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="请输入租金" v-model="rent" @blur="rentEnd()" type="digit"/>
 					<p class="bt2-houseApply-card-item-unit">元/月</p>
 				</li>
-				<li class="bt2-houseApply-card-item uni-column"><span class="bt2-houseApply-card-item-star">*</span><text class="bt2-houseApply-card-item-name">租赁时间</text>
+				<li class="bt2-houseApply-card-item uni-column"><span class="bt2-houseApply-card-item-star">*</span><text class="bt2-houseApply-card-item-name-long">租赁时间</text>
 					<view class="uni-list-cell-db-start">
 						<picker mode="date" :value="dateS" :start="startDateS" :end="endDateS" @change="bindDateChangeS">
 							<view class="uni-input-timee1"> {{dateS}}</view>
 						</picker>
 					</view>
-					<input class="uni-input-time" placeholder-style="color:#999999;line-height:56upx" placeholder="开始时间" @click="startTimeSelect()"
+					<input class="uni-input-time" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="开始时间" @click="startTimeSelect()"
 					 v-model="startTime" />
 					<p style="margin-left: 20upx;">至</p>
 					<view class="uni-list-cell-db-end">
 						<picker mode="date" :value="dateE" :start="startDateE" :end="endDateE" @change="bindDateChangeE">
 							<view class="uni-input-timee"> {{dateE}}</view>
 						</picker>
-					</view><input class="uni-input-time" placeholder-style="color:#999999;line-height:56upx" placeholder="结束时间" @click="endTimeSelect()"
+					</view><input class="uni-input-time" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="结束时间" @click="endTimeSelect()"
 					 v-model="endTime" />
 				</li>
 				<li class="bt2-houseApply-card-item"><span class="bt2-houseApply-card-item-star">*</span>
-				<text class="bt2-houseApply-card-item-name">入驻产业</text></li>
+				<text class="bt2-houseApply-card-item-name-long">入驻产业</text></li>
 				<li class="bt2-houseApply-card-item-mult bt2-houseApply-card-item">
 					<b-multrow-checkbox :list="items3" :checkedIds.sync="industryIds" :checkboxChange1="checkboxChange"></b-multrow-checkbox>
 				</li>
+					
 			</ul>
 			<view class="mt16" v-for="(industry,index) in checkedIndustry" :key="index">
 				<ul class="bt2-houseApply-card-cnt">
-					<li class="bt2-houseApply-card-item"> {{industry.name}}</li>
+					<li class="bt2-houseApply-card-item"> {{industry.name}}区域照片</li>
 					<ss-upload-image :url="url" :file-list="fileMap[industry.id]" :name="imgName" :formData="industry" @on-success="onSuccess" @on-error="onError"
 					 @on-remove="onRemove" />
-				</ul>
-			</view>
+				</ul>	
+			</view>			
 		</view>
 		<view class="bt2-houseApply-btn">
 			<p class="bt2-houseApply-btn-p" @click="nextPage()">下一步</p>
@@ -139,6 +153,9 @@
 				// url: 'http://hzytest.haier.com/builtHouse/buildHouse/uploadImage',
 				h5top:true,
 				fileList: [],
+				blockName:'',
+				localName:'',
+				defaultVal: [10,2,7],
 				current: 1,
 				name: '',
 				tel: '',
@@ -272,8 +289,16 @@
 						url: '/pages/haierHouse/ChooseLeader'
 					});
 			}	,
+			
 			showMessage(){
 			this.middle = true	
+			},
+			toggleTab(){
+				this.$refs.picker.show();
+			},
+			onConfirm(val){
+				console.log(val);
+				this.localName = val.result
 			},
 			genFileMap() {
 				var temp = [];
@@ -296,7 +321,7 @@
 					this.hGet('buildHouse/proGrpList', {
         }).then(data => {
           if (data) {
-						data.forEach(v => {
+						data.data.forEach(v => {
 							const temp = {
 								id:v.productCode,
 								name:v.productName,
@@ -406,10 +431,16 @@
 					this.alertMsg = '请输入筑家负责人'
 				}
 			},
-			areaEnd(){
-				if(this.area === ''){
+			blockEnd(){
+				if(this.blockName === ''){
 					this.alert = true
-					this.alertMsg = '请输入面积'
+					this.alertMsg = '请输入筑家小区名'
+				}	
+			},
+			areaEnd(){
+				if(this.roomArea === ''){
+					this.alert = true
+					this.alertMsg = '请输入房屋面积'
 				}
 			},
 			addressEnd(){
@@ -456,18 +487,28 @@
 				this.alert = false;
 			},
 			nextPage() {
-				if(this.name === ''){
-						this.alertMsg = "请输入筑家负责人"
+				// if(this.name === ''){
+				// 		this.alertMsg = "请输入筑家负责人"
+				// 		this.alert = true
+				// 		return
+				// }
+				if(this.blockName === ''){
+						this.alertMsg = "请输入筑家小区名"
 						this.alert = true
 						return
 				}
-				if(this.tel === ''){
-						this.alertMsg = "请输入手机号"
-						this.alert = true
-						return
-				}
+				// if(this.tel === ''){
+				// 		this.alertMsg = "请输入手机号"
+				// 		this.alert = true
+				// 		return
+				// }
 				if(this.roomArea === ''){
 						this.alertMsg = "请输入房间面积"
+						this.alert = true
+						return
+				}
+				if(this.localName === ''){
+						this.alertMsg = "请选择地区"
 						this.alert = true
 						return
 				}
@@ -522,6 +563,8 @@
 				this.hPost('buildHouse/saveShopInfo', {
 						createBy: 'Z0000001',
 						constructionDirector: this.name,
+						provinces:this.localName,
+						buildAreaName:this.blockName,
 						phoneNumber: this.tel,
 						templateType: this.sampleRoomIds,
 						area: this.roomArea,
@@ -533,10 +576,9 @@
 					}
 
 				).then(data => {
-						if (data) {
-							console.log(data)
+						if (data.data) {
 							uni.navigateTo({
-						url: '/pages/haierHouse/HaierHouseApplySecondPage?id=' + data,
+						url: '/pages/haierHouse/HaierHouseApplySecondPage?id=' + data.data,
 						}
 					);
 						}
@@ -551,7 +593,7 @@
 	.uni-input {
 		// background-color: aquamarine;
 		margin-left: 50upx !important;
-		font-size: 28upx;
+		font-size: 32upx;
 		width: 300upx !important;
 	}
 
@@ -568,7 +610,7 @@
 
 	.uni-input-picker {
 		margin-left: 10upx !important;
-		font-size: 28upx;
+		font-size: 32upx;
 		width: 150upx
 	}
 
@@ -585,7 +627,7 @@
 		margin-left: 40upx;
 		margin-top: 24upx;
 		color: #000000;
-		font-size: 28upx;
+		font-size: 32upx;
 		height: 120upx;
 		margin-bottom: 16upx;
 	}
@@ -615,5 +657,13 @@
 		width: 100upx;
 		z-index: 100;
 	}
+	.pickerClass{
+		position: absolute;
+		width: 450upx;
+		margin-left: 160upx;
+		height: 80upx;
+		z-index: 10
+	}
+
 
 </style>

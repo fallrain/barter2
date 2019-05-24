@@ -4,44 +4,24 @@
       <p class="bt2-houseApply-card-title">小区信息</p>
       <ul class="bt2-houseApply-card-cnt">
         <li class="bt2-houseApply-card-item">
-			<text class="bt2-houseApply-card-item-name">筑家店名</text>
-			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx" maxlength="20" @blur="nameEnd()" v-model="storeName" placeholder="请输入筑家小区名称"/>
+			<text class="bt2-houseApply-card-item-name">小区名称</text>
+			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" maxlength="20" @blur="nameEnd()" v-model="storeName" placeholder="请输入筑家小区名称"/>
         </li>
         <view class="uni-list">
         </view>
 		<li class="bt2-houseApply-card-item uni-column">
 			<text class="bt2-houseApply-card-item-name">选择地区</text>
-			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx" maxlength="20" @blur="coverEnd()" v-model="localName" placeholder="请选择地区"/>
-       	<view  @click="toggleTab()"  class="pickerClass"></view>
+			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" maxlength="20" v-model="localName" placeholder="请选择地区"/>
+			<view  @click="toggleTab()"  class="pickerClass"></view>
 		<w-picker mode="region" :defaultVal="defaultVal" @confirm="onConfirm" ref="picker" themeColor="#4A90E2"></w-picker>
 		</li>
         <li class="bt2-houseApply-card-item uni-column">
-			<text class="bt2-houseApply-card-item-name">详细地址</text>
-			<input class="uni-input-address" placeholder-style="color:#999999;line-height:56upx" maxlength="20" @blur="addressEnd()" v-model="address" placeholder="请输入详细地址"/>
+			<text class="bt2-houseApply-card-item-name">小区地址</text>
+			<input class="uni-input-address" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" maxlength="20" @blur="addressEnd()" v-model="address" placeholder="请输入详细地址"/>
 			<view class="bt2-myhouse-card-cnt-opt-location" @click="locationAddress()">
               <img src="@/static/img/haierHouse/Icons／location@2x.png">
             </view>
 		</li>
-		<li class="bt2-houseApply-card-item uni-column">
-			<text class="bt2-houseApply-card-item-name">覆盖小区</text>
-			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx" maxlength="20" @blur="coverEnd()" v-model="areaName" placeholder="请输入小区名称"/>
-        </li>
-		<li class="bt2-houseApply-card-item uni-column" v-for="(x,index) in coverArea" :key="index">
-			<text class="bt2-houseApply-card-item-name">覆盖小区</text>
-			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx" maxlength="20" @blur="coverAddEnd(x)" v-model="x.name" placeholder="请输入小区名称"/>
-			<view class="bt2-myhouse-card-cnt-opt-del" @click="deleteCover(index)">
-              <img src="@/static/img/haierHouse/shanchu.png">
-            </view>
-        </li>
-		<li class="bt2-houseApply-card-item uni-column" @click="addCover()">
-		<img src="@/static/img/haierHouse/Icons／add@2x.png" style="width:36upx;">
-          <p class="add-p">添加覆盖小区</p>
-        </li>
-      </ul>
-    </view>
-    <view class="bt2-houseApply-card">
-      <p class="bt2-houseApply-card-title"></p>
-      <ul class="bt2-houseApply-card-cnt">
         <li class="bt2-houseApply-card-item">
 			<text class="bt2-houseApply-card-item-name">小区户型</text>
         </li>
@@ -52,25 +32,121 @@
 
 		<li class="bt2-houseApply-card-item uni-column">
 			<text class="bt2-houseApply-card-item-name">小区面积</text>
-			<input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="startArea" type="digit" @blur="areaStart"/>
+			<input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx;font-size:32upx;font-size:32upx"  placeholder="请输入" v-model="startArea" type="digit" @blur="areaStart"/>
 			<p>至</p>
-			<input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="endArea" type="digit" @blur="areaEnd"/>
+			<input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx;font-size:32upx;font-size:32upx"  placeholder="请输入" v-model="endArea" type="digit" @blur="areaEnd"/>
 			<p class="bt2-houseApply-card-item-unit">平米</p>
 		</li>
         <li class="bt2-houseApply-card-item uni-column">
 			<text class="bt2-houseApply-card-item-name">均价</text>
-			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入小区均价" v-model="avePrice" type="digit"/>
+			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx;font-size:32upx"  placeholder="请输入小区均价" v-model="avePrice" type="digit"/>
 			<p class="bt2-houseApply-card-item-unit">元/平米</p>
 			 </li>
       </ul>
-    <!--  <view class="mt16">
-        <ul class="bt2-houseApply-card-cnt">
-          <li class="bt2-houseApply-card-item">
-            小区照片
-          </li>
-          <ss-upload-image :url="url" :file-list="fileList" :name="imgName" @on-success="onSuccess" @on-error="onError" @on-remove="onRemove"/>
-        </ul>
-      </view> -->
+    </view>
+	
+	
+	 <view class="bt2-houseApply-card">
+	<li class="bt2-houseApply-card-item uni-column">
+		<p class="bt2-houseApply-card-title">覆盖小区信息</p>
+	</li>  
+      <ul class="bt2-houseApply-card-cnt">
+        <li class="bt2-houseApply-card-item">
+			<text class="bt2-houseApply-card-item-name">小区名称</text>
+			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" maxlength="20" @blur="coverEnd()" v-model="areaName" placeholder="请输入小区名称"/>
+        </li>
+        <view class="uni-list">
+        </view>
+		<li class="bt2-houseApply-card-item uni-column">
+			<text class="bt2-houseApply-card-item-name">选择地区</text>
+			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" maxlength="20" v-model="areaLocalName" placeholder="请选择地区"/>
+       	<view  @click="toggleTab()"  class="pickerClass">{{areaLocalName}}</view>
+		<w-picker mode="region" :defaultVal="defaultVal" @confirm="onConfirm" ref="picker" themeColor="#4A90E2"></w-picker>
+		</li>
+        <li class="bt2-houseApply-card-item uni-column">
+			<text class="bt2-houseApply-card-item-name">小区地址</text>
+			<input class="uni-input-address" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" maxlength="20" @blur="addressEnd()" v-model="areaAddress" placeholder="请输入详细地址"/>
+			<view class="bt2-myhouse-card-cnt-opt-location" @click="locationAddress()">
+              <img src="@/static/img/haierHouse/Icons／location@2x.png">
+            </view>
+		</li>
+        <li class="bt2-houseApply-card-item">
+			<text class="bt2-houseApply-card-item-name">小区户型</text>
+        </li>
+
+	   <li class="bt2-houseApply-card-item-mult bt2-houseApply-card-item">
+          <b-multrow-checkbox :list="items" :checkedIds.sync="areaApartmentIds" :checkboxChange="checkboxChangeArea"></b-multrow-checkbox>
+        </li>
+
+		<li class="bt2-houseApply-card-item uni-column">
+			<text class="bt2-houseApply-card-item-name">小区面积</text>
+			<input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx;font-size:32upx"  placeholder="请输入" v-model="areaStartArea" type="digit" @blur="areaStart"/>
+			<p>至</p>
+			<input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx;font-size:32upx"  placeholder="请输入" v-model="areaEndArea" type="digit" @blur="areaEnd"/>
+			<p class="bt2-houseApply-card-item-unit">平米</p>
+		</li>
+        <li class="bt2-houseApply-card-item uni-column">
+			<text class="bt2-houseApply-card-item-name">均价</text>
+			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx"  placeholder="请输入小区均价" v-model="areaAvePrice" type="digit"/>
+			<p class="bt2-houseApply-card-item-unit">元/平米</p>
+			 </li>
+      </ul>
+    </view>
+	
+	<view class="bt2-houseApply-card" v-for="(x,index) in coverArea" :key="index">
+	<li class="bt2-houseApply-card-item uni-column">
+		<p class="bt2-houseApply-card-title">覆盖小区信息</p>
+		<p class="bt2-houseApply-card-delete" @click="deleteCover(index)">删除</p>
+	</li>  
+      <ul class="bt2-houseApply-card-cnt">
+        <li class="bt2-houseApply-card-item">
+			<text class="bt2-houseApply-card-item-name">小区名称</text>
+			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx" maxlength="20" @blur="coverAddEnd(x)()" v-model="x.name" placeholder="请输入小区名称"/>
+        </li>
+        <view class="uni-list">
+        </view>
+		<li class="bt2-houseApply-card-item uni-column">
+			<text class="bt2-houseApply-card-item-name">选择地区</text>
+			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx" maxlength="20" v-model="x.localName" placeholder="请选择地区"/>
+       	<view  @click="toggleTab()"  class="pickerClass"></view>
+		<w-picker mode="region" :defaultVal="defaultVal" @confirm="onConfirm" ref="picker" themeColor="#4A90E2"></w-picker>
+		</li>
+        <li class="bt2-houseApply-card-item uni-column">
+			<text class="bt2-houseApply-card-item-name">小区地址</text>
+			<input class="uni-input-address" placeholder-style="color:#999999;line-height:56upx" maxlength="20" @blur="addressEnd()" v-model="x.address" placeholder="请输入详细地址"/>
+			<view class="bt2-myhouse-card-cnt-opt-location" @click="locationAddress()">
+              <img src="@/static/img/haierHouse/Icons／location@2x.png">
+            </view>
+		</li>
+        <li class="bt2-houseApply-card-item">
+			<text class="bt2-houseApply-card-item-name">小区户型</text>
+        </li>
+
+	   <li class="bt2-houseApply-card-item-mult bt2-houseApply-card-item">
+          <b-multrow-checkbox :list="items" :checkedIds.sync="x.apartmentIds" :checkboxChange="checkboxChangeAdd"></b-multrow-checkbox>
+        </li>
+
+		<li class="bt2-houseApply-card-item uni-column">
+			<text class="bt2-houseApply-card-item-name">小区面积</text>
+			<input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="x.startArea" type="digit" @blur="areaStart"/>
+			<p>至</p>
+			<input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入" v-model="x.endArea" type="digit" @blur="areaEnd"/>
+			<p class="bt2-houseApply-card-item-unit">平米</p>
+		</li>
+        <li class="bt2-houseApply-card-item uni-column">
+			<text class="bt2-houseApply-card-item-name">均价</text>
+			<input class="uni-input" placeholder-style="color:#999999;line-height:56upx"  placeholder="请输入小区均价" v-model="x.avePrice" type="digit"/>
+			<p class="bt2-houseApply-card-item-unit">元/平米</p>
+		 </li>
+      </ul>
+    </view>
+	<ul class="bt2-houseApply-card-cnt-add">
+	<li class="bt2-houseApply-card-item uni-column" @click="addCover()">
+		<!-- <img src="@/static/img/haierHouse/Icons／add@2x.png" style="width:36upx;"> -->
+          <p class="bt2-houseApply-card-add">新增小区</p>
+     </li>
+	</ul>
+    <view class="bt2-houseApply-card">
 	  <view class="mt16" v-for="(area,index) in addList" :key="index">
         <ul class="bt2-houseApply-card-cnt">
           <li class="bt2-houseApply-card-item">
@@ -114,10 +190,14 @@ import wPicker from "@/components/w-picker/w-picker.vue";
         fileList: [],
 		alert:false,
 		alertMsg:'',
-        current: 1,
 		address:'',
 		areaName:'',
-		areaAddName:'',
+		areaApartmentIds:[],
+		areaAddress:'',
+		areaEndArea:'',
+		areaLocalName:'',
+		areaStartArea:'',
+		areaAvePrice:'',
 		storeName:'',
 		startArea:'',
 		endArea:'',
@@ -127,9 +207,16 @@ import wPicker from "@/components/w-picker/w-picker.vue";
 		apartmentIds:[],
 		coverArea:[],
 		coverAS:[],
+		tempAreaName:'',
 		addList:[{id:0,
 				name:'小区',
-				imgs:[]
+				imgs:[],
+				localName:'',
+				address:'',
+				apartmentIds:[],
+				startArea:'',
+				endArea:'',
+				avePrice:'',
 				}],
 		fileMap:{},
 		addPromation:false,
@@ -182,7 +269,13 @@ import wPicker from "@/components/w-picker/w-picker.vue";
 				const aa = {
 					id:i,
 					name:'',
-					imgs:[]
+					imgs:[],
+					localName:'',
+					address:'',
+					apartmentIds:[],
+					startArea:'',
+					endArea:'',
+					avePrice:'',
 				}
 				LIST.push(aa);
 			}
@@ -194,8 +287,10 @@ import wPicker from "@/components/w-picker/w-picker.vue";
         });
       },
       checkboxChange(data) {
-		  this.apartmentIds = data.value
-		  console.log(this.apartmentIds)
+      },
+	   checkboxChangeArea(data) {
+      },
+	  checkboxChangeAdd(data) {
       },
       onSuccess({data, fileList}) {
         fileList.push(data.data.imageUrl);
@@ -234,9 +329,7 @@ import wPicker from "@/components/w-picker/w-picker.vue";
 			  this.alertMsg = '面积不能为空'
 			  return
 		  }
-		  debugger
 		  if(parseFloat(this.startArea) >= parseFloat(this.endArea)){
-			  debugger
 			  this.alert = true
 			  this.alertMsg = '面积区间有误'
 			  this.startArea = ''
@@ -245,29 +338,47 @@ import wPicker from "@/components/w-picker/w-picker.vue";
 	  },
 	  coverEnd(){
 		if(this.areaName != ''){
+			if(this.tempAreaName == this.areaName){
+				return
+			}
 			var item = {
 				id:1,
 				name:this.areaName,
-				imgs:[]
+				imgs:[],
+				localName:'',
+				address:'',
+				apartmentIds:'',
+				startArea:'',
+				endArea:'',
+				avePrice:'',
 				}
+				debugger
 				this.addList.push(item)
+				this.tempAreaName = this.areaName
 				this.addPromation = true;
 		}
 		
 	  },
 	  coverAddEnd(x){
+		  debugger
 		if(x.name != ''){
 			const leng = this.addList.length - 1
 			if(leng == this.coverArea.length){
-				
 				let temp = this.coverArea[this.coverArea.length - 1]
 				this.addList.push(temp)
 				this.addPromation = true
 				}else{
 			for(var i = 0; i < this.coverArea.length ;i ++){
+				debugger
 				if(this.coverArea[i].id == x.id){
 					this.coverArea[i].name = x.name
 					this.coverArea[i].imgs = []
+					this.coverArea[i].localName = x.localName
+					this.coverArea[i].apartmentIds = x.apartmentIds
+					this.coverArea[i].address = x.address
+					this.coverArea[i].avePrice = x.avePrice
+					this.coverArea[i].areaEnd = x.areaEnd
+					this.coverArea[i].areaStart = x.areaStart
 					return
 				}
 			}
@@ -282,7 +393,13 @@ import wPicker from "@/components/w-picker/w-picker.vue";
 			 var item = {
 				id:this.nums,
 				name:'',
-				imgs:[]
+				imgs:[],
+				localName:'',
+				address:'',
+				apartmentIds:[],
+				startArea:'',
+				endArea:'',
+				avePrice:'',				
 				}
 			 this.coverArea.push(item);
 			 this.addPromation = false;
@@ -304,17 +421,16 @@ import wPicker from "@/components/w-picker/w-picker.vue";
 			},
 	  deleteCover(index){  
 		  var delItem = {}
-		  this.coverArea.splice(index,1)
 		  this.addList.forEach(item => {
-			  debugger
 			if (this.coverArea[index].name == item.name) {
 						delItem = item
 						return
 					}
 				})
 				debugger
-		  this.removeByValue(this.addList,delItem)
-		  debugger
+			this.coverArea.splice(index,1)
+			this.removeByValue(this.addList,delItem)
+			this.addPromation = true;
 	  },
 	  locationAddress(){
       uni.chooseLocation({
@@ -324,6 +440,7 @@ import wPicker from "@/components/w-picker/w-picker.vue";
 	  })
 	  },
 		submitInfo(){
+			
 			if(this.storeName === ''){
 						this.alertMsg = "请输入店名"
 						this.alert = true
@@ -344,23 +461,29 @@ import wPicker from "@/components/w-picker/w-picker.vue";
 					this.alert = true
 						return
 				}
-			const List = []
+			if(this.nums == 1){
+			  this.addList[0].apartmentIds = this.areaApartmentIds
+			  this.addList[0]. areaLocalName= this.areaLocalName
+			  this.addList[0].areaAddress = this.areaAddress
+			  this.addList[0].areaStartArea = this.areaStartArea
+			  this.addList[0].areaEndArea = this.areaEndArea
+			  this.addList[0].areaAvePrice = this.areaAvePrice	  
+		  }
 			const nameList = []
 			const COVER = []
 		for(var i = 0; i < this.addList.length; i++){
 				for(var key in this.fileMap){
-					if(this.addList[i].id == key){
-						let aa = {
-								id:key,
-								imgs:this.fileMap[key]
-							}
-						List.push(aa)
-						if(key != 0){
-							COVER.push(aa)
-						}
-						nameList.push(this.addList[i].name);
 					this.addList[i].imgs = this.fileMap[key]
-
+					if(this.addList[i].id == key){
+						// let aa = {
+						// 		id:key,
+						// 		imgs:this.fileMap[key]
+						// 	}
+						// List.push(this.addList[i])
+						if(key != 0){
+							COVER.push(this.addList[i])
+							nameList.push(this.addList[i].name);
+						}
 							}
 						}
 					}
@@ -376,10 +499,15 @@ import wPicker from "@/components/w-picker/w-picker.vue";
 				areaEnd:this.endArea,
 				averagePrice:this.avePrice,
 				communityPic:JSON.stringify(areaImg),
-				coverageAreaPic:JSON.stringify(COVER)
+				coverageAreaPic:JSON.stringify(COVER),
+				provinces:this.localName
 				}).then(data=>{
+					debugger
+					console.log(data)
 				if(data.msg ==='success'){
-					uni.reLaunch('/pages/haierHouse/index')
+							uni.reLaunch({
+								url: '/pages/haierHouse/index'
+									})
 					}else{
 						this.alertMsg = '提交失败'
 					}
@@ -392,14 +520,14 @@ import wPicker from "@/components/w-picker/w-picker.vue";
 <style scoped lang="scss">
 	.uni-input-address{
 		margin-left: 50upx !important;
-		font-size: 28upx;
+		font-size: 32upx;
 		height: 56upx;
 		line-height: 56upx;
 		width: 430upx
 	}
 	.uni-input-area{
 		margin-left: 50upx !important;
-		font-size: 28upx;
+		font-size: 32upx;
 		width: 140upx;
 	}
 	.add-p{
@@ -425,10 +553,12 @@ import wPicker from "@/components/w-picker/w-picker.vue";
 	}
 	.pickerClass{
 		position: absolute;
+		// background-color: red;
 		width: 450upx;
 		margin-left: 160upx;
 		height: 80upx;
 		z-index: 10
 	}
+	
 </style>
 

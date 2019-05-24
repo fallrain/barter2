@@ -79,7 +79,7 @@
         info: [
           {
             colorClass: 'uni-bg-red',
-            url:require('@/static/img/haierHouse/banner.png'),
+            url:require('@/static/img/haierHouse/banner.jpeg'),
             content: '内容 A'
           },
           {
@@ -121,7 +121,8 @@
         }).then(data => {
           if (data) {
 						this.myAreaList = data[0]
-						const picList = JSON.parse(this.myAreaList.inIndustryPic)
+						if(this.myAreaList.inIndustryPic){
+							const picList = JSON.parse(this.myAreaList.inIndustryPic)
 						this.myInfoImg = picList[0].imgs[0];
 						var temp = []
 						for(var i = 0; i < picList.length;i ++){
@@ -129,7 +130,9 @@
 						}
 						temp.shift()
 						this.industry = temp.join(",")
+						}
 						this.myInfoShow = true
+						debugger
           } 
         })
 
