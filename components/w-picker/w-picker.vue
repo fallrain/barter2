@@ -76,7 +76,7 @@
 			};
 		},
 		computed:{
-			
+
 		},
 		props:{
 			mode:{
@@ -109,6 +109,9 @@
 					return [0,0,0,0,0,0]
 				}
 			},
+			choosedVal:{
+
+			},
 			step:{
 				type:null,
 				default:1
@@ -138,6 +141,11 @@
 			},
 			pickerConfirm(e){
 				this.$emit("confirm",{
+					checkArr:this.checkArr,
+					defaultVal:this.pickVal,
+					result:this.resultStr
+				});
+				this.$emit('update:choosedVal',{
 					checkArr:this.checkArr,
 					defaultVal:this.pickVal,
 					result:this.resultStr
@@ -334,7 +342,7 @@
 		  	font-size: 30upx;
 		  }
 		}
-		
+
 		.w-picker-hd:after {
 		  content: ' ';
 		  position: absolute;
