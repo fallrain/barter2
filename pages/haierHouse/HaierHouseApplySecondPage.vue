@@ -13,10 +13,10 @@
         <li class="bt2-houseApply-card-item uni-column">
           <text class="bt2-houseApply-card-item-name">选择地区</text>
           <input class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" maxlength="20"
-                 v-model="localName" placeholder="请选择地区"/>
+                 v-model="localName.result" placeholder="请选择地区"/>
           <view @click="toggleTab('A')" class="pickerClass"></view>
           <w-picker mode="region" :defaultVal="defaultVal" @confirm="onConfirm" ref="pickerA"
-                    themeColor="#4A90E2"></w-picker>
+                    themeColor="#4A90E2" :choosedVal.sync="localName"></w-picker>
         </li>
         <li class="bt2-houseApply-card-item uni-column">
           <text class="bt2-houseApply-card-item-name">小区地址</text>
@@ -71,10 +71,10 @@
         <li class="bt2-houseApply-card-item uni-column">
           <text class="bt2-houseApply-card-item-name">选择地区</text>
           <input class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" maxlength="20"
-                 v-model="areaLocalName" placeholder="请选择地区"/>
-          <view @click="toggleTab('B')" class="pickerClass">{{areaLocalName}}</view>
+                 v-model="areaLocalName.result" placeholder="请选择地区"/>
+          <view @click="toggleTab('B')" class="pickerClass"></view>
           <w-picker mode="region" :defaultVal="defaultVal" @confirm="onConfirm" ref="pickerB"
-                    themeColor="#4A90E2"></w-picker>
+                    themeColor="#4A90E2" :choosedVal.sync="areaLocalName"></w-picker>
         </li>
         <li class="bt2-houseApply-card-item uni-column">
           <text class="bt2-houseApply-card-item-name">小区地址</text>
@@ -127,12 +127,12 @@
         <li class="bt2-houseApply-card-item uni-column">
           <text class="bt2-houseApply-card-item-name">选择地区</text>
           <input class="uni-input" placeholder-style="color:#999999;line-height:56upx" maxlength="20"
-                 v-model="x.localName" placeholder="请选择地区"/>
+                 v-model="x.localName.result" placeholder="请选择地区"/>
           <view @click="toggleTab(index)" class="pickerClass"></view>
           <w-picker
             mode="region"
             :defaultVal="defaultVal"
-            :choosedVal.sync="x.img"
+            :choosedVal.sync="x.localName"
             @confirm="onConfirm"
             :ref="'picker'+index"
             themeColor="#4A90E2"
@@ -216,7 +216,7 @@
     },
     data() {
       return {
-        localName: '',
+        localName: [],
         url: this.envConfig.domain + 'buildHouse/uploadImage',
         // url: 'http://hzytest.haier.com/builtHouse/buildHouse/uploadImage',
         imgName: 'file',
@@ -230,7 +230,7 @@
         areaApartmentIds: [],
         areaAddress: '',
         areaEndArea: '',
-        areaLocalName: '',
+        areaLocalName: [],
         areaStartArea: '',
         areaAvePrice: '',
         storeName: '',
@@ -247,7 +247,7 @@
           id: 0,
           name: '小区',
           imgs: [],
-          localName: '',
+          localName: [],
           address: '',
           apartmentIds: [],
           startArea: '',
@@ -303,8 +303,11 @@
       },
       onConfirm(val, b) {
         console.log(val);
-        this.localName = val.result
       },
+	  choosedVal(val){
+		  debugger
+		  return val.resultStr
+	  },
       genFileMap() {
         const LIST = [];
         for (var i = 0; i < 100; i++) {
@@ -312,7 +315,7 @@
             id: i,
             name: '',
             imgs: [],
-            localName: '',
+            localName: [],
             address: '',
             apartmentIds: [],
             startArea: '',
@@ -387,7 +390,7 @@
             id: 1,
             name: this.areaName,
             imgs: [],
-            localName: '',
+            localName: [],
             address: '',
             apartmentIds: '',
             startArea: '',
@@ -434,7 +437,7 @@
             id: this.nums,
             name: '',
             imgs: [],
-            localName: '',
+            localName: [],
             address: '',
             apartmentIds: [],
             startArea: '',
@@ -540,7 +543,7 @@
           averagePrice: this.avePrice,
           communityPic: JSON.stringify(areaImg),
           coverageAreaPic: JSON.stringify(COVER),
-          provinces: this.localName
+          provinces: this.localName.result
         }).then(data => {
           debugger
           console.log(data)
