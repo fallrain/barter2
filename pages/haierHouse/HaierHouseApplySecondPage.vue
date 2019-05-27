@@ -510,7 +510,6 @@
       locationAddress(index) {
 				const longitude = ''
 				const latitude = ''
-				debugger
 				uni.getLocation({
 				type: 'wgs84',
 				success: function (res) {
