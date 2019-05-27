@@ -22,7 +22,9 @@
       </li> -->
     </ul>
     <view class="bt2-myhouse mt16">
-      <b-title cnt="我的一站筑家"></b-title>
+      <b-title cnt="我的一站筑家">
+				<p @click="showMoreList()">更多</p>
+			</b-title>
       <view class="bt2-myhouse-card"  v-show="myInfoShow">
         <img :src="myInfoImg" class="bt2-myhouse-card-portrait">
         <view class="bt2-myhouse-card-cnt">
@@ -78,6 +80,8 @@
 				industry:'',
 				hcmid:'',
 				shopid:'',
+				showMore:false,
+				allList:[],
         info: [
           {
             colorClass: 'uni-bg-red',
@@ -127,6 +131,10 @@
 					shopid:this.shopid
         }).then(data => {
           if (data) {
+						if(data.data.length > 1){
+							this.showMore = true
+							this.allList = data.data
+						}
 						this.myAreaList = data.data[0]
 						if(this.myAreaList.inIndustryPic){
 							const picList = JSON.parse(this.myAreaList.inIndustryPic)
@@ -144,6 +152,11 @@
 
 		},
     methods: {
+			showMoreList(){
+					uni.navigateTo({
+          url: '/pages/haierHouse/HaierHouseApplyBuildList?id=' + this.allList,
+        });
+			},
       jump(url){
         uni.navigateTo({
           url: url
@@ -156,7 +169,7 @@
         return decodeURIComponent(r[2]);
       }
       return null;
-    }
+    },
     }
   }
 </script>

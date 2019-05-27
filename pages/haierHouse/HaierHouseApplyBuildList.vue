@@ -2,7 +2,7 @@
   <view class="content">
 		<view class="bt2-myhouse mt16">
 		  <b-title cnt="我的一站筑家"></b-title>
-		  <view class="bt2-myhouse-card"  v-show="myInfoShow">
+		  <view class="bt2-myhouse-card" v-for="(item,index) in listData" :key=index>
 		    <img :src="myInfoImg" class="bt2-myhouse-card-portrait">
 		    <view class="bt2-myhouse-card-cnt">
 		      <p class="title">{{myAreaList.buildAreaName}}</p>
@@ -29,34 +29,18 @@
     },
     data() {
       return {
-		  
+		  listData:[]
 		}
     },
-    onLoad() {
-			this.hmcid = this.getQueryString('hmcid')
-			this.shopid = this.getQueryString('shopid')	
-			console.log(this.hcmid + this.shopid)
-			this.hGet('buildHouse/getCreateHomeShopinfListByHmcId', {
-          // hmcId:this.hmcid,
-					hmcId:'Z0000001',
-					shopid:this.shopid
-        }).then(data => {
-          if (data) {
-						this.myAreaList = data.data[0]
-						if(this.myAreaList.inIndustryPic){
-							const picList = JSON.parse(this.myAreaList.inIndustryPic)
-						this.myInfoImg = picList[0].imgs[0];
-						var temp = []
-						for(var i = 0; i < picList.length;i ++){
-							temp.push(picList[i].name)
-						}
-						temp.shift()
-						this.industry = temp.join(",")
-						}
-						this.myInfoShow = true
-          } 
-        })
-
+    onLoad(option) {
+			this.listData = option
+			this.listData.forEach(item => {
+				if(item.inIndustryPic){
+				item.picList = JSON.parse(item.inIndustryPic)	
+				}
+					
+				})
+			picList = JSON.parse(this.myAreaList.inIndustryPic)
 		},
     methods: {
     
