@@ -64,14 +64,14 @@
         <li class="bt2-houseApply-card-item">
           <text class="bt2-houseApply-card-item-name">小区名称</text>
           <input class="uni-input-areaName" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" maxlength="20"
-                 @blur="coverEnd()" v-model="areaName" placeholder="请输入小区名称"/>
+                 @blur="coverEnd()" v-model="areaName" placeholder="请输入小区名称" v-reset-input/>
         </li>
         <view class="uni-list">
         </view>
         <li class="bt2-houseApply-card-item uni-column">
           <text class="bt2-houseApply-card-item-name">选择地区</text>
           <input class="uni-input-areaName" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" maxlength="20"
-                 v-model="areaLocalName.result" placeholder="请选择地区"/>
+                 v-model="areaLocalName.result" placeholder="请选择地区" v-reset-input/>
           <view @click="toggleTab('B')" class="pickerClass"></view>
           <w-picker mode="region" :defaultVal="defaultVal" @confirm="onConfirm" ref="pickerB"
                     themeColor="#4A90E2" :choosedVal.sync="areaLocalName"></w-picker>
@@ -79,7 +79,7 @@
         <li class="bt2-houseApply-card-item uni-column">
           <text class="bt2-houseApply-card-item-name">小区地址</text>
           <input class="uni-input-address" placeholder-style="color:#999999;line-height:56upx;font-size:32upx"
-                 maxlength="20" @blur="addressEnd(0)" v-model="areaAddress" placeholder="请输入详细地址"/>
+                 maxlength="20" @blur="addressEnd(0)" v-model="areaAddress" placeholder="请输入详细地址" v-reset-input/>
           <view class="bt2-myhouse-card-cnt-opt-location" @click="locationAddress(0)">
             <img src="@/static/img/haierHouse/Icons／location@2x.png">
           </view>
@@ -94,18 +94,18 @@
         </li>
 
         <li class="bt2-houseApply-card-item uni-column">
-          <text class="bt2-houseApply-card-item-name-long">小区户型面积</text>
-          <input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx;font-size:32upx;margin-top:1upx"
-                 placeholder="请输入" v-model="areaStartArea" type="digit" @blur="areaStart(0)"/>
+          <text class="bt2-houseApply-card-item-name-long1">小区户型面积</text>
+          <input class="uni-input-area1" placeholder-style="color:#999999;line-height:56upx;font-size:32upx;margin-top:1upx"
+                 placeholder="请输入" v-model="areaStartArea" type="digit" @blur="areaStart(0)" v-reset-input/>
           <p>至</p>
           <input class="uni-input-area1" placeholder-style="color:#999999;line-height:56upx;font-size:32upx;margin-top:1upx"
-                 placeholder="请输入" v-model="areaEndArea" type="digit" @blur="areaEnd(0)"/>
+                 placeholder="请输入" v-model="areaEndArea" type="digit" @blur="areaEnd(0)" v-reset-input/>
           <p class="bt2-houseApply-card-item-unit">平米</p>
         </li>
         <li class="bt2-houseApply-card-item uni-column">
           <text class="bt2-houseApply-card-item-name">均价</text>
           <input class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx"
-                 placeholder="请输入小区均价" v-model="areaAvePrice" type="digit"/>
+                 placeholder="请输入小区均价" v-model="areaAvePrice" type="digit" v-reset-input/>
           <p class="bt2-houseApply-card-item-unit">元/平米</p>
         </li>
       </ul>
@@ -120,14 +120,14 @@
         <li class="bt2-houseApply-card-item">
           <text class="bt2-houseApply-card-item-name">小区名称</text>
           <input class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" maxlength="20"
-                 @blur="coverAddEnd(x)" v-model="x.name" placeholder="请输入小区名称"/>
+                 @blur="coverAddEnd(x)" v-model="x.name" placeholder="请输入小区名称" v-reset-input/>
         </li>
         <view class="uni-list">
         </view>
         <li class="bt2-houseApply-card-item uni-column">
           <text class="bt2-houseApply-card-item-name">选择地区</text>
           <input class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" maxlength="20"
-                 v-model="x.localName.result" placeholder="请选择地区"/>
+                 v-model="x.localName.result" placeholder="请选择地区" v-reset-input/>
           <view @click="toggleTab(index)" class="pickerClass"></view>
           <w-picker
             mode="region"
@@ -141,7 +141,7 @@
         <li class="bt2-houseApply-card-item uni-column">
           <text class="bt2-houseApply-card-item-name">小区地址</text>
           <input class="uni-input-address" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" maxlength="20"
-                 @blur="addressEnd(x.id)" v-model="x.address" placeholder="请输入详细地址"/>
+                 @blur="addressEnd(x.id)" v-model="x.address" placeholder="请输入详细地址" v-reset-input/>
           <view class="bt2-myhouse-card-cnt-opt-location" @click="locationAddress(x.id)">
             <img src="@/static/img/haierHouse/Icons／location@2x.png">
           </view>
@@ -157,17 +157,17 @@
 
         <li class="bt2-houseApply-card-item uni-column">
           <text class="bt2-houseApply-card-item-name-long">小区户型面积</text>
-          <input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx;margin-top:1upx;font-size:32upx" placeholder="请输入"
-                 v-model="x.startArea" type="digit" @blur="areaStart(x.id)"/>
+          <input class="uni-input-area1" placeholder-style="color:#999999;line-height:56upx;margin-top:1upx;font-size:32upx" placeholder="请输入"
+                 v-model="x.startArea" type="digit" @blur="areaStart(x.id)" v-reset-input/>
           <p>至</p>
           <input class="uni-input-area1" placeholder-style="color:#999999;line-height:56upx;margin-top:1upx;font-size:32upx" placeholder="请输入"
-                 v-model="x.endArea" type="digit" @blur="areaEnd(x.id)"/>
+                 v-model="x.endArea" type="digit" @blur="areaEnd(x.id)" v-reset-input/>
           <p class="bt2-houseApply-card-item-unit">平米</p>
         </li>
         <li class="bt2-houseApply-card-item uni-column">
           <text class="bt2-houseApply-card-item-name">均价</text>
           <input class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="请输入小区均价"
-                 v-model="x.avePrice" type="digit"/>
+                 v-model="x.avePrice" type="digit" v-reset-input/>
           <p class="bt2-houseApply-card-item-unit">元/平米</p>
         </li>
       </ul>
@@ -515,9 +515,10 @@
 				success: function (res) {
         longitude = res.longitude
         latitude = res.latitude
-    }
-      })
-			this.hGet('buildHouse/getLocationByBaiduMap', {
+				uni.showToast({
+					title:longitude
+				})
+				this.hGet('buildHouse/getLocationByBaiduMap', {
 					longitude : longitude,
 					latitude : latitude,
         }).then(data => {
@@ -526,6 +527,9 @@
 						this.coverList[index].address = data.data
           } 
         })
+    }
+      })
+			
 			
 			},
 		 

@@ -24,7 +24,11 @@
 				"navigationBarTitleText": ""
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/haierHouse/HaierHouseApplyBuildList",
+            "style" : {}
+        }
+    ],
 	"globalStyle": {
 		"navigationStyle": "custom",
 		"navigationBarTextStyle": "black",
