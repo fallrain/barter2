@@ -23,7 +23,7 @@
     </ul>
     <view class="bt2-myhouse mt16">
       <b-title cnt="我的一站筑家">
-				<p @click="showMoreList()">更多</p>
+				<p @click="showMoreList()" class="bt2-myhouse-more">更多</p>
 			</b-title>
       <view class="bt2-myhouse-card"  v-show="myInfoShow">
         <img :src="myInfoImg" class="bt2-myhouse-card-portrait">
@@ -136,6 +136,9 @@
 							this.allList = data.data
 						}
 						this.myAreaList = data.data[0]
+						if(this.myAreaList.status == '1'){
+							this.myAreaList.status = '审核中'
+						}
 						if(this.myAreaList.inIndustryPic){
 							const picList = JSON.parse(this.myAreaList.inIndustryPic)
 						this.myInfoImg = picList[0].imgs[0];
@@ -153,8 +156,10 @@
 		},
     methods: {
 			showMoreList(){
+				const data = JSON.stringify(this.allList)
+				debugger
 					uni.navigateTo({
-          url: '/pages/haierHouse/HaierHouseApplyBuildList?id=' + this.allList,
+          url: '/pages/haierHouse/HaierHouseApplyBuildList?id=' + data,
         });
 			},
       jump(url){
@@ -175,4 +180,12 @@
 </script>
 
 <style>
+	.bt2-myhouse-more{
+		float: right;
+		color: #1969C6;
+		position: absolute;
+		float: right;
+		right: 40upx;
+		font-size: 30upx;
+	}
 </style>

@@ -503,7 +503,7 @@
 				const longitude = ''
 				const latitude = ''
 
-				wx.authorize({
+				uni.authorize({
 					scope: 'scope.userLocation',
 					success() {
 						uni.showToast({
