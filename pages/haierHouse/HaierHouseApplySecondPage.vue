@@ -370,12 +370,18 @@
 				//   this.alertMsg = '起始面积不能为空'
 				// }
 				if (parseFloat(this.coverList[index].startArea) > parseFloat(this.coverList[index].endArea)) {
-					this.alert = true
-					this.alertMsg = '小区户型面积输入有误'
+					uni.showToast({
+						title: "小区户型面积输入有误",
+						duration: 4000,
+						icon: 'none'
+					});
 					// this.coverList[index].startArea = ''
 				} else if (parseFloat(this.coverList[index].startArea) === parseFloat(this.coverList[index].endArea)) {
-					this.alert = true
-					this.alertMsg = '小区户型面积输入有误'
+					uni.showToast({
+						title: "小区户型面积输入有误",
+						duration: 4000,
+						icon: 'none'
+					});
 					// this.coverList[index].startArea = ''
 				} else {
 
@@ -392,12 +398,18 @@
 				//   return
 				// }
 				if (parseFloat(this.coverList[index].startArea) > parseFloat(this.coverList[index].endArea)) {
-					this.alert = true
-					this.alertMsg = '小区户型面积输入有误'
+				uni.showToast({
+						title: "小区户型面积输入有误",
+						duration: 4000,
+						icon: 'none'
+					});
 					// this.coverList[index].endArea = ''
 				} else if (parseFloat(this.coverList[index].startArea) === parseFloat(this.coverList[index].endArea)) {
-					this.alert = true
-					this.alertMsg = '小区户型面积输入有误'
+					uni.showToast({
+						title: "小区户型面积输入有误",
+						duration: 4000,
+						icon: 'none'
+					});
 					// this.coverList[index].endArea = ''
 				} else {
 
@@ -474,8 +486,11 @@
 					this.addPromation = false;
 				} else {
 					if (this.areaName === '') {
-						this.alert = true
-						this.alertMsg = '小区名不能为空'
+						uni.showToast({
+						title: "小区名不能为空",
+						duration: 4000,
+						icon: 'none'
+					});
 					}
 				}
 			},
@@ -621,7 +636,7 @@
 					if (data.msg === 'success') {
 						uni.showToast({
 							title: '信息上传成功',
-							duration: 5000,
+							duration: 4000,
 						});
 						uni.reLaunch({
 							url: '/pages/haierHouse/index'
@@ -629,7 +644,7 @@
 					} else {
 						uni.showToast({
 							title: data.msg,
-							duration: 5000,
+							duration: 4000,
 							icon: 'none'
 						});
 					}

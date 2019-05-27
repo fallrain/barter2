@@ -31,8 +31,8 @@
           <p class="title">{{myAreaList.buildAreaName}}</p>
           <p class="cnt">入驻产业：{{industry}}</p>
           <view class="bt2-myhouse-card-cnt-opt">
-            <button class="bt2-myhouse-card-cnt-opt-btn mr24">补充信息</button>
-            <button class="bt2-myhouse-card-cnt-opt-btn mr24">配置活动</button>
+            <button class="bt2-myhouse-card-cnt-opt-btn mr24" @click="information()">补充信息</button>
+            <button class="bt2-myhouse-card-cnt-opt-btn mr24" @click="activity()">配置活动</button>
             <view class="bt2-myhouse-card-cnt-opt-status">
               <img src="@/static/img/haierHouse/Icons／Complete@2x.png">
               <text>{{myAreaList.status}}</text>
@@ -88,18 +88,18 @@
             url:'https://hzytest.haier.com/haierfile/sellerUploadImg/banner.jpeg',
             content: '内容 A'
           },
-          {
-            colorClass: 'uni-bg-green',
-            url: 'https://hzytest.haier.com/haierfile/sellerUploadImg/banner.jpeg',
-						// url:require('@/static/img/haierHouse/WeChat6d40309ca76cc404a4a3da02b753aa71.png'),
-
-            content: '内容 B'
-          },
-          {
-            colorClass: 'uni-bg-blue',
-            url: 'https://hzytest.haier.com/haierfile/sellerUploadImg/banner.jpeg',
-            content: '内容 C'
-          }
+//           {
+//             colorClass: 'uni-bg-green',
+//             url: 'https://hzytest.haier.com/haierfile/sellerUploadImg/banner.jpeg',
+// 						// url:require('@/static/img/haierHouse/WeChat6d40309ca76cc404a4a3da02b753aa71.png'),
+// 
+//             content: '内容 B'
+//           },
+//           {
+//             colorClass: 'uni-bg-blue',
+//             url: 'https://hzytest.haier.com/haierfile/sellerUploadImg/banner.jpeg',
+//             content: '内容 C'
+//           }
         ],
         shopList:[
           {
@@ -155,6 +155,21 @@
 
 		},
     methods: {
+			information(){
+				uni.showToast({
+					title:'活动暂未开放',
+					duration: 4000,
+					icon:'none'
+					
+				})
+			},
+			activity(){
+				uni.showToast({
+					title:'活动暂未开放',
+					duration: 4000,
+					icon:'none'
+				})
+			},
 			showMoreList(){
 				const data = JSON.stringify(this.allList)
 				debugger
