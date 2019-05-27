@@ -560,7 +560,7 @@
           this.alert = true
           return
         }
-				if (this.areaAvePrice === []) {
+				if (this.areaAvePrice === '') {
           this.alertMsg = "请输入均价"
           this.alert = true
           return
