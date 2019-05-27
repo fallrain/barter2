@@ -515,17 +515,11 @@
 			locationAddress(index) {
 				const longitude = ''
 				const latitude = ''
-
-				uni.authorize({
-					scope: 'scope.userLocation',
-					success() {
-						uni.showToast({
-							title: '授权成功'
-						})
 						// 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
 						uni.getLocation({
 							type: 'wgs84',
 							success: function(res) {
+							alert(JSON.stringify(res))
 								longitude = res.Vertical
 								latitude = res.Accuracy
 								this.hGet('buildHouse/getLocationByBaiduMap', {
@@ -539,12 +533,6 @@
 								})
 							}
 						})
-
-					}
-				})
-
-
-
 			},
 
 			submitInfo() {
