@@ -1,26 +1,6 @@
 <template>
 	<view>
-		<!-- <view class="bt2-houseApply-card">
-			<p class="bt2-houseApply-card-title">门店基础信息</p>
-			<ul class="bt2-houseApply-card-cnt">
-				<li class="bt2-houseApply-card-item uni-column" >
-					<b-item :required="true" title="筑家负责人" :right="false" :rightClick="chooseLeader">
-					<template v-slot:left>
-					<img src="@/static/img/haierHouse/disclosure@2x.png" style="width:32upx;" @click="showMessage()">
-					</template>
-					<template v-slot:middle>
-					<input class="uni-input" placeholder-style="color:#999999;line-height:56upx;width:300upx" @blur="nameEnd()" v-model="name"
-					placeholder="请选择一站筑家负责人" />
-					</template>
-					</b-item>
-				</li>
-				<li class="bt2-houseApply-card-item uni-column">
-					<span class="bt2-houseApply-card-item-star">*</span>
-					<text class="bt2-houseApply-card-item-name">手机号码</text><input class="uni-input"
-					 placeholder-style="color:#999999;line-height:56upx" type="number" maxlength="11" @blur="telEnd()" v-model="tel"
-					 placeholder="请输入" /></li>
-			</ul>
-		</view> -->
+
 		<view class="bt2-houseApply-card">
 			<p class="bt2-houseApply-card-title">一站筑家信息</p>
 			<ul class="bt2-houseApply-card-cnt">
@@ -118,6 +98,27 @@
 		</uni-popup>
 		<uni-popup :show="alert" type="middle" mode="fixed" :msg=alertMsg @hidePopup="hidePopupAlert" :h5-top="h5top"></uni-popup>
 	</view>
+			<!-- <view class="bt2-houseApply-card">
+			<p class="bt2-houseApply-card-title">门店基础信息</p>
+			<ul class="bt2-houseApply-card-cnt">
+				<li class="bt2-houseApply-card-item uni-column" >
+					<b-item :required="true" title="筑家负责人" :right="false" :rightClick="chooseLeader">
+					<template v-slot:left>
+					<img src="@/static/img/haierHouse/disclosure@2x.png" style="width:32upx;" @click="showMessage()">
+					</template>
+					<template v-slot:middle>
+					<input class="uni-input" placeholder-style="color:#999999;line-height:56upx;width:300upx" @blur="nameEnd()" v-model="name"
+					placeholder="请选择一站筑家负责人" />
+					</template>
+					</b-item>
+				</li>
+				<li class="bt2-houseApply-card-item uni-column">
+					<span class="bt2-houseApply-card-item-star">*</span>
+					<text class="bt2-houseApply-card-item-name">手机号码</text><input class="uni-input"
+					 placeholder-style="color:#999999;line-height:56upx" type="number" maxlength="11" @blur="telEnd()" v-model="tel"
+					 placeholder="请输入" /></li>
+			</ul>
+		</view> -->
 </template>
 <script>
 	import ssUploadImage from '@/components/ss-upload-image/ss-upload-image.vue';
@@ -513,7 +514,7 @@
 					// return
 					uni.showToast({
 						title: "请输入筑家小区名",
-						duration: 5000,
+						duration: 4000,
 						icon: 'none'
 					});
 					return
@@ -526,7 +527,7 @@
 				if (this.roomArea === '') {
 					uni.showToast({
 						title: "请输入房间面积",
-						duration: 5000,
+						duration: 4000,
 						icon: 'none'
 					});
 					return
@@ -534,7 +535,7 @@
 				if (this.localName === '') {
 					uni.showToast({
 						title: "请选择地区",
-						duration: 5000,
+						duration: 4000,
 						icon: 'none'
 					});
 					return
@@ -542,7 +543,7 @@
 				if (this.address === '') {
 					uni.showToast({
 						title: "请输入详细地址",
-						duration: 5000,
+						duration: 4000,
 						icon: 'none'
 					});
 					return
@@ -551,7 +552,7 @@
 
 					uni.showToast({
 						title: "请输入租金",
-						duration: 5000,
+						duration: 4000,
 						icon: 'none'
 					});
 					return
@@ -560,7 +561,7 @@
 
 					uni.showToast({
 						title: "请输入开始时间",
-						duration: 5000,
+						duration: 4000,
 						icon: 'none'
 					});
 					return
@@ -569,7 +570,7 @@
 
 					uni.showToast({
 						title: "请输入结束时间",
-						duration: 5000,
+						duration: 4000,
 						icon: 'none'
 					});
 					return
@@ -577,7 +578,7 @@
 				if (this.industryIds.length === 0) {
 					uni.showToast({
 						title: "请选择产业",
-						duration: 5000,
+						duration: 4000,
 						icon: 'none'
 					});
 
@@ -586,7 +587,7 @@
 				if (this.sampleRoomIds.length === 0) {
 					uni.showToast({
 						title: "请选择样板间类型",
-						duration: 5000,
+						duration: 4000,
 						icon: 'none'
 					});
 					return

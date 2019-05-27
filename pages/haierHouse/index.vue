@@ -87,7 +87,7 @@
             colorClass: 'uni-bg-red',
             url:'https://hzytest.haier.com/haierfile/sellerUploadImg/banner.jpeg',
             content: '内容 A'
-          },
+          }
 //           {
 //             colorClass: 'uni-bg-green',
 //             url: 'https://hzytest.haier.com/haierfile/sellerUploadImg/banner.jpeg',
@@ -158,7 +158,7 @@
 			information(){
 				uni.showToast({
 					title:'活动暂未开放',
-					duration: 4000,
+					duration: 3000,
 					icon:'none'
 					
 				})
@@ -166,7 +166,7 @@
 			activity(){
 				uni.showToast({
 					title:'活动暂未开放',
-					duration: 4000,
+					duration: 3000,
 					icon:'none'
 				})
 			},

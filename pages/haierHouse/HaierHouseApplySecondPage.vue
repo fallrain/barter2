@@ -1,61 +1,5 @@
 <template>
 	<view>
-		<!-- <view class="bt2-houseApply-card">
-      <p class="bt2-houseApply-card-title">小区信息</p>
-      <ul class="bt2-houseApply-card-cnt">
-        <li class="bt2-houseApply-card-item">
-          <text class="bt2-houseApply-card-item-name">小区名称</text>
-          <input class="uni-input-areaName" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" maxlength="20"
-                 @blur="nameEnd()" v-model="storeName" placeholder="请输入筑家小区名称"/>
-        </li>
-        <view class="uni-list">
-        </view>
-        <li class="bt2-houseApply-card-item uni-column">
-          <text class="bt2-houseApply-card-item-name">选择地区</text>
-          <input class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" maxlength="20"
-                 v-model="localName.result" placeholder="请选择地区"/>
-          <view @click="toggleTab('A')" class="pickerClass"></view>
-          <w-picker mode="region" :defaultVal="defaultVal" @confirm="onConfirm" ref="pickerA"
-                    themeColor="#4A90E2" :choosedVal.sync="localName"></w-picker>
-        </li>
-        <li class="bt2-houseApply-card-item uni-column">
-          <text class="bt2-houseApply-card-item-name">小区地址</text>
-          <input class="uni-input-address" placeholder-style="color:#999999;line-height:56upx;font-size:32upx"
-                 maxlength="20" @blur="addressEnd()" v-model="address" placeholder="请输入详细地址"/>
-          <view class="bt2-myhouse-card-cnt-opt-location" @click="locationAddress()">
-            <img src="@/static/img/haierHouse/Icons／location@2x.png">
-          </view>
-        </li>
-        <li class="bt2-houseApply-card-item">
-          <text class="bt2-houseApply-card-item-name">小区户型</text>
-        </li>
-
-        <li class="bt2-houseApply-card-item-mult bt2-houseApply-card-item">
-          <b-multrow-checkbox :list="items" :checkedIds.sync="apartmentIds"
-                              :checkboxChange="checkboxChange"></b-multrow-checkbox>
-        </li>
-
-        <li class="bt2-houseApply-card-item uni-column">
-          <text class="bt2-houseApply-card-item-name">小区面积</text>
-          <input class="uni-input-area"
-                 placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="请输入"
-                 v-model="startArea" type="digit" @blur="areaStart"/>
-          <p>至</p>
-          <input class="uni-input-area"
-                 placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="请输入"
-                 v-model="endArea" type="digit" @blur="areaEnd"/>
-          <p class="bt2-houseApply-card-item-unit">平米</p>
-        </li>
-        <li class="bt2-houseApply-card-item uni-column">
-          <text class="bt2-houseApply-card-item-name">均价</text>
-          <input class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx"
-                 placeholder="请输入小区均价" v-model="avePrice" type="digit"/>
-          <p class="bt2-houseApply-card-item-unit">元/平米</p>
-        </li>
-      </ul>
-    </view> -->
-
-
 		<view class="bt2-houseApply-card">
 			<li class="bt2-houseApply-card-item uni-column">
 				<p class="bt2-houseApply-card-title">覆盖小区信息</p>
@@ -187,6 +131,62 @@
 		<uni-popup :show="alert" type="middle" mode="fixed" :msg=alertMsg @hidePopup="hidePopupAlert" :h5-top="h5top"></uni-popup>
 
 	</view>
+			<!-- <view class="bt2-houseApply-card">
+      <p class="bt2-houseApply-card-title">小区信息</p>
+      <ul class="bt2-houseApply-card-cnt">
+        <li class="bt2-houseApply-card-item">
+          <text class="bt2-houseApply-card-item-name">小区名称</text>
+          <input class="uni-input-areaName" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" maxlength="20"
+                 @blur="nameEnd()" v-model="storeName" placeholder="请输入筑家小区名称"/>
+        </li>
+        <view class="uni-list">
+        </view>
+        <li class="bt2-houseApply-card-item uni-column">
+          <text class="bt2-houseApply-card-item-name">选择地区</text>
+          <input class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" maxlength="20"
+                 v-model="localName.result" placeholder="请选择地区"/>
+          <view @click="toggleTab('A')" class="pickerClass"></view>
+          <w-picker mode="region" :defaultVal="defaultVal" @confirm="onConfirm" ref="pickerA"
+                    themeColor="#4A90E2" :choosedVal.sync="localName"></w-picker>
+        </li>
+        <li class="bt2-houseApply-card-item uni-column">
+          <text class="bt2-houseApply-card-item-name">小区地址</text>
+          <input class="uni-input-address" placeholder-style="color:#999999;line-height:56upx;font-size:32upx"
+                 maxlength="20" @blur="addressEnd()" v-model="address" placeholder="请输入详细地址"/>
+          <view class="bt2-myhouse-card-cnt-opt-location" @click="locationAddress()">
+            <img src="@/static/img/haierHouse/Icons／location@2x.png">
+          </view>
+        </li>
+        <li class="bt2-houseApply-card-item">
+          <text class="bt2-houseApply-card-item-name">小区户型</text>
+        </li>
+
+        <li class="bt2-houseApply-card-item-mult bt2-houseApply-card-item">
+          <b-multrow-checkbox :list="items" :checkedIds.sync="apartmentIds"
+                              :checkboxChange="checkboxChange"></b-multrow-checkbox>
+        </li>
+
+        <li class="bt2-houseApply-card-item uni-column">
+          <text class="bt2-houseApply-card-item-name">小区面积</text>
+          <input class="uni-input-area"
+                 placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="请输入"
+                 v-model="startArea" type="digit" @blur="areaStart"/>
+          <p>至</p>
+          <input class="uni-input-area"
+                 placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="请输入"
+                 v-model="endArea" type="digit" @blur="areaEnd"/>
+          <p class="bt2-houseApply-card-item-unit">平米</p>
+        </li>
+        <li class="bt2-houseApply-card-item uni-column">
+          <text class="bt2-houseApply-card-item-name">均价</text>
+          <input class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx"
+                 placeholder="请输入小区均价" v-model="avePrice" type="digit"/>
+          <p class="bt2-houseApply-card-item-unit">元/平米</p>
+        </li>
+      </ul>
+    </view> -->
+
+
 </template>
 
 <script>
@@ -245,7 +245,16 @@
 				//   endArea: '',
 				//   avePrice: '',
 				// }],
-				coverList: [],
+				coverList: [
+						{id: 0,
+						name: '',
+						imgs: [],
+						localName: [],
+						address: '',
+						apartmentIds: '',
+						startArea: '',
+						endArea: '',
+						avePrice: ''}],
 				fileMap: {},
 				addPromation: false,
 				items: [{
@@ -425,18 +434,7 @@
 					if (this.tempAreaName === this.areaName) {
 						return
 					}
-					var item = {
-						id: 0,
-						name: this.areaName,
-						imgs: [],
-						localName: [],
-						address: '',
-						apartmentIds: '',
-						startArea: '',
-						endArea: '',
-						avePrice: '',
-					}
-					this.coverList.push(item)
+					this.coverList[0].name = this.areaName
 					this.tempAreaName = this.areaName
 					this.addPromation = true;
 				}
@@ -528,12 +526,8 @@
 						uni.getLocation({
 							type: 'wgs84',
 							success: function(res) {
-								longitude = res.longitude
-								latitude = res.latitude
-
-								uni.showToast({
-									title: longitude
-								})
+								longitude = res.Vertical
+								latitude = res.Accuracy
 								this.hGet('buildHouse/getLocationByBaiduMap', {
 									longitude: longitude,
 									latitude: latitude,
@@ -555,38 +549,61 @@
 
 			submitInfo() {
 				if (this.areaName === '') {
-					this.alertMsg = "请输入小区名称"
-					this.alert = true
+					
+					uni.showToast({
+						title: "请输入小区名称",
+						duration: 4000,
+						icon: 'none'
+					});
 					return
 				}
 				if (this.areaLocalName === '') {
-					this.alertMsg = "请选择地区"
-					this.alert = true
+					uni.showToast({
+						title: "请选择地区",
+						duration: 4000,
+						icon: 'none'
+					});
 					return
 				}
 				if (this.areaAddress === '') {
-					this.alertMsg = "请输入详细地址"
-					this.alert = true
+					uni.showToast({
+						title: "请输入详细地址",
+						duration: 4000,
+						icon: 'none'
+					});
 					return
 				}
 				if (this.areaStartArea === '') {
-					this.alertMsg = "请输入起始面积"
-					this.alert = true
+	
+					uni.showToast({
+						title: "请输入起始面积",
+						duration: 4000,
+						icon: 'none'
+					});
 					return
 				}
 				if (this.areaEndArea === '') {
-					this.alertMsg = "请输入结束面积"
-					this.alert = true
+					uni.showToast({
+						title: "请输入结束面积",
+						duration: 4000,
+						icon: 'none'
+					});
 					return
 				}
 				if (this.areaApartmentIds === []) {
-					this.alertMsg = "请选择户型"
-					this.alert = true
+					uni.showToast({
+						title: "请选择户型",
+						duration: 4000,
+						icon: 'none'
+					});
 					return
 				}
 				if (this.areaAvePrice === '') {
-					this.alertMsg = "请输入均价"
-					this.alert = true
+					uni.showToast({
+						title: "请输入均价",
+						duration: 4000,
+						icon: 'none'
+					});
 					return
 				}
 				this.coverList[0].apartmentIds = this.areaApartmentIds
