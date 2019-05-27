@@ -60,6 +60,9 @@
       chooseImage() {
         uni.chooseImage({
           success: (chooseImageRes) => {
+						uni.showLoading({
+						title: '图片正在上传'
+						});
             const uploadTask = uni.uploadFile({
               url: this.url,
               name: this.name,
@@ -68,8 +71,10 @@
               header: this.header,
               success: (uploadFileRes) => {
                 this.$emit('on-success', { data:JSON.parse(uploadFileRes.data),fileList:this.fileList})
-              },
+								 uni.hideLoading();
+							},
               fail: (err) => {
+								 uni.hideLoading();
                 this.$emit('on-error', err)
               }
             })

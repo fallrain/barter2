@@ -29,7 +29,7 @@
 				</picker-view>
 			</view>
 			<view class="w-picker-view" v-if="mode=='time'">
-				<picker-view indicator-style="height: 40px;" :value="pickVal" @change="bindChange">
+				<picker-view indicator-style="height: 80upx;" :value="pickVal" @change="bindChange">
 					<picker-view-column>
 						<view class="item" v-for="(item,index) in data.hours" :key="index">{{item}}时</view>
 					</picker-view-column>
@@ -42,7 +42,7 @@
 				</picker-view>
 			</view>
 			<view class="w-picker-view" v-if="mode=='region'">
-				<picker-view indicator-style="height: 40px;" :value="pickVal" @change="bindChange">
+				<picker-view indicator-style="height: 80upx;" :value="pickVal" @change="bindChange">
 					<picker-view-column>
 						<view class="item" v-for="(item,index) in data.provinces" :key="index">{{item.label}}</view>
 					</picker-view-column>
@@ -302,7 +302,7 @@
 	.w-picker{
 		.mask {
 		  position: fixed;
-		  z-index: 1000;
+		  z-index: 100;
 		  top: 0;
 		  right: 0;
 		  left: 0;
@@ -332,7 +332,7 @@
 		  display: flex;
 		  align-items: center;
 		  padding: 0 30upx;
-		  height: 88upx;
+		  height: 80upx;
 		  background-color: #fff;
 		  position: relative;
 		  text-align: center;
