@@ -26,7 +26,7 @@
       <view class="bt2-myhouse-card"  v-show="myInfoShow">
         <img :src="myInfoImg" class="bt2-myhouse-card-portrait">
         <view class="bt2-myhouse-card-cnt">
-          <p class="title">{{myAreaList.buildFamilyName}}</p>
+          <p class="title">{{myAreaList.buildAreaName}}</p>
           <p class="cnt">入驻产业：{{industry}}</p>
           <view class="bt2-myhouse-card-cnt-opt">
             <button class="bt2-myhouse-card-cnt-opt-btn mr24">补充信息</button>
@@ -76,10 +76,12 @@
 				myInfoImg:'',
 				myInfoShow:false,
 				industry:'',
+				hcmid:'',
+				shopid:'',
         info: [
           {
             colorClass: 'uni-bg-red',
-            url:require('@/static/img/haierHouse/banner.jpeg'),
+            url:'https://hzytest.haier.com/haierfile/sellerUploadImg/banner.jpeg',
             content: '内容 A'
           },
           {
@@ -110,17 +112,22 @@
           },
           {
             url:require('@/static/img/haierHouse/WeChat6d40309ca76cc404a4a3da02b753aa71.png'),
-            desc:'随便编的小区，名字长短的无所谓，最好长一点'
+            desc:'海尔鼎世华府'
           }
         ]
       }
     },
     onLoad() {
+			this.hmcid = this.getQueryString('hmcid')
+			this.shopid = this.getQueryString('shopid')	
+			console.log(this.hcmid + this.shopid)
 			this.hGet('buildHouse/getCreateHomeShopinfListByHmcId', {
-          hmcId:'Z0000001'
+          // hmcId:this.hmcid,
+					hmcId:'Z0000001',
+					shopid:this.shopid
         }).then(data => {
           if (data) {
-						this.myAreaList = data[0]
+						this.myAreaList = data.data[0]
 						if(this.myAreaList.inIndustryPic){
 							const picList = JSON.parse(this.myAreaList.inIndustryPic)
 						this.myInfoImg = picList[0].imgs[0];
@@ -132,7 +139,6 @@
 						this.industry = temp.join(",")
 						}
 						this.myInfoShow = true
-						debugger
           } 
         })
 
@@ -142,7 +148,15 @@
         uni.navigateTo({
           url: url
         });
+      },
+			getQueryString: function(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      if (r != null) {
+        return decodeURIComponent(r[2]);
       }
+      return null;
+    }
     }
   }
 </script>

@@ -42,32 +42,32 @@
 				<li class="bt2-houseApply-card-item uni-column">
 					<span class="bt2-houseApply-card-item-star">*</span>
 				<text class="bt2-houseApply-card-item-name-long">详细地址</text>
-				<input class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" maxlength="20" @blur="coverEnd()" v-model="localName" placeholder="请选择地区"/>
+				<input class="uni-input-local" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" maxlength="20" @blur="coverEnd()" v-model="localName" placeholder="请选择地区"/>
 				<view  @click="toggleTab()"  class="pickerClass"></view>
 				<w-picker mode="region" :defaultVal="defaultVal" @confirm="onConfirm" ref="picker" themeColor="#4A90E2"></w-picker>
 				</li>
 				<li class="bt2-houseApply-card-item uni-column">
 				<text class="bt2-houseApply-card-item-name"></text>
-				<input class="uni-input-address" placeholder-style="color:#999999;line-height:56upx;margin-left:15upx;font-size:32upx" placeholder="请输入详细地址,具体到门牌号" v-model="address" @blur="addressEnd()"/></li>
+				<input class="uni-input-address" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="请输入详细地址,具体到门牌号" v-model="address" @blur="addressEnd()"/></li>
 				<li class="bt2-houseApply-card-item uni-column"><span class="bt2-houseApply-card-item-star">*</span>
 				<text class="bt2-houseApply-card-item-name-long">样板间租金</text>
 				<input class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="请输入租金" v-model="rent" @blur="rentEnd()" type="digit"/>
 					<p class="bt2-houseApply-card-item-unit">元/月</p>
 				</li>
-				<li class="bt2-houseApply-card-item uni-column"><span class="bt2-houseApply-card-item-star">*</span><text class="bt2-houseApply-card-item-name-long">租赁时间</text>
+				<li class="bt2-houseApply-card-item uni-column"><span class="bt2-houseApply-card-item-star">*</span><text class="bt2-houseApply-card-item-name-long">租赁日期</text>
 					<view class="uni-list-cell-db-start">
 						<picker mode="date" :value="dateS" :start="startDateS" :end="endDateS" @change="bindDateChangeS">
 							<view class="uni-input-timee1"> {{dateS}}</view>
 						</picker>
 					</view>
-					<input class="uni-input-time" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="开始时间" @click="startTimeSelect()"
+					<input class="uni-input-time" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="开始日期" @click="startTimeSelect()"
 					 v-model="startTime" />
 					<p style="margin-left: 20upx;">至</p>
 					<view class="uni-list-cell-db-end">
 						<picker mode="date" :value="dateE" :start="startDateE" :end="endDateE" @change="bindDateChangeE">
 							<view class="uni-input-timee"> {{dateE}}</view>
 						</picker>
-					</view><input class="uni-input-time" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="结束时间" @click="endTimeSelect()"
+					</view><input class="uni-input-time" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="结束日期" @click="endTimeSelect()"
 					 v-model="endTime" />
 				</li>
 				<li class="bt2-houseApply-card-item"><span class="bt2-houseApply-card-item-star">*</span>
@@ -155,7 +155,7 @@
 				fileList: [],
 				blockName:'',
 				localName:'',
-				defaultVal: [10,2,7],
+				defaultVal: [0,0,0],
 				current: 1,
 				name: '',
 				tel: '',
@@ -402,10 +402,17 @@
 					fileList
 				}
 			) {
-				console.log(data)
+				if(!data){
+				this.alertMsg = data.msg
+				this.alert = true
+				}else{
+					console.log(data)
 				fileList.push(data.data.imageUrl);
+				}	
 			},
-			onError() {},
+			onError() {
+			
+			},
 			onRemove({
 					index,
 					fileList
@@ -435,7 +442,8 @@
 				if(this.blockName === ''){
 					this.alert = true
 					this.alertMsg = '请输入筑家小区名'
-				}	
+				}
+					
 			},
 			areaEnd(){
 				if(this.roomArea === ''){
@@ -496,6 +504,11 @@
 						this.alertMsg = "请输入筑家小区名"
 						this.alert = true
 						return
+						// uni.showToast({
+						// 			title: "请输入筑家小区名",
+						// 			duration: 2000,
+						// 			icon:'none'
+						// 			});
 				}
 				// if(this.tel === ''){
 				// 		this.alertMsg = "请输入手机号"
@@ -576,12 +589,26 @@
 					}
 
 				).then(data => {
-						if (data.data) {
+					debugger
+						if (data.code === 1) {
+							uni.showToast({
+									title: '信息上传成功',
+									duration: 4000,
+									});
+					}else{
+						debugger
+						uni.showToast({
+									title: data.data,
+									duration: 4000,
+									icon:'none'
+									});
+									return
+					}
 							uni.navigateTo({
 						url: '/pages/haierHouse/HaierHouseApplySecondPage?id=' + data.data,
 						}
 					);
-						}
+						
 					})
 
 
