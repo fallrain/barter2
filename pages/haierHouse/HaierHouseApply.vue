@@ -422,10 +422,10 @@
 				fileList.splice(index, 1);
 			},
 			telEnd() {
-				if(this.tel === ''){
-					this.alert = true
-					this.alertMsg = '请输入手机号'
-				}
+				// if(this.tel === ''){
+				// 	this.alert = true
+				// 	this.alertMsg = '请输入手机号'
+				// }
 				 if (!/^1[34578]\d{9}$/.test(this.tel)) {
         	this.alert = true
 			this.tel = ''
@@ -433,35 +433,35 @@
       }
 			},
 			nameEnd(){
-				if(this.name === ''){
-					this.alert = true
-					this.alertMsg = '请输入筑家负责人'
-				}
+				// if(this.name === ''){
+				// 	this.alert = true
+				// 	this.alertMsg = '请输入筑家负责人'
+				// }
 			},
 			blockEnd(){
-				if(this.blockName === ''){
-					this.alert = true
-					this.alertMsg = '请输入筑家小区名'
-				}
+				// if(this.blockName === ''){
+				// 	this.alert = true
+				// 	this.alertMsg = '请输入筑家小区名'
+				// }
 					
 			},
 			areaEnd(){
-				if(this.roomArea === ''){
-					this.alert = true
-					this.alertMsg = '请输入房屋面积'
-				}
+				// if(this.roomArea === ''){
+				// 	this.alert = true
+				// 	this.alertMsg = '请输入房屋面积'
+				// }
 			},
 			addressEnd(){
-				if(this.address === ''){
-					this.alert = true
-					this.alertMsg = '请输入地址'
-				}
+				// if(this.address === ''){
+				// 	this.alert = true
+				// 	this.alertMsg = '请输入地址'
+				// }
 			},
 			rentEnd(){
-				if(this.rent === ''){
-					this.alert = true
-					this.alertMsg = '请输入租金'
-				}
+				// if(this.rent === ''){
+				// 	this.alert = true
+				// 	this.alertMsg = '请输入租金'
+				// }
 			},
 			startTimeSelect() {
 				this.pickerStartShow = true;
@@ -471,13 +471,26 @@
 			endTimeSelect() {},
 			bindDateChangeS: function(e) {
 					this.startTime = e.target.value
+					if(this.endTime == ''){
+						return
+					}
+					if (this.CompareDate(this.startTime,this.endTime)) {
+						uni.showModal({
+								title: '提示',
+								content: '结束日期必须大于开始日期',
+								success: function(res) {
+									if (res.confirm) {} else if (res.cancel) {}
+								}
+							});
+							this.endTime = '';
+					}
 				},
 			bindDateChangeE: function(e) {
 					this.endTime = e.target.value
 					if (this.CompareDate(this.startTime, this.endTime)) {
 						uni.showModal({
 								title: '提示',
-								content: '结束时间不能小于开始时间',
+								content: '结束日期必须大于开始日期',
 								success: function(res) {
 									if (res.confirm) {} else if (res.cancel) {}
 								}

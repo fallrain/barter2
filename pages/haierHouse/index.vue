@@ -86,14 +86,14 @@
           },
           {
             colorClass: 'uni-bg-green',
-            url: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg',
+            url: 'https://hzytest.haier.com/haierfile/sellerUploadImg/banner.jpeg',
 						// url:require('@/static/img/haierHouse/WeChat6d40309ca76cc404a4a3da02b753aa71.png'),
 
             content: '内容 B'
           },
           {
             colorClass: 'uni-bg-blue',
-            url: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/cbd.jpg',
+            url: 'https://hzytest.haier.com/haierfile/sellerUploadImg/banner.jpeg',
             content: '内容 C'
           }
         ],

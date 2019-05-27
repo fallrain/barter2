@@ -94,12 +94,12 @@
         </li>
 
         <li class="bt2-houseApply-card-item uni-column">
-          <text class="bt2-houseApply-card-item-name">小区面积</text>
+          <text class="bt2-houseApply-card-item-name-long">小区户型面积</text>
           <input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx;font-size:32upx;margin-top:1upx"
-                 placeholder="请输入" v-model="areaStartArea" type="digit" @blur="areaStart"/>
+                 placeholder="请输入" v-model="areaStartArea" type="digit" @blur="areaStart(0)"/>
           <p>至</p>
           <input class="uni-input-area1" placeholder-style="color:#999999;line-height:56upx;font-size:32upx;margin-top:1upx"
-                 placeholder="请输入" v-model="areaEndArea" type="digit" @blur="areaEnd"/>
+                 placeholder="请输入" v-model="areaEndArea" type="digit" @blur="areaEnd(0)"/>
           <p class="bt2-houseApply-card-item-unit">平米</p>
         </li>
         <li class="bt2-houseApply-card-item uni-column">
@@ -156,12 +156,12 @@
         </li>
 
         <li class="bt2-houseApply-card-item uni-column">
-          <text class="bt2-houseApply-card-item-name">小区面积</text>
+          <text class="bt2-houseApply-card-item-name-long">小区户型面积</text>
           <input class="uni-input-area" placeholder-style="color:#999999;line-height:56upx;margin-top:1upx;font-size:32upx" placeholder="请输入"
-                 v-model="x.startArea" type="digit" @blur="areaStart"/>
+                 v-model="x.startArea" type="digit" @blur="areaStart(x.id)"/>
           <p>至</p>
           <input class="uni-input-area1" placeholder-style="color:#999999;line-height:56upx;margin-top:1upx;font-size:32upx" placeholder="请输入"
-                 v-model="x.endArea" type="digit" @blur="areaEnd"/>
+                 v-model="x.endArea" type="digit" @blur="areaEnd(x.id)"/>
           <p class="bt2-houseApply-card-item-unit">平米</p>
         </li>
         <li class="bt2-houseApply-card-item uni-column">
@@ -356,10 +356,10 @@
 				if(index === 0){
 					this.coverList[0].address = this.areaAddress
 				}		
-        if (this.coverList[index].address === '') {
-          this.alert = true
-          this.alertMsg = '地址不能为空'
-        }
+        // if (this.coverList[index].address === '') {
+        //   this.alert = true
+        //   this.alertMsg = '地址不能为空'
+        // }
       },
       nameEnd(index) {
         // if (this.storeName === '') {
@@ -368,37 +368,54 @@
         // }
       },
       areaStart(index) {
+				
 				if(index === 0){
 					this.coverList[0].startArea = this.areaStartArea
 				}
-        if (this.coverList[index].startArea === '') {
-          this.alert = true
-          this.alertMsg = '起始面积不能为空'
-        }
+        // if (this.coverList[index].startArea === '') {
+        //   this.alert = true
+        //   this.alertMsg = '起始面积不能为空'
+        // }
+				if (parseFloat(this.coverList[index].startArea) > parseFloat(this.coverList[index].endArea)) {
+					this.alert = true
+          this.alertMsg = '小区户型面积输入有误'
+          // this.coverList[index].startArea = ''
+        }else if(parseFloat(this.coverList[index].startArea) === parseFloat(this.coverList[index].endArea)){
+					this.alert = true
+          this.alertMsg = '小区户型面积输入有误'
+          // this.coverList[index].startArea = ''
+				}else{
+					
+				}
       },
 
       areaEnd(index) {
 				if(index === 0){
 					this.coverList[0].endArea = this.areaEndArea
 				}
-        if (this.this.coverList[index].endArea === '') {
-          this.alert = true
-          this.alertMsg = '面积不能为空'
-          return
-        }
-        if (parseFloat(this.this.coverList[index].startArea) >= parseFloat(this.this.coverList[index].endArea)) {
-          this.alert = true
-          this.alertMsg = '面积区间有误'
-          this.this.coverList[index].startArea = ''
-          this.this.coverList[index].endArea = ''
-        }
+        // if (this.coverList[index].endArea === '') {
+        //   this.alert = true
+        //   this.alertMsg = '面积不能为空'
+        //   return
+        // }
+        if (parseFloat(this.coverList[index].startArea) > parseFloat(this.coverList[index].endArea)) {
+					this.alert = true
+          this.alertMsg = '小区户型面积输入有误'
+          // this.coverList[index].endArea = ''
+        }else if(parseFloat(this.coverList[index].startArea) === parseFloat(this.coverList[index].endArea)){
+					this.alert = true
+          this.alertMsg = '小区户型面积输入有误'
+          // this.coverList[index].endArea = ''
+				}else{
+					
+				}
       },
       coverEnd() {
-				if(this.areaName == ''){
-					this.alert = true
-          this.alertMsg = '小区名不能为空'
-          return
-				}
+				// if(this.areaName == ''){
+				// 	this.alert = true
+    //       this.alertMsg = '小区名不能为空'
+    //       return
+				// }
         if (this.areaName != '') {
           if (this.tempAreaName === this.areaName) {
             return
@@ -493,6 +510,7 @@
       locationAddress(index) {
 				const longitude = ''
 				const latitude = ''
+				debugger
 				uni.getLocation({
 				type: 'wgs84',
 				success: function (res) {
@@ -501,9 +519,8 @@
     }
       })
 			this.hGet('buildHouse/getLocationByBaiduMap', {
-          // hmcId:this.hmcid
-					longitude : res.longitude,
-					latitude : res.latitude,
+					longitude : longitude,
+					latitude : latitude,
         }).then(data => {
           if (data.code === '1') {
 						// this.areaAddress = data.data
@@ -514,26 +531,41 @@
 			},
 		 
       submitInfo() {
-        // if (this.storeName === '') {
-        //   this.alertMsg = "请输入店名"
-        //   this.alert = true
-        //   return
-        // }
-        // if (this.address === '') {
-        //   this.alertMsg = "请输入详细地址"
-        //   this.alert = true
-        //   return
-        // }
-        // if (this.startArea === '') {
-        //   this.alertMsg = "请输入起始面积"
-        //   this.alert = true
-        //   return
-        // }
-        // if (this.endArea === '') {
-        //   this.alertMsg = "请输入结束面积"
-        //   this.alert = true
-        //   return
-        // }
+        if (this.areaName === '') {
+          this.alertMsg = "请输入小区名称"
+          this.alert = true
+          return
+        }
+				if (this.areaLocalName === '') {
+          this.alertMsg = "请选择地区"
+          this.alert = true
+          return
+        }
+        if (this.areaAddress === '') {
+          this.alertMsg = "请输入详细地址"
+          this.alert = true
+          return
+        }	
+        if (this.areaStartArea === '') {
+          this.alertMsg = "请输入起始面积"
+          this.alert = true
+          return
+        }
+        if (this.areaEndArea === '') {
+          this.alertMsg = "请输入结束面积"
+          this.alert = true
+          return
+        }
+				if (this.areaApartmentIds === []) {
+          this.alertMsg = "请选择户型"
+          this.alert = true
+          return
+        }
+				if (this.areaAvePrice === []) {
+          this.alertMsg = "请输入均价"
+          this.alert = true
+          return
+        }
           this.coverList[0].apartmentIds = this.areaApartmentIds
           this.coverList[0].localName = this.areaLocalName.result
           this.coverList[0].address = this.areaAddress
