@@ -58,12 +58,13 @@
         "appid" : "wxd8c4127778f2cd15",
         "setting" : {
             "urlCheck" : false,
-            "es6" : false
+            "es6" : false,
+            "postcss" : true
         },
         "usingComponents" : true
     },
     "h5" : {
-        "title" : "兑呗",
+        "title" : "一站筑家",
         "router" : {
             "base" : "/bs/"
         }

@@ -24,7 +24,7 @@
 					<span class="bt2-houseApply-card-item-star">*</span>
 					<text class="bt2-houseApply-card-item-name-long">详细地址</text>
 					<input class="uni-input-local" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" maxlength="20"
-					 @blur="coverEnd()" v-model="localName" placeholder="请选择地区" />
+					 @blur="coverEnd()" v-model="localName" placeholder="请选择地区"  v-reset-input/>
 					<view @click="toggleTab()" class="pickerClass"></view>
 					<w-picker mode="region" :defaultVal="defaultVal" @confirm="onConfirm" ref="picker" themeColor="#4A90E2"></w-picker>
 				</li>
@@ -45,14 +45,14 @@
 						</picker>
 					</view>
 					<input class="uni-input-time" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="开始日期"
-					 @click="startTimeSelect()" v-model="startTime" />
+					 @click="startTimeSelect()" v-model="startTime"  v-reset-input/>
 					<p style="margin-left: 20upx;">至</p>
 					<view class="uni-list-cell-db-end">
 						<picker mode="date" :value="dateE" :start="startDateE" :end="endDateE" @change="bindDateChangeE">
 							<view class="uni-input-timee"> {{dateE}}</view>
 						</picker>
 					</view><input class="uni-input-time" placeholder-style="color:#999999;line-height:56upx;font-size:32upx"
-					 placeholder="结束日期" @click="endTimeSelect()" v-model="endTime" />
+					 placeholder="结束日期" @click="endTimeSelect()" v-model="endTime"  v-reset-input/>
 				</li>
 				<li class="bt2-houseApply-card-item"><span class="bt2-houseApply-card-item-star">*</span>
 					<text class="bt2-houseApply-card-item-name-long">入驻产业</text></li>
@@ -514,7 +514,7 @@
 					// return
 					uni.showToast({
 						title: "请输入筑家小区名",
-						duration: 4000,
+						duration: 3000,
 						icon: 'none'
 					});
 					return
@@ -527,7 +527,7 @@
 				if (this.roomArea === '') {
 					uni.showToast({
 						title: "请输入房间面积",
-						duration: 4000,
+						duration: 3000,
 						icon: 'none'
 					});
 					return
@@ -535,7 +535,7 @@
 				if (this.localName === '') {
 					uni.showToast({
 						title: "请选择地区",
-						duration: 4000,
+						duration: 3000,
 						icon: 'none'
 					});
 					return
@@ -543,7 +543,7 @@
 				if (this.address === '') {
 					uni.showToast({
 						title: "请输入详细地址",
-						duration: 4000,
+						duration: 3000,
 						icon: 'none'
 					});
 					return
@@ -552,7 +552,7 @@
 
 					uni.showToast({
 						title: "请输入租金",
-						duration: 4000,
+						duration: 3000,
 						icon: 'none'
 					});
 					return
@@ -561,7 +561,7 @@
 
 					uni.showToast({
 						title: "请输入开始时间",
-						duration: 4000,
+						duration: 3000,
 						icon: 'none'
 					});
 					return
@@ -570,7 +570,7 @@
 
 					uni.showToast({
 						title: "请输入结束时间",
-						duration: 4000,
+						duration: 3000,
 						icon: 'none'
 					});
 					return
@@ -578,7 +578,7 @@
 				if (this.industryIds.length === 0) {
 					uni.showToast({
 						title: "请选择产业",
-						duration: 4000,
+						duration: 3000,
 						icon: 'none'
 					});
 
@@ -587,7 +587,7 @@
 				if (this.sampleRoomIds.length === 0) {
 					uni.showToast({
 						title: "请选择样板间类型",
-						duration: 4000,
+						duration: 3000,
 						icon: 'none'
 					});
 					return
@@ -626,17 +626,15 @@
 					}
 
 				).then(data => {
-					debugger
 					if (data.code === 1) {
 						uni.showToast({
 							title: '信息上传成功',
-							duration: 4000,
+							duration: 3000,
 						});
 					} else {
-						debugger
 						uni.showToast({
 							title: data.data,
-							duration: 4000,
+							duration: 3000,
 							icon: 'none'
 						});
 						return

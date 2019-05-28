@@ -8,8 +8,8 @@
 		      <p class="title">{{item.buildAreaName}}</p>
 		      <p class="cnt">入驻产业：{{item.industry}}</p>
 		      <view class="bt2-myhouse-card-cnt-opt">
-		        <button class="bt2-myhouse-card-cnt-opt-btn mr24">补充信息</button>
-		        <button class="bt2-myhouse-card-cnt-opt-btn mr24">配置活动</button>
+		        <button class="bt2-myhouse-card-cnt-opt-btn mr24" @click="information()">补充信息</button>
+		        <button class="bt2-myhouse-card-cnt-opt-btn mr24" @click="activity()">配置活动</button>
 		        <view class="bt2-myhouse-card-cnt-opt-status">
 		          <img src="@/static/img/haierHouse/Icons／Complete@2x.png">
 		          <text>{{item.status}}</text>
@@ -33,7 +33,6 @@
 		}
     },
     onLoad(option) {
-			debugger
 			this.listData = JSON.parse(option.id)
 			this.listData.shift()
 			console.log(this.listData)
@@ -56,7 +55,21 @@
 			picList = JSON.parse(this.myAreaList.inIndustryPic)
 		},
     methods: {
-    
+    information(){
+				uni.showToast({
+					title:'功能暂未开放，敬请期待',
+					duration: 3000,
+					icon:'none'
+					
+				})
+			},
+			activity(){
+				uni.showToast({
+					title:'功能暂未开放，敬请期待',
+					duration: 3000,
+					icon:'none'
+				})
+			},
     }
   }
 </script>

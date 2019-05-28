@@ -23,7 +23,7 @@
     </ul>
     <view class="bt2-myhouse mt16">
       <b-title cnt="我的一站筑家">
-				<p @click="showMoreList()" class="bt2-myhouse-more">更多</p>
+				<p @click="showMoreList()" class="bt2-myhouse-more" v-show="showMore">更多</p>
 			</b-title>
       <view class="bt2-myhouse-card"  v-show="myInfoShow">
         <img :src="myInfoImg" class="bt2-myhouse-card-portrait">
@@ -43,12 +43,12 @@
     </view>
     <view class="bt2-myhouse mt16">
       <b-title cnt="优秀门店展示"></b-title>
-      <ul class="bt2-shopShow-par">
+     <!-- <ul class="bt2-shopShow-par">
         <li class="bt2-shopShow-item" v-for="(item,index) in shopList" :key="index">
           <img :src="item.url">
           <p class="cnt">{{item.desc}}</p>
         </li>
-      </ul>
+      </ul> -->
     </view>
     <view class="bt2-myhouse mt16">
       <b-title cnt="了解一站筑家"></b-title>
@@ -102,22 +102,22 @@
 //           }
         ],
         shopList:[
-          {
-            url:require('@/static/img/haierHouse/48C5FB2B-5CF2-4300-91D7-C45D0C960B7E.png'),
-            desc:'左岸风度小区'
-          },
-          {
-            url:require('@/static/img/haierHouse/WeChat6d40309ca76cc404a4a3da02b753aa71.png'),
-            desc:'水清木华小区'
-          },
-          {
-            url:require('@/static/img/haierHouse/48C5FB2B-5CF2-4300-91D7-C45D0C960B7E.png'),
-            desc:'天福苑小区'
-          },
-          {
-            url:require('@/static/img/haierHouse/WeChat6d40309ca76cc404a4a3da02b753aa71.png'),
-            desc:'海尔鼎世华府'
-          }
+          // {
+          //   url:require('@/static/img/haierHouse/48C5FB2B-5CF2-4300-91D7-C45D0C960B7E.png'),
+          //   desc:'左岸风度小区'
+          // },
+          // {
+          //   url:require('@/static/img/haierHouse/WeChat6d40309ca76cc404a4a3da02b753aa71.png'),
+          //   desc:'水清木华小区'
+          // },
+          // {
+          //   url:require('@/static/img/haierHouse/48C5FB2B-5CF2-4300-91D7-C45D0C960B7E.png'),
+          //   desc:'天福苑小区'
+          // },
+          // {
+          //   url:require('@/static/img/haierHouse/WeChat6d40309ca76cc404a4a3da02b753aa71.png'),
+          //   desc:'海尔鼎世华府'
+          // }
         ]
       }
     },
@@ -130,7 +130,7 @@
 					hmcId:'Z0000001',
 					shopid:this.shopid
         }).then(data => {
-          if (data) {
+          if (data.code == 1) {
 						if(data.data.length > 1){
 							this.showMore = true
 							this.allList = data.data
@@ -157,7 +157,7 @@
     methods: {
 			information(){
 				uni.showToast({
-					title:'活动暂未开放',
+					title:'功能暂未开放，敬请期待',
 					duration: 3000,
 					icon:'none'
 					
@@ -165,14 +165,13 @@
 			},
 			activity(){
 				uni.showToast({
-					title:'活动暂未开放',
+					title:'功能暂未开放，敬请期待',
 					duration: 3000,
 					icon:'none'
 				})
 			},
 			showMoreList(){
 				const data = JSON.stringify(this.allList)
-				debugger
 					uni.navigateTo({
           url: '/pages/haierHouse/HaierHouseApplyBuildList?id=' + data,
         });

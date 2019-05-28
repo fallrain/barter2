@@ -381,14 +381,14 @@
 				if (parseFloat(this.coverList[index].startArea) > parseFloat(this.coverList[index].endArea)) {
 					uni.showToast({
 						title: "小区户型面积输入有误",
-						duration: 4000,
+						duration: 3000,
 						icon: 'none'
 					});
 					// this.coverList[index].startArea = ''
 				} else if (parseFloat(this.coverList[index].startArea) === parseFloat(this.coverList[index].endArea)) {
 					uni.showToast({
 						title: "小区户型面积输入有误",
-						duration: 4000,
+						duration: 3000,
 						icon: 'none'
 					});
 					// this.coverList[index].startArea = ''
@@ -409,14 +409,14 @@
 				if (parseFloat(this.coverList[index].startArea) > parseFloat(this.coverList[index].endArea)) {
 				uni.showToast({
 						title: "小区户型面积输入有误",
-						duration: 4000,
+						duration: 3000,
 						icon: 'none'
 					});
 					// this.coverList[index].endArea = ''
 				} else if (parseFloat(this.coverList[index].startArea) === parseFloat(this.coverList[index].endArea)) {
 					uni.showToast({
 						title: "小区户型面积输入有误",
-						duration: 4000,
+						duration: 3000,
 						icon: 'none'
 					});
 					// this.coverList[index].endArea = ''
@@ -486,7 +486,7 @@
 					if (this.areaName === '') {
 						uni.showToast({
 						title: "小区名不能为空",
-						duration: 4000,
+						duration: 3000,
 						icon: 'none'
 					});
 					}
@@ -513,34 +513,36 @@
 				this.addPromation = true;
 			},
 			locationAddress(index) {
-				const longitude = ''
-				const latitude = ''
-						// 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
-						uni.getLocation({
-							type: 'wgs84',
-							success: function(res) {
-							alert(JSON.stringify(res))
-								longitude = res.Vertical
-								latitude = res.Accuracy
-								this.hGet('buildHouse/getLocationByBaiduMap', {
-									longitude: longitude,
-									latitude: latitude,
-								}).then(data => {
-									if (data.code === '1') {
-										// this.areaAddress = data.data
-										this.coverList[index].address = data.data
-									}
-								})
-							}
-						})
+				if(index == 0){
+					this.areaAddress = '青岛市崂山区海尔工业园'
+				}else{
+					this.coverList[index].address = '青岛市崂山区海尔工业园'
+				}
+				
+				// const longitude = ''
+				// const latitude = ''
+				// 		// 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
+				// 		uni.getLocation({
+				// 			type: 'wgs84',
+				// 			success: function(res) {
+				// 				this.hGet('buildHouse/getLocationByBaiduMap', {
+				// 					longitude: longitude,
+				// 					latitude: latitude,
+				// 				}).then(data => {
+				// 					if (data.code === '1') {
+				// 						// this.areaAddress = data.data
+				// 						this.coverList[index].address = data.data
+				// 					}
+				// 				})
+				// 			}
+				// 		})
 			},
 
 			submitInfo() {
-				if (this.areaName === '') {
-					
+				if (this.areaName === '') {				
 					uni.showToast({
 						title: "请输入小区名称",
-						duration: 4000,
+						duration: 3000,
 						icon: 'none'
 					});
 					return
@@ -548,7 +550,7 @@
 				if (this.areaLocalName === '') {
 					uni.showToast({
 						title: "请选择地区",
-						duration: 4000,
+						duration: 3000,
 						icon: 'none'
 					});
 					return
@@ -556,24 +558,23 @@
 				if (this.areaAddress === '') {
 					uni.showToast({
 						title: "请输入详细地址",
-						duration: 4000,
+						duration: 3000,
 						icon: 'none'
 					});
 					return
 				}
-				if (this.areaStartArea === '') {
-	
+				if (this.areaStartArea === '') {	
 					uni.showToast({
-						title: "请输入起始面积",
-						duration: 4000,
+						title: "请输入最小面积",
+						duration: 3000,
 						icon: 'none'
 					});
 					return
 				}
 				if (this.areaEndArea === '') {
 					uni.showToast({
-						title: "请输入结束面积",
-						duration: 4000,
+						title: "请输入最大面积",
+						duration: 3000,
 						icon: 'none'
 					});
 					return
@@ -581,7 +582,7 @@
 				if (this.areaApartmentIds === []) {
 					uni.showToast({
 						title: "请选择户型",
-						duration: 4000,
+						duration: 3000,
 						icon: 'none'
 					});
 					return
@@ -589,7 +590,7 @@
 				if (this.areaAvePrice === '') {
 					uni.showToast({
 						title: "请输入均价",
-						duration: 4000,
+						duration: 3000,
 						icon: 'none'
 					});
 					return
@@ -604,6 +605,70 @@
 				const nameList = []
 				const COVER = []
 				for (var i = 0; i < this.coverList.length; i++) {
+					if(this.coverList[i].address == ''){
+						uni.showToast({
+						title: "请输入详细地址",
+						duration: 3000,
+						icon: 'none'
+					});
+					return
+					}
+					if(this.coverList[i].localName == ''){
+						uni.showToast({
+						title: "请选择地区",
+						duration: 3000,
+						icon: 'none'
+					});
+					return
+					}
+					if(this.coverList[i].name == ''){
+						uni.showToast({
+						title: "请输入小区名",
+						duration: 3000,
+						icon: 'none'
+					});
+					return
+					}
+					if(this.coverList[i].rent == ''){
+						uni.showToast({
+						title: "请输入租金",
+						duration: 3000,
+						icon: 'none'
+					});
+					return
+					}
+					if(this.coverList[i].startArea == ''){
+						uni.showToast({
+						title: "请输入最小面积",
+						duration: 3000,
+						icon: 'none'
+					});
+					return
+					}
+					if(this.coverList[i].endArea == ''){
+						uni.showToast({
+						title: "请输入最大面积",
+						duration: 3000,
+						icon: 'none'
+					});
+					return
+					}
+					if(this.coverList[i].apartmentIds == ''){
+						uni.showToast({
+						title:"请选择户型",
+						duration: 3000,
+						icon: 'none'
+					});
+					return
+					}
+					if(this.coverList[i].avePrice == ''){
+						uni.showToast({
+						title: "请输入均价",
+						duration: 3000,
+						icon: 'none'
+					});
+					return
+					}
 					for (var key in this.fileMap) {
 						this.coverList[i].imgs = this.fileMap[key]
 						if (this.coverList[i].id == key) {
@@ -641,7 +706,7 @@
 					if (data.msg === 'success') {
 						uni.showToast({
 							title: '信息上传成功',
-							duration: 4000,
+							duration: 3000,
 						});
 						uni.reLaunch({
 							url: '/pages/haierHouse/index'
@@ -649,7 +714,7 @@
 					} else {
 						uni.showToast({
 							title: data.msg,
-							duration: 4000,
+							duration: 3000,
 							icon: 'none'
 						});
 					}
