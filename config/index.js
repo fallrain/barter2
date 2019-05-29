@@ -1,6 +1,6 @@
 module.exports = {
   dev: {
- domain: 'https://hzytest.haier.com' // 测试服务域名
+ domain: 'https://hzytest.haier.com' // 开发
   },
   test: {
     // domain: '/builtHouse/' ,// 测试服务域名

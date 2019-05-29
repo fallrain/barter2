@@ -1,16 +1,15 @@
 <template>
 	<view>
-
 		<view class="bt2-houseApply-card">
 			<p class="bt2-houseApply-card-title">一站筑家信息</p>
 			<ul class="bt2-houseApply-card-cnt">
 				<li class="bt2-houseApply-card-item uni-column"><span class="bt2-houseApply-card-item-star">*</span>
-					<text class="bt2-houseApply-card-item-name-long">筑家小区名</text>
-					<input class="uni-input-areaName" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="请输入筑家小区名"
+					<text class="bt2-houseApply-card-item-name-long">筑家店名</text>
+					<input class="uni-input-areaName" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="如:一站筑家左岸风度店"
 					 v-model="blockName" @blur="blockEnd()" v-reset-input />
 				</li>
 				<li class="bt2-houseApply-card-item"><span class="bt2-houseApply-card-item-star">*</span>
-					<text class="bt2-houseApply-card-item-name-long">样板间类型</text></li>
+					<text class="bt2-houseApply-card-item-name-long">筑家类型</text></li>
 				<li class="bt2-houseApply-card-item-mult bt2-houseApply-card-item">
 					<b-multrow-radio :list="sampleRoomTypeList" :checkedId.sync="sampleRoomIds"></b-multrow-radio>
 				</li>
@@ -24,7 +23,7 @@
 					<span class="bt2-houseApply-card-item-star">*</span>
 					<text class="bt2-houseApply-card-item-name-long">详细地址</text>
 					<input class="uni-input-local" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" maxlength="20"
-					 @blur="coverEnd()" v-model="localName" placeholder="请选择地区"  v-reset-input/>
+					 @blur="coverEnd()" v-model="localName" placeholder="请选择地区" v-reset-input />
 					<view @click="toggleTab()" class="pickerClass"></view>
 					<w-picker mode="region" :defaultVal="defaultVal" @confirm="onConfirm" ref="picker" themeColor="#4A90E2"></w-picker>
 				</li>
@@ -45,14 +44,14 @@
 						</picker>
 					</view>
 					<input class="uni-input-time" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="开始日期"
-					 @click="startTimeSelect()" v-model="startTime"  v-reset-input/>
+					 @click="startTimeSelect()" v-model="startTime" v-reset-input />
 					<p style="margin-left: 20upx;">至</p>
 					<view class="uni-list-cell-db-end">
 						<picker mode="date" :value="dateE" :start="startDateE" :end="endDateE" @change="bindDateChangeE">
 							<view class="uni-input-timee"> {{dateE}}</view>
 						</picker>
 					</view><input class="uni-input-time" placeholder-style="color:#999999;line-height:56upx;font-size:32upx"
-					 placeholder="结束日期" @click="endTimeSelect()" v-model="endTime"  v-reset-input/>
+					 placeholder="结束日期" @click="endTimeSelect()" v-model="endTime" v-reset-input />
 				</li>
 				<li class="bt2-houseApply-card-item"><span class="bt2-houseApply-card-item-star">*</span>
 					<text class="bt2-houseApply-card-item-name-long">入驻产业</text></li>
@@ -98,27 +97,6 @@
 		</uni-popup>
 		<uni-popup :show="alert" type="middle" mode="fixed" :msg=alertMsg @hidePopup="hidePopupAlert" :h5-top="h5top"></uni-popup>
 	</view>
-			<!-- <view class="bt2-houseApply-card">
-			<p class="bt2-houseApply-card-title">门店基础信息</p>
-			<ul class="bt2-houseApply-card-cnt">
-				<li class="bt2-houseApply-card-item uni-column" >
-					<b-item :required="true" title="筑家负责人" :right="false" :rightClick="chooseLeader">
-					<template v-slot:left>
-					<img src="@/static/img/haierHouse/disclosure@2x.png" style="width:32upx;" @click="showMessage()">
-					</template>
-					<template v-slot:middle>
-					<input class="uni-input" placeholder-style="color:#999999;line-height:56upx;width:300upx" @blur="nameEnd()" v-model="name"
-					placeholder="请选择一站筑家负责人" />
-					</template>
-					</b-item>
-				</li>
-				<li class="bt2-houseApply-card-item uni-column">
-					<span class="bt2-houseApply-card-item-star">*</span>
-					<text class="bt2-houseApply-card-item-name">手机号码</text><input class="uni-input"
-					 placeholder-style="color:#999999;line-height:56upx" type="number" maxlength="11" @blur="telEnd()" v-model="tel"
-					 placeholder="请输入" /></li>
-			</ul>
-		</view> -->
 </template>
 <script>
 	import ssUploadImage from '@/components/ss-upload-image/ss-upload-image.vue';
@@ -160,6 +138,7 @@
 				fileList: [],
 				blockName: '',
 				localName: '',
+				hmcid: '',
 				defaultVal: [0, 0, 0],
 				current: 1,
 				name: '',
@@ -246,7 +225,9 @@
 				// ]
 			};
 		},
-		onLoad() {
+		onLoad(option) {
+			// alert(option.id)
+			this.hmcid = option.id
 			if (this.industryIds.length > 0) {
 				var item = {
 					id: '0',
@@ -255,7 +236,6 @@
 				}
 				this.industryList.push(item)
 			}
-
 			for (var i = 0; i < this.industryIds.length; i++) {
 				this.items3.forEach(item => {
 					if (this.industryIds[i] == item.id) {
@@ -268,6 +248,7 @@
 		},
 		computed: {
 			...mapState('haierHouse', ['choosedLeader']),
+			// 初始化产业多选框数组
 			checkedIndustry() {
 				const checkedIndustryTemp = this.industryIds.map(v => {
 					const checkedItem = this.items3.find(item => item.id === v);
@@ -284,13 +265,12 @@
 			}
 		},
 		methods: {
-			chooseLeader() {
-				/*选择负责人*/
-				uni.navigateTo({
-					url: '/pages/haierHouse/ChooseLeader'
-				});
-			},
-
+			// chooseLeader() {
+			// 	//选择负责人
+			// 	uni.navigateTo({
+			// 		url: '/pages/haierHouse/ChooseLeader'
+			// 	});
+			// },
 			showMessage() {
 				this.middle = true
 			},
@@ -316,7 +296,7 @@
 					});
 				});
 			},
-			/*获取产业列表*/
+			//获取产业列表
 			getIndustryList() {
 				this.hGet('buildHouse/proGrpList', {}).then(data => {
 					if (data) {
@@ -333,9 +313,7 @@
 					this.genFileMap();
 				})
 			},
-			radioChange(data) {
-
-			},
+			radioChange(data) {},
 			array_contain(array, obj) {
 				for (var i = 0; i < array.length; i++) {
 					if (array[i] == obj) //如果要求数据类型也一致，这里可使用恒等号===
@@ -351,6 +329,7 @@
 					}
 				}
 			},
+			// 多选框选中
 			checkboxChange(data) {
 				if ((data.value.length == 1) && (this.industryList.length == 0)) {
 					var item = {
@@ -360,7 +339,6 @@
 					}
 					this.industryList.push(item)
 				}
-
 				this.dataItem = this.industryList;
 				this.industryList = [];
 				var temp = [];
@@ -392,6 +370,7 @@
 					})
 				}
 			},
+			// 图片上传
 			onSuccess({
 				data,
 				fileList
@@ -404,65 +383,31 @@
 					fileList.push(data.data.imageUrl);
 				}
 			},
-			onError() {
-
+			onError(err) {
+				this.toastShow(err)
 			},
 			onRemove({
-					index,
-					fileList
-				}
-
-			) {
+				index,
+				fileList
+			}) {
 				fileList.splice(index, 1);
 			},
+
 			telEnd() {
-				// if(this.tel === ''){
-				// 	this.alert = true
-				// 	this.alertMsg = '请输入手机号'
-				// }
 				if (!/^1[34578]\d{9}$/.test(this.tel)) {
 					this.alert = true
 					this.tel = ''
 					this.alertMsg = '请输入正确的手机号'
 				}
 			},
-			nameEnd() {
-				// if(this.name === ''){
-				// 	this.alert = true
-				// 	this.alertMsg = '请输入筑家负责人'
-				// }
-			},
-			blockEnd() {
-				// if(this.blockName === ''){
-				// 	this.alert = true
-				// 	this.alertMsg = '请输入筑家小区名'
-				// }
-
-
-			},
-			areaEnd() {
-				// if(this.roomArea === ''){
-				// 	this.alert = true
-				// 	this.alertMsg = '请输入房屋面积'
-				// }
-			},
-			addressEnd() {
-				// if(this.address === ''){
-				// 	this.alert = true
-				// 	this.alertMsg = '请输入地址'
-				// }
-			},
-			rentEnd() {
-				// if(this.rent === ''){
-				// 	this.alert = true
-				// 	this.alertMsg = '请输入租金'
-				// }
-			},
+			nameEnd() {},
+			blockEnd() {},
+			areaEnd() {},
+			addressEnd() {},
+			rentEnd() {},
 			startTimeSelect() {
 				this.pickerStartShow = true;
 			},
-
-
 			endTimeSelect() {},
 			bindDateChangeS: function(e) {
 				this.startTime = e.target.value
@@ -502,97 +447,54 @@
 			hidePopupAlert() {
 				this.alert = false;
 			},
+			// 显示弹窗
+			toastShow(title) {
+				uni.showToast({
+					title: title,
+					duration: 3000,
+					icon: 'none'
+				});
+			},
+			// 下一步
 			nextPage() {
-				// if(this.name === ''){
-				// 		this.alertMsg = "请输入筑家负责人"
-				// 		this.alert = true
-				// 		return
-				// }
+				// 非空判断
 				if (this.blockName === '') {
-					// this.alertMsg = "请输入筑家小区名"
-					// this.alert = true
-					// return
-					uni.showToast({
-						title: "请输入筑家小区名",
-						duration: 3000,
-						icon: 'none'
-					});
-					return
-				}
-				// if(this.tel === ''){
-				// 		this.alertMsg = "请输入手机号"
-				// 		this.alert = true
-				// 		return
-				// }
-				if (this.roomArea === '') {
-					uni.showToast({
-						title: "请输入房间面积",
-						duration: 3000,
-						icon: 'none'
-					});
-					return
-				}
-				if (this.localName === '') {
-					uni.showToast({
-						title: "请选择地区",
-						duration: 3000,
-						icon: 'none'
-					});
-					return
-				}
-				if (this.address === '') {
-					uni.showToast({
-						title: "请输入详细地址",
-						duration: 3000,
-						icon: 'none'
-					});
-					return
-				}
-				if (this.rent === '') {
-
-					uni.showToast({
-						title: "请输入租金",
-						duration: 3000,
-						icon: 'none'
-					});
-					return
-				}
-				if (this.startTime === '') {
-
-					uni.showToast({
-						title: "请输入开始时间",
-						duration: 3000,
-						icon: 'none'
-					});
-					return
-				}
-				if (this.endTime === '') {
-
-					uni.showToast({
-						title: "请输入结束时间",
-						duration: 3000,
-						icon: 'none'
-					});
-					return
-				}
-				if (this.industryIds.length === 0) {
-					uni.showToast({
-						title: "请选择产业",
-						duration: 3000,
-						icon: 'none'
-					});
-
+					this.toastShow('请输入筑家店名')
 					return
 				}
 				if (this.sampleRoomIds.length === 0) {
-					uni.showToast({
-						title: "请选择样板间类型",
-						duration: 3000,
-						icon: 'none'
-					});
+					this.toastShow('请选择筑家类型')
 					return
 				}
-
+				if (this.roomArea === '') {
+					this.toastShow('请输入样板间面积')
+					return
+				}
+				if (this.localName === '') {
+					this.toastShow('请选择地区')
+					return
+				}
+				if (this.address === '') {
+					this.toastShow('请输入详细地址')
+					return
+				}
+				if (this.rent === '') {
+					this.toastShow('请输入租金')
+					return
+				}
+				if (this.startTime === '') {
+					this.toastShow('请选择开始日期')
+					return
+				}
+				if (this.endTime === '') {
+					this.toastShow('请选择结束日期')
+					return
+				}
+				if (this.industryIds.length === 0) {
+					this.toastShow('请选择产业')
+					return
+				}
+				
 				const LIST = []
 				if (this.fileMap !== {}) {
 					for (var i = 0; i < this.checkedIndustry.length; i++) {
@@ -609,9 +511,9 @@
 						}
 					}
 				}
-
 				this.hPost('buildHouse/saveShopInfo', {
-						createBy: 'Z0000001',
+						createBy: this.hmcid,
+						// createBy: 'Z0000001',
 						constructionDirector: this.name,
 						provinces: this.localName,
 						buildAreaName: this.blockName,
@@ -640,7 +542,7 @@
 						return
 					}
 					uni.navigateTo({
-						url: '/pages/haierHouse/HaierHouseApplySecondPage?id=' + data.data,
+						url: '/pages/haierHouse/HaierHouseApplySecondPage?id=' + data.data + '&hmcid=' + this.hmcid,
 					});
 
 				})

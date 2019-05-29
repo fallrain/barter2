@@ -71,6 +71,9 @@
   font-size: 28upx;
   .title{
     color: #666;
+		overflow: hidden;
+		text-overflow:ellipsis;
+		white-space: nowrap;
   }
   .cnt{
     color: #999;
@@ -98,6 +101,20 @@
 
 .bt2-myhouse-card-cnt-opt-status{
   color: #F5A623;
+  img{
+    width: 36upx;
+    height: 36upx;
+  }
+}
+.bt2-myhouse-card-cnt-opt-status-p{
+  color: #4A90E2;
+  img{
+    width: 36upx;
+    height: 36upx;
+  }
+}
+.bt2-myhouse-card-cnt-opt-status-d{
+  color: #F05B4B;
   img{
     width: 36upx;
     height: 36upx;
