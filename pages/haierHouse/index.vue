@@ -147,18 +147,35 @@
 			this.hmcid = this.getQueryString('hmcid')
 			this.shopid = this.getQueryString('shopid')
 			// alert('hmcid' + this.hmcid + 'shopid' + this.shopid)
-			this.hGet('buildHouse/getCreateHomeShopinfListByHmcId', {
+			this.hGet('buildHouse/findBuiltHouseByHmcId', {
 				hmcId: this.hmcid,
 				// hmcId: 'Z0000001',
-				shopid: this.shopid
+				pageNum: 1,
+				pageSize: 1
 			}).then(data => {
+				if(!data.data){
+					uni.showToast({
+							title:'请求失败',
+							duration: 4000,
+							icon:'none' 
+						});
+					return
+				}
 				if (data.code == 1) {
-					if (data.data.length > 1) {
-						this.myInfoShow = true
+					if (data.data.total > 1) {
 						this.showMore = true
-						this.allList = data.data
-						this.myAreaList = data.data[0]
-						debugger
+						}
+					}
+					if(data.data.result.length == 0){
+						uni.showToast({
+							title:'一站筑家暂无信息',
+							duration: 4000,
+							icon:'none'
+						});
+							return
+					}
+						this.myInfoShow = true
+						this.myAreaList = data.data.result[0]
 			//		TODO	状态待补充  图片上传压缩  数组长度判断  字符串过长 接口状态err
 						if (this.myAreaList.status == '1') {
 							this.myAreaList.status = '审核中'
@@ -188,8 +205,6 @@
 							}
 							temp.shift()
 							this.industry = temp.join(",")
-						}
-					}
 				}else{
 					uni.showToast({
 					title: data.msg,
@@ -217,7 +232,7 @@
 			showMoreList() {
 				const data = JSON.stringify(this.allList)
 				uni.navigateTo({
-					url: '/pages/haierHouse/HaierHouseApplyBuildList?id=' + data,
+					url: '/pages/haierHouse/HaierHouseApplyBuildList?id=' + data + '&hmcid=' + this.hmcid,
 				});
 			},
 

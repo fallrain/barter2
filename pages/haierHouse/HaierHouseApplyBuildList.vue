@@ -2,30 +2,32 @@
 	<view class="content">
 		<view class="bt2-myhouse mt16">
 			<b-title cnt="我的一站筑家"></b-title>
-			<view class="bt2-myhouse-card" v-for="(item,index) in listData" :key=index>
-				<img :src="item.myInfoImg" class="bt2-myhouse-card-portrait" v-show="!item.imgNull" />
-				<img src="@/static/img/haierHouse/Artboard.png" class="bt2-myhouse-card-portrait" v-show="item.imgNull" />
-				<view class="bt2-myhouse-card-cnt">
-					<p class="title">{{item.buildAreaName}}</p>
-					<p class="cnt">入驻产业：{{item.industry}}</p>
-					<view class="bt2-myhouse-card-cnt-opt">
-						<button class="bt2-myhouse-card-cnt-opt-btn mr24" @click="information()">补充信息</button>
-						<button class="bt2-myhouse-card-cnt-opt-btn mr24" @click="activity()">配置活动</button>
-						<view class="bt2-myhouse-card-cnt-opt-status" v-show="item.middle">
-							<img src="@/static/img/haierHouse/Icons／Complete@2x.png">
-							<text>{{item.status}}</text>
-						</view>
-						<view class="bt2-myhouse-card-cnt-opt-status-p" v-show="item.pass">
-							<img src="@/static/img/haierHouse/pass.png">
-							<text>{{item.status}}</text>
-						</view>
-						<view class="bt2-myhouse-card-cnt-opt-status-d" v-show="item.deny">
-							<img src="@/static/img/haierHouse/pass.png">
-							<text>{{item.status}}</text>
+			<mescroll-uni top="0" bottom="20" @down="downCallback" @up="upCallback" @init="mescrollInit">
+				<view class="bt2-myhouse-card" v-for="(item,index) in dataList" :key=index>
+					<img :src="item.myInfoImg" class="bt2-myhouse-card-portrait" v-show="!item.imgNull" />
+					<img src="@/static/img/haierHouse/Artboard.png" class="bt2-myhouse-card-portrait" v-show="item.imgNull" />
+					<view class="bt2-myhouse-card-cnt">
+						<p class="title">{{item.buildAreaName}}</p>
+						<p class="cnt">入驻产业：{{item.industry}}</p>
+						<view class="bt2-myhouse-card-cnt-opt">
+							<button class="bt2-myhouse-card-cnt-opt-btn mr24" @click="information()">补充信息</button>
+							<button class="bt2-myhouse-card-cnt-opt-btn mr24" @click="activity()">配置活动</button>
+							<view class="bt2-myhouse-card-cnt-opt-status" v-show="item.middle">
+								<img src="@/static/img/haierHouse/Icons／Complete@2x.png">
+								<text>{{item.status}}</text>
+							</view>
+							<view class="bt2-myhouse-card-cnt-opt-status-p" v-show="item.pass">
+								<img src="@/static/img/haierHouse/pass.png">
+								<text>{{item.status}}</text>
+							</view>
+							<view class="bt2-myhouse-card-cnt-opt-status-d" v-show="item.deny">
+								<img src="@/static/img/haierHouse/pass.png">
+								<text>{{item.status}}</text>
+							</view>
 						</view>
 					</view>
 				</view>
-			</view>
+			</mescroll-uni>
 		</view>
 	</view>
 </template>
@@ -55,19 +57,21 @@
 						num: 0, // 当前页码,默认0,回调之前会加1,即callback(page)会从1开始
 						size: 10 // 每页数据的数量,默认10
 					},
-					noMoreSize: 3, // 配置列表的总数量要大于等于5条才显示'-- END --'的提示
+					noMoreSize: 3, // 配置列表的总数量要大于等于3条才显示'-- END --'的提示
 					empty: {
 						tip: '暂无相关数据'
 					}
 				},
-				listData: [],
+				dataList: [],
 				imgNull: false,
+				hmcid: ''
 
 			}
 		},
 		onLoad(option) {
 			this.listData = JSON.parse(option.id)
 			// this.listData.shift()
+			this.hmcid = JSON.parse(option.hmcid)
 			console.log(this.listData)
 			this.listData.forEach(item => {
 				if (item.inIndustryPic) {
@@ -111,6 +115,13 @@
 			})
 
 		},
+		onReachBottom() {
+			this.mescroll && this.mescroll.onReachBottom();
+		},
+		// 必须注册列表滚动事件,使下拉刷新生效
+		onPageScroll(e) {
+			this.mescroll && this.mescroll.onPageScroll(e);
+		},
 		methods: {
 			showAl() {
 				uni.showToast({
@@ -125,6 +136,83 @@
 			activity() {
 				this.showAl()
 			},
+			// mescroll组件初始化的回调,可获取到mescroll对象
+			mescrollInit(mescroll) {
+				this.mescroll = mescroll;
+			},
+			/*下拉刷新的回调, 有三种处理方式: */
+			downCallback(mescroll) {
+				mescroll.resetUpScroll(); // 重置列表为第一页 (自动执行 page.num=1, 再触发upCallback方法 )
+			},
+			/*上拉加载的回调*/
+			upCallback(mescroll) {
+				// 此时mescroll会携带page的参数:
+				let pageNum = mescroll.num; // 页码, 默认从1开始
+				let pageSize = mescroll.size; // 页长, 默认每页10条
+
+				this.hGet('buildHouse/findBuiltHouseByHmcId', {
+					hmcId: this.hmcId,
+					// hmcId:'Z0000001',
+					pageNum: pageNum,
+					pageSize: pageSize
+				}).then(data => {
+					console.log(data)
+					let curPageData = data.data.result;
+					// let totalPage = data.xxx;
+					// 接口返回的总数据量(比如列表有26个数据,每页10条,共3页; 则totalSize值为26)
+					let totalSize = data.data.total;
+					// 接口返回的是否有下一页 (true/false)
+					// let hasNext = data.xxx;
+					mescroll.endBySize(curPageData.length, totalSize);
+					if (mescroll.num == 1) this.dataList = []; //如果是第一页需手动制空列表
+					this.dataList = this.dataList.concat(curPageData); //追加新数据
+					this.dataList.forEach(item => {
+						if (item.inIndustryPic) {
+							item.picList = JSON.parse(item.inIndustryPic)
+							if (item.picList[0].imgs.length > 0) {
+
+								item.myInfoImg = item.picList[0].imgs[0];
+								item.imgNull = false
+							} else {
+								item.imgNull = true
+								item.myInfoImg = '@/static/img/haierHouse/Artboard.png'
+							}
+							if (item.status == '1') {
+								item.status = '审核中'
+								item.middle = true
+								item.deny = false
+								item.pass = false
+							} else if (item.status == '2') {
+								item.status = '审核通过'
+								item.middle = false
+								item.deny = false
+								item.pass = true
+							} else if (item.status == '3') {
+								item.status = '已拒绝'
+								item.deny = true
+								item.pass = false
+								item.middle = false
+							} else {
+								item.status = '审核通过'
+								item.deny = false
+								item.pass = true
+								item.middle = false
+							}
+							var temp = []
+							for (var i = 0; i < item.picList.length; i++) {
+								temp.push(item.picList[i].name)
+							}
+							temp.shift()
+							item.industry = temp.join(",")
+						}
+					})
+					if (data.msg === 'success') {
+						mescroll.endSuccess()
+					} else {
+						mescroll.endErr()
+					}
+				})
+			}
 		}
 	}
 </script>
