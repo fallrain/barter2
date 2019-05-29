@@ -28,7 +28,7 @@
 			</b-title>
 			<view class="bt2-myhouse-card" v-show="myInfoShow">
 				<img :src="myInfoImg" class="bt2-myhouse-card-portrait" v-show="!imgNull">
-				<img src="@/static/img/haierHouse/Artboard.png" class="bt2-myhouse-card-portrait" v-show="imgNull"/>
+				<img src="@/static/img/haierHouse/Group@3x.png" class="bt2-myhouse-card-portrait" v-show="imgNull"/>
 
 				<view class="bt2-myhouse-card-cnt">
 					<p class="title">{{myAreaList.buildAreaName}}</p>
@@ -150,6 +150,7 @@
 			this.hGet('buildHouse/findBuiltHouseByHmcId', {
 				hmcId: this.hmcid,
 				// hmcId: 'Z0000001',
+				// hmcId: 'a0008949',
 				pageNum: 1,
 				pageSize: 1
 			}).then(data => {

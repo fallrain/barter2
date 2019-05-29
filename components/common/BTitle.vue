@@ -1,7 +1,6 @@
 <template>
   <view class="BTitle-par">
     <p class="BTitle">{{cnt}}</p>
-    <slot></slot>
   </view>
 </template>
 

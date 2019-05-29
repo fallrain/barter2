@@ -164,11 +164,11 @@
 				dataItem: [],
 				sampleRoomTypeList: [{
 						id: 'USA',
-						name: '毛坯房'
+						name: '毛坯样板间'
 					},
 					{
 						id: 'CHN',
-						name: '精装房',
+						name: '精装样板间',
 					},
 					{
 						id: 'BRA',
@@ -176,7 +176,7 @@
 					},
 					{
 						id: 'JPN',
-						name: '底商门脸房'
+						name: '新社区店'
 					}
 				], //样板间类型
 				sampleRoomIds: '', //选中的样板间类型

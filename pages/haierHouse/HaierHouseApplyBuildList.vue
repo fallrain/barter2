@@ -1,11 +1,15 @@
 <template>
-	<view class="content">
-		<view class="bt2-myhouse mt16">
-			<b-title cnt="我的一站筑家"></b-title>
-			<mescroll-uni top="0" bottom="20" @down="downCallback" @up="upCallback" @init="mescrollInit">
+	<view>
+		<view class="bt2-myhouse mt16 position">
+			<!-- <b-title cnt="我的一站筑家" class="title-class"></b-title> -->
+			<view class="BTitle-par title-class">
+				<p class="title-left"></p>
+				<p class="BTitle">我的一站筑家</p>
+			</view>
+			<mescroll-uni top="20" bottom="20" @down="downCallback" @up="upCallback" @init="mescrollInit">
 				<view class="bt2-myhouse-card" v-for="(item,index) in dataList" :key=index>
 					<img :src="item.myInfoImg" class="bt2-myhouse-card-portrait" v-show="!item.imgNull" />
-					<img src="@/static/img/haierHouse/Artboard.png" class="bt2-myhouse-card-portrait" v-show="item.imgNull" />
+					<img src="@/static/img/haierHouse/Group@3x.png" class="bt2-myhouse-card-portrait" v-show="item.imgNull" />
 					<view class="bt2-myhouse-card-cnt">
 						<p class="title">{{item.buildAreaName}}</p>
 						<p class="cnt">入驻产业：{{item.industry}}</p>
@@ -69,51 +73,7 @@
 			}
 		},
 		onLoad(option) {
-			this.listData = JSON.parse(option.id)
-			// this.listData.shift()
 			this.hmcid = JSON.parse(option.hmcid)
-			console.log(this.listData)
-			this.listData.forEach(item => {
-				if (item.inIndustryPic) {
-					item.picList = JSON.parse(item.inIndustryPic)
-					if (item.picList[0].imgs.length > 0) {
-
-						item.myInfoImg = item.picList[0].imgs[0];
-						item.imgNull = false
-					} else {
-						item.imgNull = true
-						item.myInfoImg = '@/static/img/haierHouse/Artboard.png'
-					}
-					if (item.status == '1') {
-						item.status = '审核中'
-						item.middle = true
-						item.deny = false
-						item.pass = false
-					} else if (item.status == '2') {
-						item.status = '审核通过'
-						item.middle = false
-						item.deny = false
-						item.pass = true
-					} else if (item.status == '3') {
-						item.status = '已拒绝'
-						item.deny = true
-						item.pass = false
-						item.middle = false
-					} else {
-						item.status = '审核通过'
-						item.deny = false
-						item.pass = true
-						item.middle = false
-					}
-					var temp = []
-					for (var i = 0; i < item.picList.length; i++) {
-						temp.push(item.picList[i].name)
-					}
-					temp.shift()
-					item.industry = temp.join(",")
-				}
-			})
-
 		},
 		onReachBottom() {
 			this.mescroll && this.mescroll.onReachBottom();
@@ -151,8 +111,9 @@
 				let pageSize = mescroll.size; // 页长, 默认每页10条
 
 				this.hGet('buildHouse/findBuiltHouseByHmcId', {
-					hmcId: this.hmcId,
+					hmcId: this.hmcid,
 					// hmcId:'Z0000001',
+					// hmcId: 'a0008949',
 					pageNum: pageNum,
 					pageSize: pageSize
 				}).then(data => {
@@ -218,4 +179,36 @@
 </script>
 
 <style>
+	.title-class {
+		position: fixed;
+		top: 0;
+		background-color: white;
+		height: 70upx;
+		width: 100%;
+		z-index: 10;
+	}
+
+	.BTitle-par {
+		display: flex;
+		padding-left: 24upx;
+		line-height: 70upx;
+	}
+
+	.BTitle {
+		color: #333;
+		font-size: 32upx;
+	}
+	.title-left{
+		font-size: 32upx;
+		line-height: 70upx;
+		border-left: 6upx solid #4A90E2;
+		width: 10upx;
+		padding-left: 16upx;
+		margin-top: 15upx;
+		height: 40upx;
+	}
+
+	.position {
+		position: relative;
+	}
 </style>
