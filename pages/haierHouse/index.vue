@@ -22,13 +22,13 @@
       </li> -->
 		</ul>
 		<view class="bt2-myhouse mt16">
+			<p @click="showMoreList()" class="bt2-myhouse-more" v-show="showMore">显示更多</p>
+			<img src="@/static/img/haierHouse/Shape@2x.png" class="img-class" v-show="showMore" @click="showMoreList()"></img>
 			<b-title cnt="我的一站筑家">
-				<p @click="showMoreList()" class="bt2-myhouse-more" v-show="showMore">显示更多</p>
-				<img src="@/static/img/haierHouse/Shape@2x.png" class="img-class" v-show="showMore" @click="showMoreList()" ></img>
 			</b-title>
 			<view class="bt2-myhouse-card" v-show="myInfoShow">
 				<img :src="myInfoImg" class="bt2-myhouse-card-portrait" v-show="!imgNull">
-				<img src="@/static/img/haierHouse/Group@3x.png" class="bt2-myhouse-card-portrait" v-show="imgNull"/>
+				<img src="@/static/img/haierHouse/Group@3x.png" class="bt2-myhouse-card-portrait" v-show="imgNull" />
 
 				<view class="bt2-myhouse-card-cnt">
 					<p class="title">{{myAreaList.buildAreaName}}</p>
@@ -41,17 +41,17 @@
 							<text>{{myAreaList.status}}</text>
 						</view> -->
 						<view class="bt2-myhouse-card-cnt-opt-status" v-show="middle">
-		          <img src="@/static/img/haierHouse/Icons／Complete@2x.png">
-		          <text>{{this.myAreaList.status}}</text>
-		        </view>
-				 <view class="bt2-myhouse-card-cnt-opt-status-p" v-show="pass">
-				  <img src="@/static/img/haierHouse/pass.png">
-		          <text>{{this.myAreaList.status}}</text>
-		        </view>
-				<view class="bt2-myhouse-card-cnt-opt-status-d" v-show="deny">
-				  <img src="@/static/img/haierHouse/pass.png">
-		          <text>{{this.myAreaList.status}}</text>
-		        </view>
+							<img src="@/static/img/haierHouse/Icons／Complete@2x.png">
+							<text style="margin-left: 8upx;">{{this.myAreaList.status}}</text>
+						</view>
+						<view class="bt2-myhouse-card-cnt-opt-status-p" v-show="pass">
+							<img src="@/static/img/haierHouse/pass.png">
+							<text style="margin-left: 8upx;">{{this.myAreaList.status}}</text>
+						</view>
+						<view class="bt2-myhouse-card-cnt-opt-status-d" v-show="deny">
+							<img src="@/static/img/haierHouse/pass.png">
+							<text style="margin-left: 8upx;">{{this.myAreaList.status}}</text>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -100,11 +100,11 @@
 				shopid: '',
 				showMore: false,
 				allList: [],
-				imgNull:false,
-				middle:false,
-				deny:false,
-				pass:false,
-				
+				imgNull: false,
+				middle: false,
+				deny: false,
+				pass: false,
+
 				info: [{
 						colorClass: 'uni-bg-red',
 						url: 'https://hzytest.haier.com/haierfile/sellerUploadImg/banner.jpeg',
@@ -154,64 +154,64 @@
 				pageNum: 1,
 				pageSize: 1
 			}).then(data => {
-				if(!data.data){
+				if (!data.data) {
 					uni.showToast({
-							title:'请求失败',
-							duration: 4000,
-							icon:'none' 
-						});
+						title: '请求失败',
+						duration: 4000,
+						icon: 'none'
+					});
 					return
 				}
 				if (data.code == 1) {
 					if (data.data.total > 1) {
 						this.showMore = true
-						}
 					}
-					if(data.data.result.length == 0){
-						uni.showToast({
-							title:'一站筑家暂无信息',
-							duration: 4000,
-							icon:'none'
-						});
-							return
-					}
-						this.myInfoShow = true
-						this.myAreaList = data.data.result[0]
-			//		TODO	状态待补充  图片上传压缩  数组长度判断  字符串过长 接口状态err
-						if (this.myAreaList.status == '1') {
-							this.myAreaList.status = '审核中'
-							this.middle = true
-						}else if(this.myAreaList.status == '2'){
-							this.myAreaList.status = '审核通过'
-							this.pass = true
-						}else if(this.myAreaList.status == '3'){
-							this.myAreaList.status = '已拒绝'
-							this.deny = true
-						}else{
-							this.myAreaList.status = '审核通过'
-							this.pass = true
-						}
-						if (this.myAreaList.inIndustryPic) {
-							const picList = JSON.parse(this.myAreaList.inIndustryPic)
-							if(picList[0].imgs.length > 0){
-								this.myInfoImg = picList[0].imgs[0];
-							}else{
-								this.imgNull = true
-								this.myInfoImg = '@/static/img/haierHouse/Artboard.png'
-							}
-							
-							var temp = []
-							for (var i = 0; i < picList.length; i++) {
-								temp.push(picList[i].name)
-							}
-							temp.shift()
-							this.industry = temp.join(",")
-				}else{
+				}
+				if (data.data.result.length == 0) {
 					uni.showToast({
-					title: data.msg,
-					duration: 3000,
-					icon: 'none'
-				})
+						title: '一站筑家暂无信息',
+						duration: 4000,
+						icon: 'none'
+					});
+					return
+				}
+				this.myInfoShow = true
+				this.myAreaList = data.data.result[0]
+				//		TODO	状态待补充  图片上传压缩  数组长度判断  字符串过长 接口状态err
+				if (this.myAreaList.status == '1') {
+					this.myAreaList.status = '审核中'
+					this.middle = true
+				} else if (this.myAreaList.status == '2') {
+					this.myAreaList.status = '审核通过'
+					this.pass = true
+				} else if (this.myAreaList.status == '3') {
+					this.myAreaList.status = '已拒绝'
+					this.deny = true
+				} else {
+					this.myAreaList.status = '审核通过'
+					this.pass = true
+				}
+				if (this.myAreaList.inIndustryPic) {
+					const picList = JSON.parse(this.myAreaList.inIndustryPic)
+					if (picList[0].imgs.length > 0) {
+						this.myInfoImg = picList[0].imgs[0];
+					} else {
+						this.imgNull = true
+						this.myInfoImg = '@/static/img/haierHouse/Artboard.png'
+					}
+
+					var temp = []
+					for (var i = 0; i < picList.length; i++) {
+						temp.push(picList[i].name)
+					}
+					temp.shift()
+					this.industry = temp.join(",")
+				} else {
+					uni.showToast({
+						title: data.msg,
+						duration: 3000,
+						icon: 'none'
+					})
 				}
 			})
 
@@ -258,19 +258,21 @@
 <style>
 	.bt2-myhouse-more {
 		float: right;
-		color: #1969C6;
+		color: #4A90E2;
 		position: absolute;
 		right: 76upx;
 		font-size: 30upx;
 	}
-	.img-class{
+
+	.img-class {
 		position: absolute;
 		right: 24upx;
 		width: 38upx;
 		height: 38upx;
 		/* top:10upx; */
 	}
-	.icon-class{
+
+	.icon-class {
 		width: 72upx;
 		height: 72upx;
 	}

@@ -18,15 +18,15 @@
 							<button class="bt2-myhouse-card-cnt-opt-btn mr24" @click="activity()">配置活动</button>
 							<view class="bt2-myhouse-card-cnt-opt-status" v-show="item.middle">
 								<img src="@/static/img/haierHouse/Icons／Complete@2x.png">
-								<text>{{item.status}}</text>
+								<text style="margin-left: 8upx;">{{item.statusCode}}</text>
 							</view>
 							<view class="bt2-myhouse-card-cnt-opt-status-p" v-show="item.pass">
 								<img src="@/static/img/haierHouse/pass.png">
-								<text>{{item.status}}</text>
+								<text style="margin-left: 8upx;">{{item.statusCode}}</text>
 							</view>
 							<view class="bt2-myhouse-card-cnt-opt-status-d" v-show="item.deny">
 								<img src="@/static/img/haierHouse/pass.png">
-								<text>{{item.status}}</text>
+								<text style="margin-left: 8upx;">{{item.statusCode}}</text>
 							</view>
 						</view>
 					</view>
@@ -68,7 +68,8 @@
 				},
 				dataList: [],
 				imgNull: false,
-				hmcid: ''
+				hmcid: '',
+				tempData:[]
 
 			}
 		},
@@ -109,7 +110,6 @@
 				// 此时mescroll会携带page的参数:
 				let pageNum = mescroll.num; // 页码, 默认从1开始
 				let pageSize = mescroll.size; // 页长, 默认每页10条
-
 				this.hGet('buildHouse/findBuiltHouseByHmcId', {
 					hmcId: this.hmcid,
 					// hmcId:'Z0000001',
@@ -125,9 +125,11 @@
 					// 接口返回的是否有下一页 (true/false)
 					// let hasNext = data.xxx;
 					mescroll.endBySize(curPageData.length, totalSize);
-					if (mescroll.num == 1) this.dataList = []; //如果是第一页需手动制空列表
-					this.dataList = this.dataList.concat(curPageData); //追加新数据
-					this.dataList.forEach(item => {
+					if (mescroll.num == 1) this.tempData = []; //如果是第一页需手动制空列表
+					this.tempData = this.tempData.concat(curPageData); //追加新数据
+					this.dataList = this.tempData
+					console.log('datalist' + this.dataList)		
+						this.dataList.forEach(item => {
 						if (item.inIndustryPic) {
 							item.picList = JSON.parse(item.inIndustryPic)
 							if (item.picList[0].imgs.length > 0) {
@@ -139,22 +141,23 @@
 								item.myInfoImg = '@/static/img/haierHouse/Artboard.png'
 							}
 							if (item.status == '1') {
-								item.status = '审核中'
+								item.statusCode = '审核中'
 								item.middle = true
 								item.deny = false
 								item.pass = false
 							} else if (item.status == '2') {
-								item.status = '审核通过'
+								item.statusCode = '审核通过'
 								item.middle = false
 								item.deny = false
 								item.pass = true
 							} else if (item.status == '3') {
-								item.status = '已拒绝'
+								item.statusCode = '已拒绝'
 								item.deny = true
 								item.pass = false
 								item.middle = false
 							} else {
-								item.status = '审核通过'
+								debugger
+								item.statusCode = '审核通过'
 								item.deny = false
 								item.pass = true
 								item.middle = false
@@ -167,6 +170,7 @@
 							item.industry = temp.join(",")
 						}
 					})
+						
 					if (data.msg === 'success') {
 						mescroll.endSuccess()
 					} else {

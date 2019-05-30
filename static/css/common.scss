@@ -76,6 +76,7 @@
 		white-space: nowrap;
   }
   .cnt{
+		margin-top: 10upx;
     color: #999;
   }
 }
@@ -83,12 +84,12 @@
 .bt2-myhouse-card-cnt-opt{
   display: flex;
   align-items: center;
-  margin-top: 24upx;
+  margin-top: 16upx;
 }
 
 .bt2-myhouse-card-cnt-opt-btn{
-  padding-left: 28upx;
-  padding-right: 28upx;
+  padding-left: 20upx;
+  padding-right: 20upx;
   color: #4A90E2;
   background: #fff;
   border: 1px solid #4A90E2;
@@ -101,6 +102,7 @@
 
 .bt2-myhouse-card-cnt-opt-status{
   color: #F5A623;
+	font-size: 26upx;
   img{
     width: 36upx;
     height: 36upx;
@@ -108,6 +110,7 @@
 }
 .bt2-myhouse-card-cnt-opt-status-p{
   color: #4A90E2;
+	font-size: 26upx;
   img{
     width: 36upx;
     height: 36upx;
@@ -115,6 +118,7 @@
 }
 .bt2-myhouse-card-cnt-opt-status-d{
   color: #F05B4B;
+	font-size: 26upx;
   img{
     width: 36upx;
     height: 36upx;
