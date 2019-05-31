@@ -496,6 +496,7 @@
 				}
 				
 				const LIST = []
+				const industry= []
 				if (this.fileMap !== {}) {
 					for (var i = 0; i < this.checkedIndustry.length; i++) {
 						for (var key in this.fileMap) {
@@ -506,11 +507,19 @@
 									imgs: this.fileMap[key]
 								}
 								// this.checkedIndustry[i].imgs = this.fileMap[key]
+								industry.push(this.checkedIndustry[i].name)
 								LIST.push(aa)
 							}
 						}
 					}
 				}
+				
+				// var SampleName = ''
+				// this.sampleRoomTypeList.forEach(item =>{
+				// 	if(item.id == this.sampleRoomIds){
+				// 		SampleName = item.name
+				// 	}
+				// })
 				this.hPost('buildHouse/saveShopInfo', {
 						createBy: this.hmcid,
 						// createBy: 'Z0000001',
@@ -518,12 +527,13 @@
 						provinces: this.localName,
 						buildAreaName: this.blockName,
 						phoneNumber: this.tel,
-						templateType: this.sampleRoomIds,
+						templateType:this.sampleRoomIds,
 						area: this.roomArea,
 						address: this.address,
 						rent: this.rent,
 						leaseBegin: this.startTime,
 						leaseEnd: this.endTime,
+						inIndustry:JSON.stringify(industry),
 						inIndustryPic: JSON.stringify(LIST)
 					}
 

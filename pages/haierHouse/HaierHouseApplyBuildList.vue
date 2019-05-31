@@ -25,7 +25,7 @@
 								<text style="margin-left: 8upx;">{{item.statusCode}}</text>
 							</view>
 							<view class="bt2-myhouse-card-cnt-opt-status-d" v-show="item.deny">
-								<img src="@/static/img/haierHouse/pass.png">
+								<img src="@/static/img/haierHouse/deny.png">
 								<text style="margin-left: 8upx;">{{item.statusCode}}</text>
 							</view>
 						</view>
@@ -156,7 +156,6 @@
 								item.pass = false
 								item.middle = false
 							} else {
-								debugger
 								item.statusCode = '审核通过'
 								item.deny = false
 								item.pass = true

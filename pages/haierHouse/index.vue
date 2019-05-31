@@ -49,7 +49,7 @@
 							<text style="margin-left: 8upx;">{{this.myAreaList.status}}</text>
 						</view>
 						<view class="bt2-myhouse-card-cnt-opt-status-d" v-show="deny">
-							<img src="@/static/img/haierHouse/pass.png">
+							<img src="@/static/img/haierHouse/deny.png">
 							<text style="margin-left: 8upx;">{{this.myAreaList.status}}</text>
 						</view>
 					</view>
