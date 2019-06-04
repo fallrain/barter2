@@ -52,7 +52,7 @@
       //最大选择图片数
       maxChooseImgNum: {
         type: Number,
-        default: 2
+        default: 3
       },
       header: {
         type: Object,
@@ -68,13 +68,24 @@
       }
     },
     data() {
-      return {}
+      return {
+				uploadNum:0
+			}
     },
     methods: {
       chooseImage() {
         uni.chooseImage({
           count: this.maxChooseImgNum,
           success: (chooseImageRes) => {
+						this.uploadNum += chooseImageRes.tempFiles.length;
+						if(this.uploadNum > this.limit){
+							uni.showToast({
+                title: `最多只能上传${this.limit}张图片`,
+                icon: 'none'
+              });
+							this.uploadNum -= chooseImageRes.tempFiles.length
+              return;
+						}
             const chooseLen = chooseImageRes.tempFiles.length;
             if (chooseLen > this.maxChooseImgNum) {
               uni.showToast({
