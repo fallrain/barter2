@@ -15,10 +15,11 @@
 </template>
 
 <script>
-  import  UniIcon from '@/components/uni-icon/uni-icon.vue';
+  import UniIcon from '@/components/uni-icon/uni-icon.vue';
+
   export default {
-    name:'ssUploadImage',
-    components:{
+    name: 'ssUploadImage',
+    components: {
       UniIcon
     },
     props: {
@@ -26,10 +27,10 @@
         type: Number,
         default: 3
       },
-			count:{
-				type: Number,
+      count: {
+        type: Number,
         default: 3
-			},
+      },
       url: {
         type: String,
         required: true
@@ -40,23 +41,28 @@
       },
       formData: {
         type: Object,
-        default () {
+        default() {
           return {}
         }
       },
-			size:{
-				type:Number,
-				default:5000000
-			},
+      size: {
+        type: Number,
+        default: 20000
+      },
+      //最大选择图片数
+      maxChooseImgNum: {
+        type: Number,
+        default: 2
+      },
       header: {
         type: Object,
-        default () {
+        default() {
           return {}
         }
       },
       fileList: {
         type: Array,
-        default () {
+        default() {
           return []
         }
       }
@@ -67,42 +73,64 @@
     methods: {
       chooseImage() {
         uni.chooseImage({
+          count: this.maxChooseImgNum,
           success: (chooseImageRes) => {
-						if(chooseImageRes.tempFiles[0].size > this.size){
-							uni.showToast({
-							title: '图片过大，请重新选择',
-							icon:'none'
-						});
-						return
-						}
-						uni.showLoading({
-						title: '图片正在上传'
-						});
-            const uploadTask = uni.uploadFile({
-              url: this.url,
-              name: this.name,
-							count:this.count,
-              filePath: chooseImageRes.tempFilePaths[0],
-							sizeType:['compressed'],
-              formData: this.formData,
-              header: this.header,
-              success: (uploadFileRes,tempFiles) => {
-                this.$emit('on-success', { data:JSON.parse(uploadFileRes.data),fileList:this.fileList})
-								 uni.hideLoading();
-							},
-              fail: (err) => {
-								 uni.hideLoading();
-                this.$emit('on-error', err)
-              }
-            })
-            uploadTask.onProgressUpdate((res) => {
+            const chooseLen = chooseImageRes.tempFiles.length;
+            if (chooseLen > this.maxChooseImgNum) {
+              uni.showToast({
+                title: `最多只能选${this.maxChooseImgNum}张图片`,
+                icon: 'none'
+              });
+              return;
+            }
+            const overloadIndex = chooseImageRes.tempFiles.findIndex(file => file.size > this.size);
+            if (overloadIndex !== -1) {
+              uni.showToast({
+                title: chooseLen > 1 ? `第${overloadIndex + 1}张图片过大，请重新选择` : '图片过大,请重新选择',
+                icon: 'none'
+              });
+              return
+            }
+            uni.showLoading({
+              title: '图片正在上传'
+            });
+
+            const upLoadProgress = chooseImageRes.tempFilePaths.map(file => {
+              return this.uploadFile(file);
+            });
+
+            Promise.all(upLoadProgress).then(() => {
+              uni.hideLoading();
+            });
+            /*uploadTask.onProgressUpdate((res) => {
               this.$emit('on-process', res)
-            })
+            })*/
           }
         })
       },
+      uploadFile(file) {
+        /*上传*/
+        return new Promise((resolve) => {
+          uni.uploadFile({
+            url: this.url,
+            name: this.name,
+            filePath: file,
+            sizeType: ['compressed'],
+            formData: this.formData,
+            header: this.header,
+            success: (uploadFileRes, tempFiles) => {
+              this.$emit('on-success', {data: JSON.parse(uploadFileRes.data), fileList: this.fileList});
+              return resolve(uploadFileRes);
+            },
+            fail: (err) => {
+              this.$emit('on-error', err);
+              return resolve(err);
+            }
+          });
+        });
+      },
       handleRemove(index) {
-        this.$emit('on-remove', {index, fileList:this.fileList})
+        this.$emit('on-remove', {index, fileList: this.fileList})
       }
     }
   }
@@ -113,7 +141,8 @@
     .list {
       display: flex;
       flex-wrap: wrap;
-			margin-top: 20upx;
+      margin-top: 20upx;
+
       .item {
         position: relative;
         display: flex;
@@ -125,16 +154,19 @@
         border: 2upx solid #D9D9D9;
         background-color: #f3f3f3;
         margin-bottom: 20upx;
+
         &.interval {
           margin-right: 16upx;
           border: none;
         }
+
         image {
           width: 100%;
           height: 100%;
           border-radius: 8upx;
           margin: 0;
         }
+
         .icon-close {
           position: absolute;
           top: 0;
@@ -147,6 +179,7 @@
           justify-content: center;
           border-radius: 0 8upx 0 0;
         }
+
         .icon {
           width: 48upx;
           height: 48upx;
