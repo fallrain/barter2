@@ -26,6 +26,10 @@
         type: Number,
         default: 3
       },
+			count:{
+				type: Number,
+        default: 3
+			},
       url: {
         type: String,
         required: true
@@ -40,6 +44,10 @@
           return {}
         }
       },
+			size:{
+				type:Number,
+				default:5000000
+			},
       header: {
         type: Object,
         default () {
@@ -60,16 +68,25 @@
       chooseImage() {
         uni.chooseImage({
           success: (chooseImageRes) => {
+						if(chooseImageRes.tempFiles[0].size > this.size){
+							uni.showToast({
+							title: '图片过大，请重新选择',
+							icon:'none'
+						});
+						return
+						}
 						uni.showLoading({
 						title: '图片正在上传'
 						});
             const uploadTask = uni.uploadFile({
               url: this.url,
               name: this.name,
+							count:this.count,
               filePath: chooseImageRes.tempFilePaths[0],
+							sizeType:['compressed'],
               formData: this.formData,
               header: this.header,
-              success: (uploadFileRes) => {
+              success: (uploadFileRes,tempFiles) => {
                 this.$emit('on-success', { data:JSON.parse(uploadFileRes.data),fileList:this.fileList})
 								 uni.hideLoading();
 							},

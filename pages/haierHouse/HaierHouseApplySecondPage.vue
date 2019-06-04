@@ -54,7 +54,7 @@
 				<li class="bt2-houseApply-card-item uni-column">
 					<text class="bt2-houseApply-card-item-name">均价</text>
 					<input class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="请输入小区均价"
-					 v-model="areaAvePrice" type="digit" v-reset-input />
+					 v-model="areaAvePrice" type="digit" v-reset-input @click="priceEnd(0)"/>
 					<p class="bt2-houseApply-card-item-unit">元/平米</p>
 				</li>
 			</ul>
@@ -109,13 +109,13 @@
 				<li class="bt2-houseApply-card-item uni-column">
 					<text class="bt2-houseApply-card-item-name">小区规模</text>
 					<input class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="请输入小区规模"
-					 @click="sizeEnd(1)" v-model="x.size" type="digit" v-reset-input />
+					 @click="sizeEnd(index)" v-model="x.size" type="digit" v-reset-input />
 					<p class="bt2-houseApply-card-item-unit">户</p>
 				</li>
 				<li class="bt2-houseApply-card-item uni-column">
 					<text class="bt2-houseApply-card-item-name">均价</text>
 					<input class="uni-input" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="请输入小区均价"
-					 v-model="x.avePrice" type="digit" v-reset-input />
+					 v-model="x.avePrice" type="digit" v-reset-input @click="priceEnd(index)"/>
 					<p class="bt2-houseApply-card-item-unit">元/平米</p>
 				</li>
 			</ul>
@@ -327,7 +327,30 @@
 			},
 			sizeEnd(index){
 				if(index === 0){
-					this.coverList[0].size = this.areaSize
+					// this.coverList[0].size = this.areaSize
+					if(parseFloat(this.areaSize) === 0){
+					 this.toastShow('小区规模不能为0')
+					 this.areaSize = ''
+				 }
+				}else{
+					if(parseFloat(this.coverList[index].size) === 0){
+					 this.toastShow('小区规模不能为0')
+					 this.coverList[index].size = ''
+				 }
+				}
+			},
+			priceEnd(index){
+				if(index === 0){
+					// this.coverList[0].avePrice = this.areaAvePrice
+					if(parseFloat(this.areaAvePrice) === 0){
+					 this.toastShow('小区均价不能0')
+					 this.areaAvePrice = ''
+				 }
+				}else{
+					if(parseFloat(this.coverList[index].avePrice) === 0){
+					 this.toastShow('小区规模不能为0')
+					 this.coverList[index].avePrice = ''
+				 }
 				}
 			},
 // 			areaStart(index) {
@@ -602,6 +625,9 @@
 						uni.reLaunch({
 							url: '/pages/haierHouse/index'
 						})
+						// uni.navigateBack({
+						// 	delta:2
+						// })
 					} else {
 						uni.showToast({
 							title: data.msg,

@@ -4,6 +4,11 @@
 			<p class="bt2-houseApply-card-title">一站筑家信息</p>
 			<ul class="bt2-houseApply-card-cnt">
 				<li class="bt2-houseApply-card-item uni-column"><span class="bt2-houseApply-card-item-star">*</span>
+					<text class="bt2-houseApply-card-item-name-long">筑家负责人</text>
+					<input class="uni-input-areaName" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="请输入筑家负责人"
+					 v-model="name" @blur="nameEnd()" v-reset-input />
+				</li>
+				<li class="bt2-houseApply-card-item uni-column"><span class="bt2-houseApply-card-item-star">*</span>
 					<text class="bt2-houseApply-card-item-name-long">筑家店名</text>
 					<input class="uni-input-areaName" placeholder-style="color:#999999;line-height:56upx;font-size:32upx" placeholder="如:一站筑家左岸风度店"
 					 v-model="blockName" @blur="blockEnd()" v-reset-input />
@@ -402,9 +407,20 @@
 			},
 			nameEnd() {},
 			blockEnd() {},
-			areaEnd() {},
+			areaEnd() {
+				 if(parseFloat(this.roomArea) === 0){
+					 this.toastShow('面积不能为零')
+					 this.roomArea = ''
+				 }
+				 
+			},
 			addressEnd() {},
-			rentEnd() {},
+			rentEnd() {
+				if(parseFloat(this.rent) === 0){
+					 this.toastShow('租金不能为零')
+					 this.rent = ''
+				 } 
+			},
 			startTimeSelect() {
 				this.pickerStartShow = true;
 			},
@@ -458,6 +474,10 @@
 			// 下一步
 			nextPage() {
 				// 非空判断
+				if (this.name === '') {
+					this.toastShow('请输入筑家负责人')
+					return
+				}
 				if (this.blockName === '') {
 					this.toastShow('请输入筑家店名')
 					return
