@@ -168,19 +168,19 @@
 				industryList: [],
 				dataItem: [],
 				sampleRoomTypeList: [{
-						id: 'USA',
+						id: '1',
 						name: '毛坯样板间'
 					},
 					{
-						id: 'CHN',
+						id: '2',
 						name: '精装样板间',
 					},
 					{
-						id: 'BRA',
+						id: '3',
 						name: '品牌联盟'
 					},
 					{
-						id: 'JPN',
+						id: '4',
 						name: '新社区店'
 					}
 				], //样板间类型
