@@ -74,7 +74,7 @@
 			}
 		},
 		onLoad(option) {
-			this.hmcid = JSON.parse(option.hmcid)
+			this.hmcid = option.hmcid
 		},
 		onReachBottom() {
 			this.mescroll && this.mescroll.onReachBottom();
